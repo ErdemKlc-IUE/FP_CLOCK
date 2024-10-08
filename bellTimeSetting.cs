@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FPClient
@@ -25,7 +24,7 @@ namespace FPClient
 
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
-            
+
         }
 
         private void bellTimeSetting_FormClosed(object sender, FormClosedEventArgs e)
@@ -39,12 +38,12 @@ namespace FPClient
             DisableDevice();
             int nBellCount = 0;
 
-            BellInfo *pBellInfo = stackalloc BellInfo [1];
+            BellInfo* pBellInfo = stackalloc BellInfo[1];
             IntPtr ptr = new IntPtr(pBellInfo);
 
             bool bRet;
             bRet = pOcxObject.GetBellTime(m_nMachineNum, ref nBellCount, ptr);
-            if(!bRet)
+            if (!bRet)
             {
                 ShowErrorInfo();
                 pOcxObject.EnableDevice(m_nMachineNum, 1);
@@ -97,7 +96,7 @@ namespace FPClient
             pBellInfo->bValid[4] = checkBox5.Checked == true ? (byte)1 : (byte)0;
             pBellInfo->bValid[5] = checkBox6.Checked == true ? (byte)1 : (byte)0;
             pBellInfo->bValid[6] = checkBox7.Checked == true ? (byte)1 : (byte)0;
-            pBellInfo->bValid[7] = checkBox8.Checked == true ? (byte)1 : (byte)0;           
+            pBellInfo->bValid[7] = checkBox8.Checked == true ? (byte)1 : (byte)0;
 
             pBellInfo->bHour[0] = Convert.ToByte(textHour1.Text);
             pBellInfo->bHour[1] = Convert.ToByte(textHour2.Text);
@@ -132,7 +131,7 @@ namespace FPClient
                 pOcxObject.EnableDevice(m_nMachineNum, 1);
                 return;
             }
-            
+
             pOcxObject.EnableDevice(m_nMachineNum, 1);
             labelInfo.Text = "Success...";
         }

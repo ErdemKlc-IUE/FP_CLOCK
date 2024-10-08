@@ -65,8 +65,17 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IPAddressControlLib">
-      <HintPath>..\VS10-IPAddressControlLib-Rev55\IPAddressControlLib_vs2013\bin\Debug\IPAddressControlLib.dll</HintPath>
+    <Reference Include="AxInterop.FP_CLOCKLib">
+      <HintPath>..\bin\Debug\AxInterop.FP_CLOCKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.FP_CLOCKLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Interop.FP_CLOCKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="IPAddressControlLib, Version=1.2.5287.38252, Culture=neutral, PublicKeyToken=7052a5c2c6d6e1fc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\IPAddressControlLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.StdFormat, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -97,6 +106,7 @@
       <DependentUpon>bellTimeSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="common.cs" />
+    <Compile Include="commonHelpers.cs" />
     <Compile Include="DeviceInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,25 +198,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="AxFP_CLOCKLib">
-      <Guid>{FE664F43-CCCB-46A4-ADD4-825303E0ADAD}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="FP_CLOCKLib">
-      <Guid>{FE664F43-CCCB-46A4-ADD4-825303E0ADAD}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="prince.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +221,35 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="FP_CLOCKLib">
+      <Guid>{FE664F43-CCCB-46A4-ADD4-825303E0ADAD}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SB100DSPCLib">
+      <Guid>{EFDC2352-2399-4C47-9097-330F87DD204C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SBXPCLib">
+      <Guid>{08B7A8C2-FA2E-445D-81F9-8254C7B3FD16}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

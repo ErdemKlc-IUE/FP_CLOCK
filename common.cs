@@ -139,43 +139,33 @@ namespace FPClient
             {
                 case 3:
                     return "Enroll User";
-                    break;
 
                 case 4:
                     return "Enroll Manager";
-                    break;
 
                 case 5:
                     return "Delete Fp Data";
-                    break;
 
                 case 6:
                     return "Delete Password";
-                    break;
 
                 case 7:
                     return "Delete All LogData";
-                    break;
 
                 case 8:
                     return "Delete Card Data";
-                    break;
 
                 case 9:
                     return "Modify System Info";
-                    break;
 
                 case 10:
                     return "Modify System Time";
-                    break;
 
                 case 11:
                     return "Modify Log Setting";
-                    break;
 
                 case 12:
                     return "Modify Comm Setting";
-                    break;
 
                 default:
                     return "error";
@@ -183,8 +173,6 @@ namespace FPClient
 
 
             }
-
-            return "not my fault...";
         }
 
         public static void DebugOut(string msg)
@@ -192,11 +180,6 @@ namespace FPClient
             StackTrace st = new StackTrace(false);
             string caller = st.GetFrame(1).GetMethod().Name;
             Debug.WriteLine(caller + ": " + msg);
-        }
-
-        public static void OpenFileOrSaveFileReturnPath(bool bOpenorSave, ref string str)
-        {
-            
         }
     }
     enum CURDEVICETYPE

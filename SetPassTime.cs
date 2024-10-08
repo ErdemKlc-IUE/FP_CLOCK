@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using AxFP_CLOCKLib;
 
 namespace FPClient
 {
@@ -107,8 +108,8 @@ namespace FPClient
             int dwWeekTimeID = Convert.ToInt32(textWeekID.Text);
             int dwGroupID = Convert.ToInt32(textGroupID.Text);
 
-           DateTime dtSart = dateStartTPicker.Value;
-           DateTime dtEnd = dateEndTPicker.Value;
+            DateTime dtSart = dateStartTPicker.Value;
+            DateTime dtEnd = dateEndTPicker.Value;
 
 
             bRet = pOcxObject.SetUserCtrl(
@@ -166,7 +167,7 @@ namespace FPClient
                 return;
             }
 
-            bool bRet;         
+            bool bRet;
 
             bRet = pOcxObject.ClearUserCtrl(m_nMachineNum);
             if (bRet)
@@ -193,7 +194,7 @@ namespace FPClient
             int nDay = cmbGroupDayList.SelectedIndex + 1;
             int nGroupValue = 0;
 
-            bRet = pOcxObject.GetLockGroup(m_nMachineNum, nDay, ref nGroupValue );
+            bRet = pOcxObject.GetLockGroup(m_nMachineNum, nDay, ref nGroupValue);
             if (bRet)
             {
                 labelInfo.Text = "Success...";
@@ -266,13 +267,13 @@ namespace FPClient
 
             int nDay = cmbPasstimeDayList.SelectedIndex + 1;
 
-            PasstimeInfo *dwTimeInfo = stackalloc PasstimeInfo [5];               
-              
+            PasstimeInfo* dwTimeInfo = stackalloc PasstimeInfo[5];
+
 
             IntPtr ptr = new IntPtr(dwTimeInfo);
 
-           
-            bRet = this.pOcxObject.GetDayPassTime(m_nMachineNum, nDay, ptr);            
+
+            bRet = this.pOcxObject.GetDayPassTime(m_nMachineNum, nDay, ptr);
             if (bRet)
             {
                 textStartTime_Hour1.Text = dwTimeInfo->bSHour.ToString();
@@ -306,12 +307,12 @@ namespace FPClient
                 textStartTime_Hour5.Text = dwTimeInfo->bSHour.ToString();
                 textStartTime_Minute5.Text = dwTimeInfo->bSMinute.ToString();
                 textEndTime_Hour5.Text = dwTimeInfo->bEHour.ToString();
-                textEndTime_Minute5.Text = dwTimeInfo->bEMinute.ToString();    
+                textEndTime_Minute5.Text = dwTimeInfo->bEMinute.ToString();
             }
             else
             {
                 ShowErrorInfo();
-            }  
+            }
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
@@ -388,7 +389,7 @@ namespace FPClient
 
             int nWeek = cmbWeekList.SelectedIndex + 1;
 
-            byte * byteInfo= stackalloc byte[7];
+            byte* byteInfo = stackalloc byte[7];
 
             IntPtr ptr = new IntPtr(byteInfo);
 
@@ -445,7 +446,7 @@ namespace FPClient
             {
                 labelInfo.Text = "SetWeekPassTime ok...";
 
-            } 
+            }
             else
             {
                 ShowErrorInfo();

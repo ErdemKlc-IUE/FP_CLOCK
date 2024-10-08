@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,7 +36,7 @@ namespace FPClient
             checkBox1.Checked = true;
             //checkBox1.CheckState = CheckState.Indeterminate;
             //checkBox1.CheckAlign = ContentAlignment.TopLeft;
-            }
+        }
 
         private void LogManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -51,7 +54,7 @@ namespace FPClient
             List<GeneralLogInfo> myArray = new List<GeneralLogInfo>();
 
             // if true, only read new log
-           pOcxObject.ReadMark = checkBox1.Checked;
+            pOcxObject.ReadMark = checkBox1.Checked;
 
             DisableDevice();
 
@@ -86,9 +89,9 @@ namespace FPClient
             } while (bRet);
 
             int i = 1;
-            foreach(GeneralLogInfo gInfo in myArray)
+            foreach (GeneralLogInfo gInfo in myArray)
             {
-                ListViewItem lvi = new ListViewItem();  
+                ListViewItem lvi = new ListViewItem();
                 lvi.Text = i.ToString();
                 i++;
 
@@ -103,15 +106,15 @@ namespace FPClient
                 lvi.SubItems.Add(str);                                          // Verify Mode
 
                 DateTime dt = new DateTime(gInfo.dwYear,
-                    gInfo.dwMonth, 
-                    gInfo.dwDay, 
-                    gInfo.dwHour, 
-                    gInfo.dwMinute, 
+                    gInfo.dwMonth,
+                    gInfo.dwDay,
+                    gInfo.dwHour,
+                    gInfo.dwMinute,
                     0);
 
-                lvi.SubItems.Add( dt.ToString("yyyy/MM/dd HH:mm"));
-                
-                    
+                lvi.SubItems.Add(dt.ToString("yyyy/MM/dd HH:mm"));
+
+
                 listView1.Items.Add(lvi);
 
             }
@@ -134,6 +137,8 @@ namespace FPClient
             listView1.Columns.Add("InOut", 60, HorizontalAlignment.Left);
             listView1.Columns.Add("VeriMode", 130, HorizontalAlignment.Left);
             listView1.Columns.Add("DateTime", 130, HorizontalAlignment.Left);
+            listView1.Columns.Add("Time", 130, HorizontalAlignment.Left);
+
         }
         private void btnEmptyGLogData_Click(object sender, EventArgs e)
         {
@@ -141,17 +146,17 @@ namespace FPClient
 
             DisableDevice();
 
-           bRet = pOcxObject.EmptyGeneralLogData(m_nMachineNum);
-           if (bRet)
-           {
-               labelInfo.Text = "EmptyGeneralLogData OK";
-           } 
-           else
-           {
-               ShowErrorInfo();
-           }
+            bRet = pOcxObject.EmptyGeneralLogData(m_nMachineNum);
+            if (bRet)
+            {
+                labelInfo.Text = "EmptyGeneralLogData OK";
+            }
+            else
+            {
+                ShowErrorInfo();
+            }
 
-           pOcxObject.EnableDevice(m_nMachineNum, 1);
+            pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
 
@@ -219,8 +224,15 @@ namespace FPClient
                 lvi.SubItems.Add(str);                                           // Verify Mode
 
                 // Tarihi oluştur ve '/' ile ayrılmış formatta yaz
-                DateTime dt = new DateTime(gInfo.dwYear, gInfo.dwMonth, gInfo.dwDay, gInfo.dwHour, gInfo.dwMinute, 0);
-                lvi.SubItems.Add(dt.ToString("yyyy/MM/dd HH:mm")); // '/' ile ayrılmış format
+                DateTime dt = new DateTime(gInfo.dwYear, gInfo.dwMonth, gInfo.dwDay);
+
+
+                int second = 0;
+                string hourMinute = $"{gInfo.dwHour:D2}:{gInfo.dwMinute:D2}";
+
+
+                lvi.SubItems.Add(dt.ToString("yyyy/MM/dd")); // '/' ile ayrılmış format
+                lvi.SubItems.Add(hourMinute);
 
                 // ListView'e ekle
                 listView1.Items.Add(lvi);
@@ -230,8 +242,9 @@ namespace FPClient
                 arrayList.Add("001"); // Machine Number
                 arrayList.Add(lvi.SubItems[2].Text); // Enroll Number
                 arrayList.Add(lvi.SubItems[3].Text); // EMachine Number
-                arrayList.Add(lvi.SubItems[6].Text); // Date Time
-                
+                arrayList.Add(lvi.SubItems[6].Text); // Date
+                arrayList.Add(lvi.SubItems[7].Text); // Time
+
                 // ArrayList'i string olarak birleştir
                 string[] array = arrayList.ToArray(typeof(string)) as string[];
                 string strArray = string.Join(",", array);
@@ -241,7 +254,7 @@ namespace FPClient
             }
 
             // Dosya yolu
-            string filePath = @"C:\Users\erdem\Downloads\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\example.txt";
+            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
 
             // Eğer dosya yoksa oluştur, varsa tüm verileri bir seferde ekle
             try
@@ -260,6 +273,83 @@ namespace FPClient
 
             i -= 1;
             labelTotal.Text = i.ToString("Total Read 0");
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
+
+            string txtFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    // Veritabanı bağlantısını aç
+                    connection.Open();
+                    Console.WriteLine("Connection successful!");
+
+                    // CSV dosyasını satır satır oku
+                    using (StreamReader reader = new StreamReader(txtFilePath, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            // Satırdaki verileri ayır (virgül ile ayrılmış)
+                            string[] values = line.Split(',');
+
+                            // CSV'den gelen değerlerin başındaki ve sonundaki tırnak işaretlerini temizleyin
+                            string id = values[0].Trim('"');
+
+                            // Toplam dakika hesaplamak için saat ve dakikayı ayırın
+                            string[] timeParts = values[4].Trim('"').Split(':'); // Saat değerini al
+
+                            // Saat ve dakikayı ayır
+                            int hours = int.Parse(timeParts[0]); // Saat
+                            int minutes = int.Parse(timeParts[1]); // Dakika
+                            //int seconds = int.Parse(timeParts[2]); // Saniye
+
+                            // Toplam dakika hesapla
+                            float saatnum = hours * 60 + minutes; // Toplam dakikayı hesapla
+
+                            string kartno = values[1].Trim('"');
+                            string ftus = values[2].Trim('"');
+                            string tarih = values[3].Trim('"');
+                            string saat = values[4].Trim('"');
+                            //float kimlik = float.Parse(values[7].Trim('"'));
+
+
+
+
+                            // DBF dosyasına veri eklemek için INSERT INTO SQL komutunu oluştur
+                            string insertQuery = "INSERT INTO Duzenleyici " +
+                                "(ID, SAATNUM, KARTNO, FTUS, TARIH, SAAT) " +
+                                "VALUES (?, ?, ?, ?, ?, ?)";
+                            OleDbCommand command = new OleDbCommand(insertQuery, connection);
+
+                            // Parametrelerle veriyi ekle
+                            command.Parameters.AddWithValue("@p1", id);
+                            command.Parameters.AddWithValue("@p3", saatnum);
+                            command.Parameters.AddWithValue("@p4", kartno);
+                            command.Parameters.AddWithValue("@p5", ftus);
+                            command.Parameters.AddWithValue("@p6", tarih);
+                            command.Parameters.AddWithValue("@p7", saat);
+                            //command.Parameters.AddWithValue("@p8", kimlik);
+
+
+                            // Sorguyu çalıştır
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    MessageBox.Show("TXT verileri başarıyla DBF dosyasına aktarıldı.");
+
+                    File.WriteAllText(txtFilePath, string.Empty);
+                    MessageBox.Show("TXT dosyası başarıyla temizlendi.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
+            }
+
+            //bRet = pOcxObject.EmptyGeneralLogData(m_nMachineNum);
+
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
         }
@@ -287,7 +377,7 @@ namespace FPClient
             SuperLogInfo sLogInfo = new SuperLogInfo();
             List<SuperLogInfo> myArray = new List<SuperLogInfo>();
 
-            do 
+            do
             {
                 bRet = pOcxObject.GetSuperLogData(
                     m_nMachineNum,
@@ -326,7 +416,7 @@ namespace FPClient
                 lvi.SubItems.Add(sInfo.dwSEMachineNumber.ToString());
 
                 lvi.SubItems.Add(sInfo.dwGEnrollNumber.ToString());  //GEnlNo
-                lvi.SubItems.Add(sInfo.dwGEMachineNumber.ToString());                
+                lvi.SubItems.Add(sInfo.dwGEMachineNumber.ToString());
 
                 str = sInfo.dwManipulation.ToString("0--") + common.FormSLogStr(sInfo.dwManipulation);
                 lvi.SubItems.Add(str);                                          // Verify Mode
@@ -335,7 +425,7 @@ namespace FPClient
                 {
                     str = sInfo.dwFingerNumber.ToString();
                 }
-                else if (sInfo.dwFingerNumber == 10 )
+                else if (sInfo.dwFingerNumber == 10)
                 {
                     str = "Password";
 
@@ -537,19 +627,19 @@ namespace FPClient
         }
 
         private void UDGLogRead_Click(object sender, EventArgs e)
-        {   
+        {
             string strFilePath;
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = System.Environment.CurrentDirectory;
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;     
+            openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            { 
-                strFilePath = openFileDialog1.FileName;                   
-                
+            {
+                strFilePath = openFileDialog1.FileName;
+
             }
             else
             {
@@ -608,7 +698,7 @@ namespace FPClient
 
                 str = common.FormString(gInfo.dwVerifyMode, gInfo.dwEnrollNumber);
                 lvi.SubItems.Add(str);                                          // Verify Mode
-               
+
                 DateTime dt = new DateTime(gInfo.dwYear,
                     gInfo.dwMonth,
                     gInfo.dwDay,
@@ -631,7 +721,7 @@ namespace FPClient
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox cb = (CheckBox) sender;
+            CheckBox cb = (CheckBox)sender;
             if (cb.Checked == false)
             {
                 MessageBox.Show("this infulence GLog & SLog Read function \n pls. check it before use Read button",

@@ -1,0 +1,20 @@
+Firma :A
+Kullanýcý :b
+Tel :(212)535-0023
+Fax :(212)535-0023
+Email :ercank_1974@mynet.com
+ÝL :c
+Ýlçe :d
+Terminal Modeli-1 :e
+Terminal Modeli-1 Adet:
+Terminal Modeli-2 :
+Terminal Modeli-2 Adet:
+Terminal Modeli-3 :
+Terminal Modeli-3 Adet:
+Program :Win_PDKS(0.30)
+Güncelleme Tarihi :  .  .    
+Satýþ Tarihi :01.01.2000
+Baðlantý Þekli-1 :
+Baðlantý Þekli-2 :
+Baðlantý Þekli-3 :
+Not :
