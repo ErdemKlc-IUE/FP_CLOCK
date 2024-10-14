@@ -105,8 +105,14 @@
     <Compile Include="bellTimeSetting.designer.cs">
       <DependentUpon>bellTimeSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChatGPTButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="common.cs" />
     <Compile Include="commonHelpers.cs" />
+    <Compile Include="CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DeviceInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,11 +125,17 @@
     <Compile Include="EnrollDataManagement.Designer.cs">
       <DependentUpon>EnrollDataManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WelcomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
     </Compile>
     <Compile Include="LockCtrl.cs">
       <SubType>Form</SubType>
@@ -160,8 +172,8 @@
     <EmbeddedResource Include="EnrollDataManagement.resx">
       <DependentUpon>EnrollDataManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LockCtrl.resx">
       <DependentUpon>LockCtrl.cs</DependentUpon>
@@ -185,8 +197,15 @@
     <EmbeddedResource Include="SysInfo.resx">
       <DependentUpon>SysInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WelcomePage.resx">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\commonHelpers.datasource" />
+    <None Include="Properties\DataSources\FPClient.BellInfo.datasource" />
+    <None Include="Properties\DataSources\FP_CLOCK.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\FP_CLOCK.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -199,6 +218,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="prince.ico" />
+    <Content Include="Resources\adminBack.gif" />
+    <Content Include="Resources\attendance_list_icon.png" />
+    <Content Include="Resources\BackGround.jpg" />
+    <Content Include="Resources\bg_module.png" />
+    <Content Include="Resources\clock.ico" />
+    <None Include="Resources\Close-16x16.png" />
+    <Content Include="Resources\conversation1.png" />
+    <None Include="Resources\excercise.png" />
+    <None Include="Resources\Copy-Refresh-48x48.png" />
+    <Content Include="Resources\gcuf_copy.jpg" />
+    <None Include="Resources\Information-48x48.png" />
+    <Content Include="Resources\password.png" />
+    <Content Include="Resources\penal.jpg" />
+    <Content Include="Resources\personal.png" />
+    <Content Include="Resources\question_icon.jpg" />
+    <Content Include="Resources\reading3.png" />
+    <Content Include="Resources\Rec005.avi" />
+    <Content Include="Resources\registration_icon_up.png" />
+    <Content Include="Resources\Save.png" />
+    <Content Include="Resources\technic6.png" />
+    <Content Include="Resources\todo.png" />
+    <None Include="Resources\logout.png" />
     <None Include="Resources\enka-teknoloji-logo.png" />
   </ItemGroup>
   <ItemGroup>

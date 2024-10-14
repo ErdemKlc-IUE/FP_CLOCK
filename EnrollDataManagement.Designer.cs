@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.labelInfo = new System.Windows.Forms.Label();
-            this.btnClearAllData = new System.Windows.Forms.Button();
-            this.btnRmAllManager = new System.Windows.Forms.Button();
+            this.btnClearAllData = new FP_CLOCK.CustomButton();
+            this.btnRmAllManager = new FP_CLOCK.CustomButton();
             this.label2 = new System.Windows.Forms.Label();
             this.tbcompanyString = new System.Windows.Forms.TextBox();
-            this.btnSetCompanyString = new System.Windows.Forms.Button();
-            this.btnDelCompanyString = new System.Windows.Forms.Button();
+            this.btnSetCompanyString = new FP_CLOCK.CustomButton();
+            this.btnDelCompanyString = new FP_CLOCK.CustomButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -49,155 +49,174 @@
             this.tbCardNum = new System.Windows.Forms.TextBox();
             this.cmbPrivilege = new System.Windows.Forms.ComboBox();
             this.tbEnrollName = new System.Windows.Forms.TextBox();
-            this.btnGetUserName = new System.Windows.Forms.Button();
-            this.btnSetUserName = new System.Windows.Forms.Button();
-            this.btnModifyPrivilege = new System.Windows.Forms.Button();
-            this.btnGetEnroll = new System.Windows.Forms.Button();
+            this.btnGetUserName = new FP_CLOCK.CustomButton();
+            this.btnSetUserName = new FP_CLOCK.CustomButton();
+            this.btnModifyPrivilege = new FP_CLOCK.CustomButton();
+            this.btnGetEnroll = new FP_CLOCK.CustomButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnSendAllEnrollData = new System.Windows.Forms.Button();
-            this.btnDelDBData = new System.Windows.Forms.Button();
-            this.btnSetAllEnData = new System.Windows.Forms.Button();
-            this.btnGetAllEnData = new System.Windows.Forms.Button();
-            this.btnSetEnrollData = new System.Windows.Forms.Button();
-            this.btnGetEnrollData = new System.Windows.Forms.Button();
-            this.btnDelEnData = new System.Windows.Forms.Button();
-            this.btnUDiskDownLoad = new System.Windows.Forms.Button();
-            this.btnUDiskUpload = new System.Windows.Forms.Button();
-            this.btnEmptyEnData = new System.Windows.Forms.Button();
+            this.btnSendAllEnrollData = new FP_CLOCK.CustomButton();
+            this.btnDelDBData = new FP_CLOCK.CustomButton();
+            this.btnSetAllEnData = new FP_CLOCK.CustomButton();
+            this.btnGetAllEnData = new FP_CLOCK.CustomButton();
+            this.btnSetEnrollData = new FP_CLOCK.CustomButton();
+            this.btnGetEnrollData = new FP_CLOCK.CustomButton();
+            this.btnDelEnData = new FP_CLOCK.CustomButton();
+            this.btnUDiskDownLoad = new FP_CLOCK.CustomButton();
+            this.btnUDiskUpload = new FP_CLOCK.CustomButton();
+            this.btnEmptyEnData = new FP_CLOCK.CustomButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelInfo
             // 
+            this.labelInfo.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.labelInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelInfo.Location = new System.Drawing.Point(28, 10);
-            this.labelInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelInfo.Location = new System.Drawing.Point(37, 13);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(344, 30);
+            this.labelInfo.Size = new System.Drawing.Size(459, 40);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClearAllData
             // 
-            this.btnClearAllData.Location = new System.Drawing.Point(458, 2);
-            this.btnClearAllData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnClearAllData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnClearAllData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnClearAllData.BorderRadius = 20;
+            this.btnClearAllData.BorderSize = 0;
+            this.btnClearAllData.FlatAppearance.BorderSize = 0;
+            this.btnClearAllData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearAllData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnClearAllData.Location = new System.Drawing.Point(611, 3);
             this.btnClearAllData.Name = "btnClearAllData";
-            this.btnClearAllData.Size = new System.Drawing.Size(118, 38);
-            this.btnClearAllData.TabIndex = 1;
+            this.btnClearAllData.Size = new System.Drawing.Size(157, 51);
+            this.btnClearAllData.TabIndex = 3;
             this.btnClearAllData.Text = "Clear All Data(E,GL,SL) ";
-            this.btnClearAllData.UseVisualStyleBackColor = true;
+            this.btnClearAllData.UseVisualStyleBackColor = false;
             this.btnClearAllData.Click += new System.EventHandler(this.btnClearAllData_Click);
             // 
             // btnRmAllManager
             // 
-            this.btnRmAllManager.Location = new System.Drawing.Point(617, 2);
-            this.btnRmAllManager.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRmAllManager.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnRmAllManager.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnRmAllManager.BorderRadius = 20;
+            this.btnRmAllManager.BorderSize = 0;
+            this.btnRmAllManager.FlatAppearance.BorderSize = 0;
+            this.btnRmAllManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRmAllManager.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRmAllManager.Location = new System.Drawing.Point(823, 3);
             this.btnRmAllManager.Name = "btnRmAllManager";
-            this.btnRmAllManager.Size = new System.Drawing.Size(107, 38);
-            this.btnRmAllManager.TabIndex = 1;
+            this.btnRmAllManager.Size = new System.Drawing.Size(143, 51);
+            this.btnRmAllManager.TabIndex = 3;
             this.btnRmAllManager.Text = "Benumb All Manager";
-            this.btnRmAllManager.UseVisualStyleBackColor = true;
+            this.btnRmAllManager.UseVisualStyleBackColor = false;
             this.btnRmAllManager.Click += new System.EventHandler(this.btnRmAllManager_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 76);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(37, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 12);
+            this.label2.Size = new System.Drawing.Size(108, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Company Name:";
             // 
             // tbcompanyString
             // 
-            this.tbcompanyString.Location = new System.Drawing.Point(124, 76);
-            this.tbcompanyString.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbcompanyString.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tbcompanyString.Location = new System.Drawing.Point(165, 101);
             this.tbcompanyString.Name = "tbcompanyString";
-            this.tbcompanyString.Size = new System.Drawing.Size(199, 21);
+            this.tbcompanyString.Size = new System.Drawing.Size(264, 22);
             this.tbcompanyString.TabIndex = 3;
             // 
             // btnSetCompanyString
             // 
-            this.btnSetCompanyString.Location = new System.Drawing.Point(388, 78);
-            this.btnSetCompanyString.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSetCompanyString.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetCompanyString.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetCompanyString.BorderRadius = 20;
+            this.btnSetCompanyString.BorderSize = 0;
+            this.btnSetCompanyString.FlatAppearance.BorderSize = 0;
+            this.btnSetCompanyString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetCompanyString.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetCompanyString.Location = new System.Drawing.Point(517, 104);
             this.btnSetCompanyString.Name = "btnSetCompanyString";
-            this.btnSetCompanyString.Size = new System.Drawing.Size(76, 18);
-            this.btnSetCompanyString.TabIndex = 4;
+            this.btnSetCompanyString.Size = new System.Drawing.Size(101, 24);
+            this.btnSetCompanyString.TabIndex = 3;
             this.btnSetCompanyString.Text = "SetString";
-            this.btnSetCompanyString.UseVisualStyleBackColor = true;
+            this.btnSetCompanyString.UseVisualStyleBackColor = false;
             this.btnSetCompanyString.Click += new System.EventHandler(this.btnSetCompanyString_Click);
             // 
             // btnDelCompanyString
             // 
-            this.btnDelCompanyString.Location = new System.Drawing.Point(537, 78);
-            this.btnDelCompanyString.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDelCompanyString.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDelCompanyString.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDelCompanyString.BorderRadius = 20;
+            this.btnDelCompanyString.BorderSize = 0;
+            this.btnDelCompanyString.FlatAppearance.BorderSize = 0;
+            this.btnDelCompanyString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelCompanyString.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDelCompanyString.Location = new System.Drawing.Point(716, 104);
             this.btnDelCompanyString.Name = "btnDelCompanyString";
-            this.btnDelCompanyString.Size = new System.Drawing.Size(92, 18);
-            this.btnDelCompanyString.TabIndex = 4;
+            this.btnDelCompanyString.Size = new System.Drawing.Size(123, 24);
+            this.btnDelCompanyString.TabIndex = 3;
             this.btnDelCompanyString.Text = "Del String";
-            this.btnDelCompanyString.UseVisualStyleBackColor = true;
+            this.btnDelCompanyString.UseVisualStyleBackColor = false;
             this.btnDelCompanyString.Click += new System.EventHandler(this.btnDelCompanyString_Click);
             // 
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(9, 55);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(12, 73);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(777, 2);
+            this.label3.Size = new System.Drawing.Size(1036, 3);
             this.label3.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(9, 114);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(12, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(777, 2);
+            this.label4.Size = new System.Drawing.Size(1036, 3);
             this.label4.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 135);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(24, 180);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 12);
+            this.label5.Size = new System.Drawing.Size(75, 16);
             this.label5.TabIndex = 2;
             this.label5.Text = "Enroll Num:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 166);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(24, 221);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 12);
+            this.label6.Size = new System.Drawing.Size(101, 16);
             this.label6.TabIndex = 2;
             this.label6.Text = "EMechine Num:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 198);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(24, 264);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 12);
+            this.label7.Size = new System.Drawing.Size(84, 16);
             this.label7.TabIndex = 2;
             this.label7.Text = "BackupNum:";
             // 
             // tbEnrollNum
             // 
-            this.tbEnrollNum.Location = new System.Drawing.Point(124, 126);
-            this.tbEnrollNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbEnrollNum.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tbEnrollNum.Location = new System.Drawing.Point(165, 168);
             this.tbEnrollNum.Name = "tbEnrollNum";
-            this.tbEnrollNum.Size = new System.Drawing.Size(76, 21);
+            this.tbEnrollNum.Size = new System.Drawing.Size(100, 22);
             this.tbEnrollNum.TabIndex = 6;
             // 
             // cmbBackupNum
             // 
+            this.cmbBackupNum.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.cmbBackupNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBackupNum.FormattingEnabled = true;
             this.cmbBackupNum.Items.AddRange(new object[] {
@@ -214,14 +233,14 @@
             "10",
             "11",
             "12"});
-            this.cmbBackupNum.Location = new System.Drawing.Point(124, 196);
-            this.cmbBackupNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbBackupNum.Location = new System.Drawing.Point(165, 261);
             this.cmbBackupNum.Name = "cmbBackupNum";
-            this.cmbBackupNum.Size = new System.Drawing.Size(76, 20);
+            this.cmbBackupNum.Size = new System.Drawing.Size(100, 24);
             this.cmbBackupNum.TabIndex = 7;
             // 
             // cmbEMachineNum
             // 
+            this.cmbEMachineNum.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.cmbEMachineNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEMachineNum.FormattingEnabled = true;
             this.cmbEMachineNum.Items.AddRange(new object[] {
@@ -234,52 +253,49 @@
             "7",
             "8",
             "9"});
-            this.cmbEMachineNum.Location = new System.Drawing.Point(124, 164);
-            this.cmbEMachineNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbEMachineNum.Location = new System.Drawing.Point(165, 219);
             this.cmbEMachineNum.Name = "cmbEMachineNum";
-            this.cmbEMachineNum.Size = new System.Drawing.Size(76, 20);
+            this.cmbEMachineNum.Size = new System.Drawing.Size(100, 24);
             this.cmbEMachineNum.TabIndex = 7;
             // 
             // lable12
             // 
             this.lable12.AutoSize = true;
-            this.lable12.Location = new System.Drawing.Point(313, 135);
-            this.lable12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lable12.Location = new System.Drawing.Point(417, 180);
             this.lable12.Name = "lable12";
-            this.lable12.Size = new System.Drawing.Size(77, 12);
+            this.lable12.Size = new System.Drawing.Size(84, 16);
             this.lable12.TabIndex = 2;
             this.lable12.Text = "Enroll Name:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(313, 166);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(417, 221);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 12);
+            this.label9.Size = new System.Drawing.Size(63, 16);
             this.label9.TabIndex = 2;
             this.label9.Text = "Privilege:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(313, 198);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Location = new System.Drawing.Point(417, 264);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 12);
+            this.label11.Size = new System.Drawing.Size(90, 16);
             this.label11.TabIndex = 2;
             this.label11.Text = "Card Number:";
             // 
             // tbCardNum
             // 
-            this.tbCardNum.Location = new System.Drawing.Point(419, 198);
-            this.tbCardNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbCardNum.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tbCardNum.Location = new System.Drawing.Point(559, 264);
             this.tbCardNum.Name = "tbCardNum";
-            this.tbCardNum.Size = new System.Drawing.Size(76, 21);
+            this.tbCardNum.Size = new System.Drawing.Size(100, 22);
             this.tbCardNum.TabIndex = 6;
             // 
             // cmbPrivilege
             // 
+            this.cmbPrivilege.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.cmbPrivilege.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrivilege.FormattingEnabled = true;
             this.cmbPrivilege.Items.AddRange(new object[] {
@@ -287,62 +303,85 @@
             "1",
             "2",
             "3"});
-            this.cmbPrivilege.Location = new System.Drawing.Point(419, 164);
-            this.cmbPrivilege.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbPrivilege.Location = new System.Drawing.Point(559, 219);
             this.cmbPrivilege.Name = "cmbPrivilege";
-            this.cmbPrivilege.Size = new System.Drawing.Size(76, 20);
+            this.cmbPrivilege.Size = new System.Drawing.Size(100, 24);
             this.cmbPrivilege.TabIndex = 7;
             // 
             // tbEnrollName
             // 
-            this.tbEnrollName.Location = new System.Drawing.Point(419, 133);
-            this.tbEnrollName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbEnrollName.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tbEnrollName.Location = new System.Drawing.Point(559, 177);
             this.tbEnrollName.Name = "tbEnrollName";
-            this.tbEnrollName.Size = new System.Drawing.Size(76, 21);
+            this.tbEnrollName.Size = new System.Drawing.Size(100, 22);
             this.tbEnrollName.TabIndex = 6;
             // 
             // btnGetUserName
             // 
-            this.btnGetUserName.Location = new System.Drawing.Point(569, 132);
-            this.btnGetUserName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetUserName.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnGetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetUserName.BorderRadius = 20;
+            this.btnGetUserName.BorderSize = 0;
+            this.btnGetUserName.FlatAppearance.BorderSize = 0;
+            this.btnGetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnGetUserName.Location = new System.Drawing.Point(759, 176);
             this.btnGetUserName.Name = "btnGetUserName";
-            this.btnGetUserName.Size = new System.Drawing.Size(92, 18);
-            this.btnGetUserName.TabIndex = 4;
+            this.btnGetUserName.Size = new System.Drawing.Size(123, 24);
+            this.btnGetUserName.TabIndex = 3;
             this.btnGetUserName.Text = "GetUserName";
-            this.btnGetUserName.UseVisualStyleBackColor = true;
+            this.btnGetUserName.UseVisualStyleBackColor = false;
             this.btnGetUserName.Click += new System.EventHandler(this.btnGetUserName_Click);
             // 
             // btnSetUserName
             // 
-            this.btnSetUserName.Location = new System.Drawing.Point(692, 132);
-            this.btnSetUserName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSetUserName.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetUserName.BorderRadius = 20;
+            this.btnSetUserName.BorderSize = 0;
+            this.btnSetUserName.FlatAppearance.BorderSize = 0;
+            this.btnSetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetUserName.Location = new System.Drawing.Point(923, 176);
             this.btnSetUserName.Name = "btnSetUserName";
-            this.btnSetUserName.Size = new System.Drawing.Size(84, 18);
-            this.btnSetUserName.TabIndex = 4;
+            this.btnSetUserName.Size = new System.Drawing.Size(112, 24);
+            this.btnSetUserName.TabIndex = 3;
             this.btnSetUserName.Text = "SetUserName";
-            this.btnSetUserName.UseVisualStyleBackColor = true;
+            this.btnSetUserName.UseVisualStyleBackColor = false;
             this.btnSetUserName.Click += new System.EventHandler(this.btnSetUserName_Click);
             // 
             // btnModifyPrivilege
             // 
-            this.btnModifyPrivilege.Location = new System.Drawing.Point(692, 166);
-            this.btnModifyPrivilege.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnModifyPrivilege.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnModifyPrivilege.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnModifyPrivilege.BorderRadius = 20;
+            this.btnModifyPrivilege.BorderSize = 0;
+            this.btnModifyPrivilege.FlatAppearance.BorderSize = 0;
+            this.btnModifyPrivilege.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModifyPrivilege.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnModifyPrivilege.Location = new System.Drawing.Point(923, 221);
             this.btnModifyPrivilege.Name = "btnModifyPrivilege";
-            this.btnModifyPrivilege.Size = new System.Drawing.Size(104, 32);
-            this.btnModifyPrivilege.TabIndex = 4;
+            this.btnModifyPrivilege.Size = new System.Drawing.Size(139, 43);
+            this.btnModifyPrivilege.TabIndex = 3;
             this.btnModifyPrivilege.Text = "ModifyPrivilege";
-            this.btnModifyPrivilege.UseVisualStyleBackColor = true;
+            this.btnModifyPrivilege.UseVisualStyleBackColor = false;
             this.btnModifyPrivilege.Click += new System.EventHandler(this.btnModifyPrivilege_Click);
             // 
             // btnGetEnroll
             // 
-            this.btnGetEnroll.Location = new System.Drawing.Point(557, 166);
-            this.btnGetEnroll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetEnroll.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnGetEnroll.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetEnroll.BorderRadius = 20;
+            this.btnGetEnroll.BorderSize = 0;
+            this.btnGetEnroll.FlatAppearance.BorderSize = 0;
+            this.btnGetEnroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetEnroll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnGetEnroll.Location = new System.Drawing.Point(743, 221);
             this.btnGetEnroll.Name = "btnGetEnroll";
-            this.btnGetEnroll.Size = new System.Drawing.Size(111, 32);
-            this.btnGetEnroll.TabIndex = 4;
+            this.btnGetEnroll.Size = new System.Drawing.Size(148, 43);
+            this.btnGetEnroll.TabIndex = 3;
             this.btnGetEnroll.Text = "Get Enroll Info";
-            this.btnGetEnroll.UseVisualStyleBackColor = true;
+            this.btnGetEnroll.UseVisualStyleBackColor = false;
             this.btnGetEnroll.Click += new System.EventHandler(this.btnGetEnrollInfo_Click);
             // 
             // groupBox1
@@ -351,140 +390,199 @@
             this.groupBox1.Controls.Add(this.btnDelDBData);
             this.groupBox1.Controls.Add(this.btnSetAllEnData);
             this.groupBox1.Controls.Add(this.btnGetAllEnData);
-            this.groupBox1.Location = new System.Drawing.Point(543, 241);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(724, 321);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(118, 170);
+            this.groupBox1.Size = new System.Drawing.Size(157, 227);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DB operation";
             // 
             // btnSendAllEnrollData
             // 
-            this.btnSendAllEnrollData.Location = new System.Drawing.Point(14, 96);
-            this.btnSendAllEnrollData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSendAllEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSendAllEnrollData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSendAllEnrollData.BorderRadius = 20;
+            this.btnSendAllEnrollData.BorderSize = 0;
+            this.btnSendAllEnrollData.FlatAppearance.BorderSize = 0;
+            this.btnSendAllEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSendAllEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSendAllEnrollData.Location = new System.Drawing.Point(19, 128);
             this.btnSendAllEnrollData.Name = "btnSendAllEnrollData";
-            this.btnSendAllEnrollData.Size = new System.Drawing.Size(92, 33);
-            this.btnSendAllEnrollData.TabIndex = 4;
+            this.btnSendAllEnrollData.Size = new System.Drawing.Size(123, 44);
+            this.btnSendAllEnrollData.TabIndex = 3;
             this.btnSendAllEnrollData.Text = "Send All Enroll Data";
-            this.btnSendAllEnrollData.UseVisualStyleBackColor = true;
+            this.btnSendAllEnrollData.UseVisualStyleBackColor = false;
             this.btnSendAllEnrollData.Click += new System.EventHandler(this.btnSendAllEnrollData_Click);
             // 
             // btnDelDBData
             // 
-            this.btnDelDBData.Location = new System.Drawing.Point(14, 134);
-            this.btnDelDBData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDelDBData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDelDBData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDelDBData.BorderRadius = 20;
+            this.btnDelDBData.BorderSize = 0;
+            this.btnDelDBData.FlatAppearance.BorderSize = 0;
+            this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDelDBData.Location = new System.Drawing.Point(19, 179);
             this.btnDelDBData.Name = "btnDelDBData";
-            this.btnDelDBData.Size = new System.Drawing.Size(92, 31);
-            this.btnDelDBData.TabIndex = 4;
+            this.btnDelDBData.Size = new System.Drawing.Size(123, 41);
+            this.btnDelDBData.TabIndex = 3;
             this.btnDelDBData.Text = "Delete DB Data";
-            this.btnDelDBData.UseVisualStyleBackColor = true;
+            this.btnDelDBData.UseVisualStyleBackColor = false;
             this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
             // 
             // btnSetAllEnData
             // 
-            this.btnSetAllEnData.Location = new System.Drawing.Point(14, 57);
-            this.btnSetAllEnData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSetAllEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetAllEnData.BorderRadius = 20;
+            this.btnSetAllEnData.BorderSize = 0;
+            this.btnSetAllEnData.FlatAppearance.BorderSize = 0;
+            this.btnSetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetAllEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetAllEnData.Location = new System.Drawing.Point(19, 76);
             this.btnSetAllEnData.Name = "btnSetAllEnData";
-            this.btnSetAllEnData.Size = new System.Drawing.Size(92, 34);
-            this.btnSetAllEnData.TabIndex = 4;
+            this.btnSetAllEnData.Size = new System.Drawing.Size(123, 45);
+            this.btnSetAllEnData.TabIndex = 3;
             this.btnSetAllEnData.Text = "Set All Enroll Data";
-            this.btnSetAllEnData.UseVisualStyleBackColor = true;
+            this.btnSetAllEnData.UseVisualStyleBackColor = false;
             this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
             // 
             // btnGetAllEnData
             // 
-            this.btnGetAllEnData.Location = new System.Drawing.Point(14, 19);
-            this.btnGetAllEnData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetAllEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnGetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetAllEnData.BorderRadius = 20;
+            this.btnGetAllEnData.BorderSize = 0;
+            this.btnGetAllEnData.FlatAppearance.BorderSize = 0;
+            this.btnGetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetAllEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnGetAllEnData.Location = new System.Drawing.Point(19, 25);
             this.btnGetAllEnData.Name = "btnGetAllEnData";
-            this.btnGetAllEnData.Size = new System.Drawing.Size(92, 33);
-            this.btnGetAllEnData.TabIndex = 4;
+            this.btnGetAllEnData.Size = new System.Drawing.Size(123, 44);
+            this.btnGetAllEnData.TabIndex = 3;
             this.btnGetAllEnData.Text = "Get All Enroll Data";
-            this.btnGetAllEnData.UseVisualStyleBackColor = true;
+            this.btnGetAllEnData.UseVisualStyleBackColor = false;
             this.btnGetAllEnData.Click += new System.EventHandler(this.btnGetAllEnData_Click);
             // 
             // btnSetEnrollData
             // 
-            this.btnSetEnrollData.Location = new System.Drawing.Point(685, 223);
-            this.btnSetEnrollData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSetEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetEnrollData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetEnrollData.BorderRadius = 20;
+            this.btnSetEnrollData.BorderSize = 0;
+            this.btnSetEnrollData.FlatAppearance.BorderSize = 0;
+            this.btnSetEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetEnrollData.Location = new System.Drawing.Point(913, 297);
             this.btnSetEnrollData.Name = "btnSetEnrollData";
-            this.btnSetEnrollData.Size = new System.Drawing.Size(101, 38);
-            this.btnSetEnrollData.TabIndex = 4;
+            this.btnSetEnrollData.Size = new System.Drawing.Size(135, 51);
+            this.btnSetEnrollData.TabIndex = 3;
             this.btnSetEnrollData.Text = "SetEnrollData";
-            this.btnSetEnrollData.UseVisualStyleBackColor = true;
+            this.btnSetEnrollData.UseVisualStyleBackColor = false;
             this.btnSetEnrollData.Click += new System.EventHandler(this.btnSetEnrollData_Click);
             // 
             // btnGetEnrollData
             // 
-            this.btnGetEnrollData.Location = new System.Drawing.Point(685, 271);
-            this.btnGetEnrollData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGetEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnGetEnrollData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetEnrollData.BorderRadius = 20;
+            this.btnGetEnrollData.BorderSize = 0;
+            this.btnGetEnrollData.FlatAppearance.BorderSize = 0;
+            this.btnGetEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnGetEnrollData.Location = new System.Drawing.Point(913, 361);
             this.btnGetEnrollData.Name = "btnGetEnrollData";
-            this.btnGetEnrollData.Size = new System.Drawing.Size(101, 38);
-            this.btnGetEnrollData.TabIndex = 4;
+            this.btnGetEnrollData.Size = new System.Drawing.Size(135, 51);
+            this.btnGetEnrollData.TabIndex = 3;
             this.btnGetEnrollData.Text = "GetEnrollData";
-            this.btnGetEnrollData.UseVisualStyleBackColor = true;
+            this.btnGetEnrollData.UseVisualStyleBackColor = false;
             this.btnGetEnrollData.Click += new System.EventHandler(this.btnGetEnrollData_Click);
             // 
             // btnDelEnData
             // 
-            this.btnDelEnData.Location = new System.Drawing.Point(685, 317);
-            this.btnDelEnData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDelEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDelEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDelEnData.BorderRadius = 20;
+            this.btnDelEnData.BorderSize = 0;
+            this.btnDelEnData.FlatAppearance.BorderSize = 0;
+            this.btnDelEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDelEnData.Location = new System.Drawing.Point(913, 423);
             this.btnDelEnData.Name = "btnDelEnData";
-            this.btnDelEnData.Size = new System.Drawing.Size(101, 38);
-            this.btnDelEnData.TabIndex = 4;
+            this.btnDelEnData.Size = new System.Drawing.Size(135, 51);
+            this.btnDelEnData.TabIndex = 3;
             this.btnDelEnData.Text = "Delete Enroll Data";
-            this.btnDelEnData.UseVisualStyleBackColor = true;
+            this.btnDelEnData.UseVisualStyleBackColor = false;
             this.btnDelEnData.Click += new System.EventHandler(this.btnDelEnData_Click);
             // 
             // btnUDiskDownLoad
             // 
-            this.btnUDiskDownLoad.Location = new System.Drawing.Point(685, 369);
-            this.btnUDiskDownLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUDiskDownLoad.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnUDiskDownLoad.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnUDiskDownLoad.BorderRadius = 20;
+            this.btnUDiskDownLoad.BorderSize = 0;
+            this.btnUDiskDownLoad.FlatAppearance.BorderSize = 0;
+            this.btnUDiskDownLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUDiskDownLoad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnUDiskDownLoad.Location = new System.Drawing.Point(913, 492);
             this.btnUDiskDownLoad.Name = "btnUDiskDownLoad";
-            this.btnUDiskDownLoad.Size = new System.Drawing.Size(101, 38);
-            this.btnUDiskDownLoad.TabIndex = 4;
+            this.btnUDiskDownLoad.Size = new System.Drawing.Size(135, 51);
+            this.btnUDiskDownLoad.TabIndex = 3;
             this.btnUDiskDownLoad.Text = "U disk Download";
-            this.btnUDiskDownLoad.UseVisualStyleBackColor = true;
+            this.btnUDiskDownLoad.UseVisualStyleBackColor = false;
             this.btnUDiskDownLoad.Click += new System.EventHandler(this.btnUDiskDownLoad_Click);
             // 
             // btnUDiskUpload
             // 
-            this.btnUDiskUpload.Location = new System.Drawing.Point(685, 419);
-            this.btnUDiskUpload.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUDiskUpload.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnUDiskUpload.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnUDiskUpload.BorderRadius = 20;
+            this.btnUDiskUpload.BorderSize = 0;
+            this.btnUDiskUpload.FlatAppearance.BorderSize = 0;
+            this.btnUDiskUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUDiskUpload.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnUDiskUpload.Location = new System.Drawing.Point(913, 559);
             this.btnUDiskUpload.Name = "btnUDiskUpload";
-            this.btnUDiskUpload.Size = new System.Drawing.Size(101, 38);
-            this.btnUDiskUpload.TabIndex = 4;
+            this.btnUDiskUpload.Size = new System.Drawing.Size(135, 51);
+            this.btnUDiskUpload.TabIndex = 3;
             this.btnUDiskUpload.Text = "U disk Upload";
-            this.btnUDiskUpload.UseVisualStyleBackColor = true;
+            this.btnUDiskUpload.UseVisualStyleBackColor = false;
             this.btnUDiskUpload.Click += new System.EventHandler(this.btnUDiskUpload_Click);
             // 
             // btnEmptyEnData
             // 
-            this.btnEmptyEnData.Location = new System.Drawing.Point(685, 470);
-            this.btnEmptyEnData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEmptyEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnEmptyEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnEmptyEnData.BorderRadius = 20;
+            this.btnEmptyEnData.BorderSize = 0;
+            this.btnEmptyEnData.FlatAppearance.BorderSize = 0;
+            this.btnEmptyEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmptyEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnEmptyEnData.Location = new System.Drawing.Point(913, 627);
             this.btnEmptyEnData.Name = "btnEmptyEnData";
-            this.btnEmptyEnData.Size = new System.Drawing.Size(101, 38);
-            this.btnEmptyEnData.TabIndex = 4;
+            this.btnEmptyEnData.Size = new System.Drawing.Size(135, 51);
+            this.btnEmptyEnData.TabIndex = 3;
             this.btnEmptyEnData.Text = "Empty Enroll Data";
-            this.btnEmptyEnData.UseVisualStyleBackColor = true;
+            this.btnEmptyEnData.UseVisualStyleBackColor = false;
             this.btnEmptyEnData.Click += new System.EventHandler(this.btnEmptyEnData_Click);
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(20, 257);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(27, 343);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(500, 316);
+            this.listBox1.Size = new System.Drawing.Size(665, 420);
             this.listBox1.TabIndex = 10;
             // 
             // EnrollDataManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 596);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(1060, 795);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbPrivilege);
@@ -518,7 +616,7 @@
             this.Controls.Add(this.btnRmAllManager);
             this.Controls.Add(this.btnClearAllData);
             this.Controls.Add(this.labelInfo);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "EnrollDataManagement";
             this.Text = "EnrollDataManagement";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EnrollDataManagement_FormClosed);
@@ -531,12 +629,12 @@
         #endregion
 
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.Button btnClearAllData;
-        private System.Windows.Forms.Button btnRmAllManager;
+        private FP_CLOCK.CustomButton btnClearAllData;
+        private FP_CLOCK.CustomButton btnRmAllManager;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbcompanyString;
-        private System.Windows.Forms.Button btnSetCompanyString;
-        private System.Windows.Forms.Button btnDelCompanyString;
+        private FP_CLOCK.CustomButton btnSetCompanyString;
+        private FP_CLOCK.CustomButton btnDelCompanyString;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -551,21 +649,21 @@
         private System.Windows.Forms.TextBox tbCardNum;
         private System.Windows.Forms.ComboBox cmbPrivilege;
         private System.Windows.Forms.TextBox tbEnrollName;
-        private System.Windows.Forms.Button btnGetUserName;
-        private System.Windows.Forms.Button btnSetUserName;
-        private System.Windows.Forms.Button btnModifyPrivilege;
-        private System.Windows.Forms.Button btnGetEnroll;
+        private FP_CLOCK.CustomButton btnGetUserName;
+        private FP_CLOCK.CustomButton btnSetUserName;
+        private FP_CLOCK.CustomButton btnModifyPrivilege;
+        private FP_CLOCK.CustomButton btnGetEnroll;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnSendAllEnrollData;
-        private System.Windows.Forms.Button btnDelDBData;
-        private System.Windows.Forms.Button btnSetAllEnData;
-        private System.Windows.Forms.Button btnGetAllEnData;
-        private System.Windows.Forms.Button btnSetEnrollData;
-        private System.Windows.Forms.Button btnGetEnrollData;
-        private System.Windows.Forms.Button btnDelEnData;
-        private System.Windows.Forms.Button btnUDiskDownLoad;
-        private System.Windows.Forms.Button btnUDiskUpload;
-        private System.Windows.Forms.Button btnEmptyEnData;
+        private FP_CLOCK.CustomButton btnSendAllEnrollData;
+        private FP_CLOCK.CustomButton btnDelDBData;
+        private FP_CLOCK.CustomButton btnSetAllEnData;
+        private FP_CLOCK.CustomButton btnGetAllEnData;
+        private FP_CLOCK.CustomButton btnSetEnrollData;
+        private FP_CLOCK.CustomButton btnGetEnrollData;
+        private FP_CLOCK.CustomButton btnDelEnData;
+        private FP_CLOCK.CustomButton btnUDiskDownLoad;
+        private FP_CLOCK.CustomButton btnUDiskUpload;
+        private FP_CLOCK.CustomButton btnEmptyEnData;
         private System.Windows.Forms.ListBox listBox1;
     }
 }

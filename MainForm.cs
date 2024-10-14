@@ -182,7 +182,7 @@ namespace FPClient
 //                 case MYMESSAGE:
 //                     commonDefine.SENDDATASTRUCT myData = new commonDefine.SENDDATASTRUCT();//这是创建自定义信息的结构
 //                     Type mytype = myData.GetType();
-//                     myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);//这里获取的就是作为LParam参数发送来的信息的结构
+//                     myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);   
 //                     //textBox1.Text = myData.lpData; //显示收到的自定义信息
 //                     break;
 //                 default:

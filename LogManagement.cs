@@ -732,13 +732,24 @@ namespace FPClient
             }
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            // I want to close my app
+            Owner.Visible = true;
+            pOcxObject.EnableDevice(m_nMachineNum, 1);
+            this.Close();
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void helpButton_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("\r\nAdres:\r\nPerpa Ticaret Merkezi A.Blok Kat:8 No:768 Şişli / İSTANBUL\r\n\n" +
+                "Telefon:\r(0212) 320 10 60 - 61\r\n\n" +
+                "E-Mail:\r\ninfo@enkateknoloji.com",
+                "İletişim Bilgileri",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
 
         }
     }

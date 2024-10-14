@@ -1,6 +1,6 @@
 ﻿namespace FPClient
 {
-    partial class MainForm
+    partial class MainForm : System.Windows.Forms.Form
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -467,6 +467,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
