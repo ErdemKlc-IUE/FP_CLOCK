@@ -34,8 +34,8 @@
             this.helpButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.quitButton = new FP_CLOCK.CustomButton();
-            this.customButton2 = new FP_CLOCK.CustomButton();
-            this.customButton1 = new FP_CLOCK.CustomButton();
+            this.settingsButton = new FP_CLOCK.CustomButton();
+            this.transferButton = new FP_CLOCK.CustomButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -65,10 +65,11 @@
             // helpButton
             // 
             this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.helpButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
             this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(89, 34);
+            this.helpButton.Size = new System.Drawing.Size(96, 34);
             this.helpButton.Text = "Yardım";
             // 
             // pictureBox1
@@ -106,64 +107,67 @@
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.customButton3_Click);
             // 
-            // customButton2
+            // settingsButton
             // 
-            this.customButton2.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.customButton2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton2.BorderRadius = 40;
-            this.customButton2.BorderSize = 0;
-            this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.customButton2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.customButton2.Image = ((System.Drawing.Image)(resources.GetObject("customButton2.Image")));
-            this.customButton2.Location = new System.Drawing.Point(31, 313);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.Size = new System.Drawing.Size(151, 85);
-            this.customButton2.TabIndex = 1;
-            this.customButton2.Text = "\r\nAyarlar";
-            this.customButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.customButton2.UseVisualStyleBackColor = true;
-            this.customButton2.Click += new System.EventHandler(this.customButton2_Click);
+            this.settingsButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.settingsButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.settingsButton.BorderRadius = 40;
+            this.settingsButton.BorderSize = 0;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.settingsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(31, 313);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(151, 85);
+            this.settingsButton.TabIndex = 1;
+            this.settingsButton.Text = "\r\nAyarlar";
+            this.settingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.customButton2_Click);
             // 
-            // customButton1
+            // transferButton
             // 
-            this.customButton1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.customButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton1.BorderRadius = 40;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.customButton1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.customButton1.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
-            this.customButton1.Location = new System.Drawing.Point(31, 184);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(151, 87);
-            this.customButton1.TabIndex = 0;
-            this.customButton1.Text = "\r\nBilgileri Aktar";
-            this.customButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.customButton1.UseVisualStyleBackColor = true;
-            this.customButton1.Click += new System.EventHandler(this.customButton1_Click);
+            this.transferButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.transferButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.transferButton.BorderRadius = 40;
+            this.transferButton.BorderSize = 0;
+            this.transferButton.FlatAppearance.BorderSize = 0;
+            this.transferButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.transferButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.transferButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.transferButton.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
+            this.transferButton.Location = new System.Drawing.Point(31, 184);
+            this.transferButton.Name = "transferButton";
+            this.transferButton.Size = new System.Drawing.Size(151, 87);
+            this.transferButton.TabIndex = 0;
+            this.transferButton.Text = "\r\nBilgileri Aktar";
+            this.transferButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.transferButton.UseVisualStyleBackColor = true;
+            this.transferButton.Click += new System.EventHandler(this.customButton1_Click);
             // 
             // WelcomePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(897, 644);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.quitButton);
-            this.Controls.Add(this.customButton2);
-            this.Controls.Add(this.customButton1);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.transferButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(919, 695);
+            this.MinimumSize = new System.Drawing.Size(919, 695);
             this.Name = "WelcomePage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -174,8 +178,8 @@
 
         #endregion
         public  AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
-        private CustomButton customButton1;
-        private CustomButton customButton2;
+        private CustomButton transferButton;
+        private CustomButton settingsButton;
         private CustomButton quitButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listView1;

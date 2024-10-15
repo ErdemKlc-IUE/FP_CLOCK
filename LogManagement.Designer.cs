@@ -33,11 +33,11 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.labelTotal = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.btnOK = new FP_CLOCK.CustomButton();
-            this.btnReadAllGLogData = new FP_CLOCK.CustomButton();
-            this.button9 = new FP_CLOCK.CustomButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
+            this.btnReadAllGLogData = new FP_CLOCK.CustomButton();
+            this.btnOK = new FP_CLOCK.CustomButton();
+            this.button9 = new FP_CLOCK.CustomButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             this.listView1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(20, 139);
-            this.listView1.Margin = new System.Windows.Forms.Padding(4);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(1089, 391);
             this.listView1.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(979, 115);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(125, 20);
             this.checkBox1.TabIndex = 3;
@@ -86,22 +86,27 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // btnOK
+            // toolStrip1
             // 
-            this.btnOK.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnOK.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnOK.BorderRadius = 20;
-            this.btnOK.BorderSize = 0;
-            this.btnOK.FlatAppearance.BorderSize = 0;
-            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnOK.Location = new System.Drawing.Point(952, 537);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(150, 40);
-            this.btnOK.TabIndex = 3;
-            this.btnOK.Text = "Tamam";
-            this.btnOK.UseVisualStyleBackColor = false;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1123, 37);
+            this.toolStrip1.TabIndex = 6;
+            // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.helpButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
+            this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(96, 34);
+            this.helpButton.Text = "Yardım";
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // btnReadAllGLogData
             // 
@@ -120,6 +125,23 @@
             this.btnReadAllGLogData.UseVisualStyleBackColor = false;
             this.btnReadAllGLogData.Click += new System.EventHandler(this.btnReadAllGLogData_Click);
             // 
+            // btnOK
+            // 
+            this.btnOK.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnOK.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnOK.BorderRadius = 20;
+            this.btnOK.BorderSize = 0;
+            this.btnOK.FlatAppearance.BorderSize = 0;
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOK.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnOK.Location = new System.Drawing.Point(952, 537);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(150, 40);
+            this.btnOK.TabIndex = 3;
+            this.btnOK.Text = "Tamam";
+            this.btnOK.UseVisualStyleBackColor = false;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
             // button9
             // 
             this.button9.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -136,27 +158,6 @@
             this.button9.Text = "Diskteki Bütün Datayı Çek";
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.UDGLogRead_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1123, 37);
-            this.toolStrip1.TabIndex = 6;
-            // 
-            // helpButton
-            // 
-            this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.helpButton.Image = global::FP_CLOCK.Properties.Resources.question_icon;
-            this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(89, 34);
-            this.helpButton.Text = "Yardım";
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // LogManagement
             // 

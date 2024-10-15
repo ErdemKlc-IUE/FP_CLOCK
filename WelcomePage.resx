@@ -121,10 +121,10 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="customButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="settingsButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAADDZJREFUaEPVmg8o3Xsfx8+t29buurPd7tpa62rzTHfdLZ7RRPMvRMSJEJGjI+RE
+        DAAACwwBP0AiyAAADDZJREFUaEPVmg8o3Xsfx8+t29buurPd7tpa62rzTHfdLZ7RRPMvRMSJEJGjI+RE
         iBCxQ+eEiM7Eg+gIEfLv4eSEnCZErn6iWZNhTcjiNG2ZnnXfz+fz23Euz/Xsaffi3udT345+5/c7v9fn
         83t/Pt/P57dJfo+VlpbKSkpKUFxcjMLCQqjVapnpq/8PI3jD9PQ02EZHR6FSqQymr/76RlG3LC8vF+E3
         NjawuroqPgWlUmlpOuWvbUVFReV9fX1m+BcvXqCpqQm5ubnlplP+fHvy5IlWo9EYKdLlZWVl5sgSvIyi

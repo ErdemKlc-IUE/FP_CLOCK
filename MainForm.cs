@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FP_CLOCK;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -167,29 +168,29 @@ namespace FPClient
         }
 
 
-        private void MainForm_Load(object sender, EventArgs e)
+       /* private void MainForm_Load(object sender, EventArgs e)
         {
-            //AddOwnedForm(new SysInfo());
+            AddOwnedForm(new SysInfo());
 
-        }
+        }*/1
 
-//         ///重写窗体的消息处理函数DefWndProc，从中加入自己定义消息　MYMESSAGE　的检测的处理入口
-//         protected override void DefWndProc(ref Message m)
-//         {
-//             switch (m.Msg)
-//             {
-//                 //接收自定义消息MYMESSAGE，并显示其参数
-//                 case MYMESSAGE:
-//                     commonDefine.SENDDATASTRUCT myData = new commonDefine.SENDDATASTRUCT();//这是创建自定义信息的结构
-//                     Type mytype = myData.GetType();
-//                     myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);   
-//                     //textBox1.Text = myData.lpData; //显示收到的自定义信息
-//                     break;
-//                 default:
-//                     base.DefWndProc(ref m);
-//                     break;
-//             }
-//         }
+       /* ///重写窗体的消息处理函数DefWndProc，从中加入自己定义消息　MYMESSAGE　的检测的处理入口
+        protected override void DefWndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                //接收自定义消息MYMESSAGE，并显示其参数
+                case MYMESSAGE:
+                    commonDefine.SENDDATASTRUCT myData = new commonDefine.SENDDATASTRUCT();//这是创建自定义信息的结构
+                    Type mytype = myData.GetType();
+                    myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);
+                    //textBox1.Text = myData.lpData; //显示收到的自定义信息
+                    break;
+                default:
+                    base.DefWndProc(ref m);
+                    break;
+            }
+        }*/
 
         private void btnLogManagement_Click(object sender, EventArgs e)
         {
@@ -263,7 +264,10 @@ namespace FPClient
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(m_bDeviceOpened)
+            WelcomePage welcomePage = new WelcomePage();
+            welcomePage.Show();
+            this.Hide();
+            if (m_bDeviceOpened)
             {
                 axFP_CLOCK.CloseCommPort();
             }
