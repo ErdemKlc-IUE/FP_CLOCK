@@ -41,12 +41,16 @@ namespace FP_CLOCK
             this.passwordLabel = new System.Windows.Forms.Label();
             this.dNameLabel = new System.Windows.Forms.Label();
             this.saveButton = new FP_CLOCK.CustomButton();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.addButton = new FP_CLOCK.CustomButton();
+            this.editButton = new FP_CLOCK.CustomButton();
+            this.deleteButton = new FP_CLOCK.CustomButton();
             this.SuspendLayout();
             // 
             // ipTextBox
             // 
             this.ipTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ipTextBox.Location = new System.Drawing.Point(354, 72);
+            this.ipTextBox.Location = new System.Drawing.Point(775, 141);
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.Size = new System.Drawing.Size(150, 27);
             this.ipTextBox.TabIndex = 1;
@@ -54,7 +58,7 @@ namespace FP_CLOCK
             // portTextBox
             // 
             this.portTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.portTextBox.Location = new System.Drawing.Point(354, 118);
+            this.portTextBox.Location = new System.Drawing.Point(775, 187);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(150, 27);
             this.portTextBox.TabIndex = 2;
@@ -62,7 +66,7 @@ namespace FP_CLOCK
             // deviceNameTextBox
             // 
             this.deviceNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.deviceNameTextBox.Location = new System.Drawing.Point(354, 214);
+            this.deviceNameTextBox.Location = new System.Drawing.Point(775, 283);
             this.deviceNameTextBox.Name = "deviceNameTextBox";
             this.deviceNameTextBox.Size = new System.Drawing.Size(150, 27);
             this.deviceNameTextBox.TabIndex = 4;
@@ -70,7 +74,7 @@ namespace FP_CLOCK
             // pwTextBox
             // 
             this.pwTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.pwTextBox.Location = new System.Drawing.Point(354, 168);
+            this.pwTextBox.Location = new System.Drawing.Point(775, 237);
             this.pwTextBox.Name = "pwTextBox";
             this.pwTextBox.Size = new System.Drawing.Size(150, 27);
             this.pwTextBox.TabIndex = 5;
@@ -80,7 +84,7 @@ namespace FP_CLOCK
             this.ipLabel.AutoSize = true;
             this.ipLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ipLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ipLabel.Location = new System.Drawing.Point(218, 75);
+            this.ipLabel.Location = new System.Drawing.Point(639, 144);
             this.ipLabel.Name = "ipLabel";
             this.ipLabel.Size = new System.Drawing.Size(28, 22);
             this.ipLabel.TabIndex = 6;
@@ -91,7 +95,7 @@ namespace FP_CLOCK
             this.portLabel.AutoSize = true;
             this.portLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.portLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.portLabel.Location = new System.Drawing.Point(218, 121);
+            this.portLabel.Location = new System.Drawing.Point(639, 190);
             this.portLabel.Name = "portLabel";
             this.portLabel.Size = new System.Drawing.Size(46, 22);
             this.portLabel.TabIndex = 7;
@@ -102,7 +106,7 @@ namespace FP_CLOCK
             this.passwordLabel.AutoSize = true;
             this.passwordLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.passwordLabel.Location = new System.Drawing.Point(218, 171);
+            this.passwordLabel.Location = new System.Drawing.Point(639, 240);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(93, 22);
             this.passwordLabel.TabIndex = 7;
@@ -113,7 +117,7 @@ namespace FP_CLOCK
             this.dNameLabel.AutoSize = true;
             this.dNameLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.dNameLabel.Location = new System.Drawing.Point(218, 217);
+            this.dNameLabel.Location = new System.Drawing.Point(639, 286);
             this.dNameLabel.Name = "dNameLabel";
             this.dNameLabel.Size = new System.Drawing.Size(100, 22);
             this.dNameLabel.TabIndex = 7;
@@ -123,25 +127,91 @@ namespace FP_CLOCK
             // 
             this.saveButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.saveButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.saveButton.BorderRadius = 40;
+            this.saveButton.BorderRadius = 20;
             this.saveButton.BorderSize = 0;
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.saveButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.saveButton.Location = new System.Drawing.Point(417, 256);
+            this.saveButton.Location = new System.Drawing.Point(832, 450);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(87, 38);
+            this.saveButton.Size = new System.Drawing.Size(105, 45);
             this.saveButton.TabIndex = 0;
             this.saveButton.Text = "Kaydet";
             this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(26, 63);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(544, 367);
+            this.listView1.TabIndex = 8;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // addButton
+            // 
+            this.addButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.addButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.addButton.BorderRadius = 30;
+            this.addButton.BorderSize = 0;
+            this.addButton.FlatAppearance.BorderSize = 0;
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.addButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.addButton.Location = new System.Drawing.Point(840, 334);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(90, 35);
+            this.addButton.TabIndex = 9;
+            this.addButton.Text = "Ekle";
+            this.addButton.UseVisualStyleBackColor = false;
+            // 
+            // editButton
+            // 
+            this.editButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.editButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.editButton.BorderRadius = 30;
+            this.editButton.BorderSize = 0;
+            this.editButton.FlatAppearance.BorderSize = 0;
+            this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.editButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.editButton.Location = new System.Drawing.Point(749, 334);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(90, 35);
+            this.editButton.TabIndex = 10;
+            this.editButton.Text = "Düzenle";
+            this.editButton.UseVisualStyleBackColor = false;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.deleteButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.deleteButton.BorderRadius = 30;
+            this.deleteButton.BorderSize = 0;
+            this.deleteButton.FlatAppearance.BorderSize = 0;
+            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.deleteButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.deleteButton.Location = new System.Drawing.Point(658, 334);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(90, 35);
+            this.deleteButton.TabIndex = 11;
+            this.deleteButton.Text = "Sil";
+            this.deleteButton.UseVisualStyleBackColor = false;
             // 
             // SaveDevice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(701, 372);
+            this.ClientSize = new System.Drawing.Size(946, 504);
+            this.Controls.Add(this.deleteButton);
+            this.Controls.Add(this.editButton);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.dNameLabel);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.portLabel);
@@ -173,5 +243,9 @@ namespace FP_CLOCK
         private System.Windows.Forms.Label portLabel;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label dNameLabel;
+        private System.Windows.Forms.ListView listView1;
+        private CustomButton addButton;
+        private CustomButton editButton;
+        private CustomButton deleteButton;
     }
 }

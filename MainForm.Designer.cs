@@ -124,7 +124,7 @@ namespace FPClient
             this.btnSaveDevice.Size = new System.Drawing.Size(217, 50);
             this.btnSaveDevice.TabIndex = 3;
             this.btnSaveDevice.Text = "Save Device";
-            this.btnSaveDevice.UseVisualStyleBackColor = true;
+            this.btnSaveDevice.UseVisualStyleBackColor = false;
             this.btnSaveDevice.Click += new System.EventHandler(this.btnSaveDevice_Click);
             // 
             // btnEnrollMangement
@@ -163,7 +163,7 @@ namespace FPClient
             this.btnLogManagement.Size = new System.Drawing.Size(217, 50);
             this.btnLogManagement.TabIndex = 3;
             this.btnLogManagement.Text = "Log Data Management";
-            this.btnLogManagement.UseVisualStyleBackColor = true;
+            this.btnLogManagement.UseVisualStyleBackColor = false;
             this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
             // 
             // btnSysInfo
@@ -279,11 +279,11 @@ namespace FPClient
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictureBox1.BackgroundImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.InitialImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo1;
-            this.pictureBox1.Location = new System.Drawing.Point(7, 51);
+            this.pictureBox1.Location = new System.Drawing.Point(7, 44);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(771, 90);
             this.pictureBox1.TabIndex = 8;

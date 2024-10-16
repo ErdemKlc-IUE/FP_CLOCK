@@ -30,5 +30,11 @@ namespace FP_CLOCK
         {
             Owner.Visible = true;
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            // I want to save the device information here
+
+        }
     }
 }
