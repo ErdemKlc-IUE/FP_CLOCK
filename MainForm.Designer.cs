@@ -1,11 +1,15 @@
-﻿namespace FPClient
+﻿using System.Windows.Forms;
+
+namespace FPClient
 {
-    partial class MainForm : System.Windows.Forms.Form
+    partial class MainForm 
     {
         /// <summary>
         /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
+
 
         /// <summary>
         /// 清理所有正在使用的资源。
@@ -29,54 +33,33 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.btnOpenDev = new System.Windows.Forms.Button();
+            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
             this.cmbInterface = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.P2STimeOut = new System.Windows.Forms.TextBox();
-            this.P2SPort = new System.Windows.Forms.TextBox();
             this.textPassword = new System.Windows.Forms.TextBox();
             this.textPort = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cmbComPort = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnEnrollMangement = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDeviceInfo = new System.Windows.Forms.Button();
-            this.btnSetPassTime = new System.Windows.Forms.Button();
-            this.btnBellSetting = new System.Windows.Forms.Button();
-            this.btnLockCtrl = new System.Windows.Forms.Button();
-            this.btnSysInfo = new System.Windows.Forms.Button();
-            this.btnLogManagement = new System.Windows.Forms.Button();
-            this.cmbMachineNumber = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
             this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.btnSaveDevice = new FP_CLOCK.CustomButton();
+            this.btnEnrollMangement = new FP_CLOCK.CustomButton();
+            this.btnLogManagement = new FP_CLOCK.CustomButton();
+            this.btnSysInfo = new FP_CLOCK.CustomButton();
+            this.btnLockCtrl = new FP_CLOCK.CustomButton();
+            this.btnBellSetting = new FP_CLOCK.CustomButton();
+            this.btnSetPassTime = new FP_CLOCK.CustomButton();
+            this.btnDeviceInfo = new FP_CLOCK.CustomButton();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.helpButton = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnOpenDev
+            // axFP_CLOCK
             // 
-            this.btnOpenDev.Location = new System.Drawing.Point(272, 380);
-            this.btnOpenDev.Margin = new System.Windows.Forms.Padding(2);
-            this.btnOpenDev.Name = "btnOpenDev";
-            this.btnOpenDev.Size = new System.Drawing.Size(62, 21);
-            this.btnOpenDev.TabIndex = 0;
-            this.btnOpenDev.Text = "Open";
-            this.btnOpenDev.UseVisualStyleBackColor = true;
-            this.btnOpenDev.Click += new System.EventHandler(this.btnOpenDevice_Click);
+            this.axFP_CLOCK.Enabled = true;
+            this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
+            this.axFP_CLOCK.Name = "axFP_CLOCK";
+            this.axFP_CLOCK.TabIndex = 0;
             // 
             // cmbInterface
             // 
@@ -90,113 +73,9 @@
             this.cmbInterface.Location = new System.Drawing.Point(160, 30);
             this.cmbInterface.Margin = new System.Windows.Forms.Padding(2);
             this.cmbInterface.Name = "cmbInterface";
-            this.cmbInterface.Size = new System.Drawing.Size(102, 20);
+            this.cmbInterface.Size = new System.Drawing.Size(102, 24);
             this.cmbInterface.TabIndex = 1;
             this.cmbInterface.SelectedIndexChanged += new System.EventHandler(this.cmbInterface_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(53, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 12);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Set Interface";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.ipAddressControl1);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.P2STimeOut);
-            this.groupBox1.Controls.Add(this.P2SPort);
-            this.groupBox1.Controls.Add(this.textPassword);
-            this.groupBox1.Controls.Add(this.textPort);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.cmbComPort);
-            this.groupBox1.Controls.Add(this.cmbInterface);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(26, 26);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(322, 318);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Configuration";
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(6, 216);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 12);
-            this.label13.TabIndex = 0;
-            this.label13.Text = " P2S Cfg";
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(5, 102);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 12);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "NET Cfg";
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(5, 50);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(47, 12);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "COM Cfg";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(88, 283);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(47, 12);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "TimeOut";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(70, 242);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 12);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "ServerPort";
-            // 
-            // P2STimeOut
-            // 
-            this.P2STimeOut.Location = new System.Drawing.Point(158, 275);
-            this.P2STimeOut.Margin = new System.Windows.Forms.Padding(2);
-            this.P2STimeOut.Name = "P2STimeOut";
-            this.P2STimeOut.Size = new System.Drawing.Size(103, 21);
-            this.P2STimeOut.TabIndex = 9;
-            // 
-            // P2SPort
-            // 
-            this.P2SPort.Location = new System.Drawing.Point(158, 234);
-            this.P2SPort.Margin = new System.Windows.Forms.Padding(2);
-            this.P2SPort.Name = "P2SPort";
-            this.P2SPort.Size = new System.Drawing.Size(103, 21);
-            this.P2SPort.TabIndex = 9;
             // 
             // textPassword
             // 
@@ -204,7 +83,7 @@
             this.textPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textPassword.Name = "textPassword";
             this.textPassword.PasswordChar = '@';
-            this.textPassword.Size = new System.Drawing.Size(103, 21);
+            this.textPassword.Size = new System.Drawing.Size(103, 22);
             this.textPassword.TabIndex = 9;
             // 
             // textPort
@@ -212,226 +91,8 @@
             this.textPort.Location = new System.Drawing.Point(159, 149);
             this.textPort.Margin = new System.Windows.Forms.Padding(2);
             this.textPort.Name = "textPort";
-            this.textPort.Size = new System.Drawing.Size(103, 21);
+            this.textPort.Size = new System.Drawing.Size(103, 22);
             this.textPort.TabIndex = 8;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(95, 122);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "IPAddr";
-            // 
-            // label7
-            // 
-            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label7.Location = new System.Drawing.Point(0, 221);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(322, 2);
-            this.label7.TabIndex = 5;
-            // 
-            // label6
-            // 
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(1, 108);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(322, 2);
-            this.label6.TabIndex = 5;
-            // 
-            // label5
-            // 
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(-1, 51);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(322, 2);
-            this.label5.TabIndex = 5;
-            // 
-            // cmbComPort
-            // 
-            this.cmbComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComPort.FormattingEnabled = true;
-            this.cmbComPort.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.cmbComPort.Location = new System.Drawing.Point(160, 77);
-            this.cmbComPort.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbComPort.Name = "cmbComPort";
-            this.cmbComPort.Size = new System.Drawing.Size(102, 20);
-            this.cmbComPort.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(82, 179);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Password";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 154);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Port";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 79);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "COM Port";
-            // 
-            // btnEnrollMangement
-            // 
-            this.btnEnrollMangement.Location = new System.Drawing.Point(33, 36);
-            this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEnrollMangement.Name = "btnEnrollMangement";
-            this.btnEnrollMangement.Size = new System.Drawing.Size(166, 35);
-            this.btnEnrollMangement.TabIndex = 3;
-            this.btnEnrollMangement.Text = "Enroll Data Management";
-            this.btnEnrollMangement.UseVisualStyleBackColor = true;
-            this.btnEnrollMangement.Click += new System.EventHandler(this.btnEnrollManagement_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnDeviceInfo);
-            this.groupBox2.Controls.Add(this.btnSetPassTime);
-            this.groupBox2.Controls.Add(this.btnBellSetting);
-            this.groupBox2.Controls.Add(this.btnLockCtrl);
-            this.groupBox2.Controls.Add(this.btnSysInfo);
-            this.groupBox2.Controls.Add(this.btnLogManagement);
-            this.groupBox2.Controls.Add(this.btnEnrollMangement);
-            this.groupBox2.Location = new System.Drawing.Point(419, 26);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(225, 318);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Function Set";
-            // 
-            // btnDeviceInfo
-            // 
-            this.btnDeviceInfo.Location = new System.Drawing.Point(33, 276);
-            this.btnDeviceInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDeviceInfo.Name = "btnDeviceInfo";
-            this.btnDeviceInfo.Size = new System.Drawing.Size(166, 35);
-            this.btnDeviceInfo.TabIndex = 3;
-            this.btnDeviceInfo.Text = "Device Serial Number";
-            this.btnDeviceInfo.UseVisualStyleBackColor = true;
-            this.btnDeviceInfo.Click += new System.EventHandler(this.btnDeviceInfo_Click);
-            // 
-            // btnSetPassTime
-            // 
-            this.btnSetPassTime.Location = new System.Drawing.Point(33, 236);
-            this.btnSetPassTime.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSetPassTime.Name = "btnSetPassTime";
-            this.btnSetPassTime.Size = new System.Drawing.Size(166, 35);
-            this.btnSetPassTime.TabIndex = 3;
-            this.btnSetPassTime.Text = "Setting Pass Time";
-            this.btnSetPassTime.UseVisualStyleBackColor = true;
-            this.btnSetPassTime.Click += new System.EventHandler(this.btnSetPassTime_Click);
-            // 
-            // btnBellSetting
-            // 
-            this.btnBellSetting.Location = new System.Drawing.Point(33, 196);
-            this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBellSetting.Name = "btnBellSetting";
-            this.btnBellSetting.Size = new System.Drawing.Size(166, 35);
-            this.btnBellSetting.TabIndex = 3;
-            this.btnBellSetting.Text = "Bell Time Setting";
-            this.btnBellSetting.UseVisualStyleBackColor = true;
-            this.btnBellSetting.Click += new System.EventHandler(this.btnBellSetting_Click);
-            // 
-            // btnLockCtrl
-            // 
-            this.btnLockCtrl.Location = new System.Drawing.Point(33, 156);
-            this.btnLockCtrl.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLockCtrl.Name = "btnLockCtrl";
-            this.btnLockCtrl.Size = new System.Drawing.Size(166, 35);
-            this.btnLockCtrl.TabIndex = 3;
-            this.btnLockCtrl.Text = "Lock Control";
-            this.btnLockCtrl.UseVisualStyleBackColor = true;
-            this.btnLockCtrl.Click += new System.EventHandler(this.btnLockCtrl_Click);
-            // 
-            // btnSysInfo
-            // 
-            this.btnSysInfo.Location = new System.Drawing.Point(33, 116);
-            this.btnSysInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSysInfo.Name = "btnSysInfo";
-            this.btnSysInfo.Size = new System.Drawing.Size(166, 35);
-            this.btnSysInfo.TabIndex = 3;
-            this.btnSysInfo.Text = "System Info";
-            this.btnSysInfo.UseVisualStyleBackColor = true;
-            this.btnSysInfo.Click += new System.EventHandler(this.btnSysInfo_Click);
-            // 
-            // btnLogManagement
-            // 
-            this.btnLogManagement.Location = new System.Drawing.Point(33, 76);
-            this.btnLogManagement.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLogManagement.Name = "btnLogManagement";
-            this.btnLogManagement.Size = new System.Drawing.Size(166, 35);
-            this.btnLogManagement.TabIndex = 3;
-            this.btnLogManagement.Text = "Log Data Management";
-            this.btnLogManagement.UseVisualStyleBackColor = true;
-            this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
-            // 
-            // cmbMachineNumber
-            // 
-            this.cmbMachineNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMachineNumber.FormattingEnabled = true;
-            this.cmbMachineNumber.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cmbMachineNumber.Location = new System.Drawing.Point(187, 382);
-            this.cmbMachineNumber.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbMachineNumber.Name = "cmbMachineNumber";
-            this.cmbMachineNumber.Size = new System.Drawing.Size(54, 20);
-            this.cmbMachineNumber.TabIndex = 6;
-            this.cmbMachineNumber.SelectedIndexChanged += new System.EventHandler(this.cmbMachineNumber_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(73, 385);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 12);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "Machine Number";
-            // 
-            // axFP_CLOCK
-            // 
-            this.axFP_CLOCK.Enabled = true;
-            this.axFP_CLOCK.Location = new System.Drawing.Point(476, 382);
-            this.axFP_CLOCK.Name = "axFP_CLOCK";
-            this.axFP_CLOCK.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axFP_CLOCK.OcxState")));
-            this.axFP_CLOCK.Size = new System.Drawing.Size(100, 50);
-            this.axFP_CLOCK.TabIndex = 11;
-            this.axFP_CLOCK.Visible = false;
             // 
             // ipAddressControl1
             // 
@@ -440,37 +101,223 @@
             this.ipAddressControl1.BackColor = System.Drawing.SystemColors.Window;
             this.ipAddressControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ipAddressControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.ipAddressControl1.Location = new System.Drawing.Point(161, 112);
-            this.ipAddressControl1.MinimumSize = new System.Drawing.Size(93, 21);
+            this.ipAddressControl1.Location = new System.Drawing.Point(0, 0);
+            this.ipAddressControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ipAddressControl1.MinimumSize = new System.Drawing.Size(99, 22);
             this.ipAddressControl1.Name = "ipAddressControl1";
             this.ipAddressControl1.ReadOnly = false;
-            this.ipAddressControl1.Size = new System.Drawing.Size(100, 21);
-            this.ipAddressControl1.TabIndex = 11;
+            this.ipAddressControl1.Size = new System.Drawing.Size(99, 22);
+            this.ipAddressControl1.TabIndex = 0;
             this.ipAddressControl1.Text = "...";
+            // 
+            // btnSaveDevice
+            // 
+            this.btnSaveDevice.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSaveDevice.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSaveDevice.BorderRadius = 20;
+            this.btnSaveDevice.BorderSize = 0;
+            this.btnSaveDevice.FlatAppearance.BorderSize = 0;
+            this.btnSaveDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveDevice.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSaveDevice.Location = new System.Drawing.Point(276, 349);
+            this.btnSaveDevice.Name = "btnSaveDevice";
+            this.btnSaveDevice.Size = new System.Drawing.Size(217, 50);
+            this.btnSaveDevice.TabIndex = 3;
+            this.btnSaveDevice.Text = "Save Device";
+            this.btnSaveDevice.UseVisualStyleBackColor = true;
+            this.btnSaveDevice.Click += new System.EventHandler(this.btnSaveDevice_Click);
+            // 
+            // btnEnrollMangement
+            // 
+            this.btnEnrollMangement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnrollMangement.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnEnrollMangement.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnEnrollMangement.BorderRadius = 20;
+            this.btnEnrollMangement.BorderSize = 0;
+            this.btnEnrollMangement.FlatAppearance.BorderSize = 0;
+            this.btnEnrollMangement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnrollMangement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnEnrollMangement.Location = new System.Drawing.Point(7, 199);
+            this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEnrollMangement.Name = "btnEnrollMangement";
+            this.btnEnrollMangement.Size = new System.Drawing.Size(217, 50);
+            this.btnEnrollMangement.TabIndex = 3;
+            this.btnEnrollMangement.Text = "Enroll Data Management";
+            this.btnEnrollMangement.UseVisualStyleBackColor = true;
+            this.btnEnrollMangement.Click += new System.EventHandler(this.btnEnrollManagement_Click);
+            // 
+            // btnLogManagement
+            // 
+            this.btnLogManagement.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnLogManagement.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnLogManagement.BorderRadius = 20;
+            this.btnLogManagement.BorderSize = 0;
+            this.btnLogManagement.FlatAppearance.BorderSize = 0;
+            this.btnLogManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogManagement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnLogManagement.Location = new System.Drawing.Point(276, 199);
+            this.btnLogManagement.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogManagement.Name = "btnLogManagement";
+            this.btnLogManagement.Size = new System.Drawing.Size(217, 50);
+            this.btnLogManagement.TabIndex = 3;
+            this.btnLogManagement.Text = "Log Data Management";
+            this.btnLogManagement.UseVisualStyleBackColor = true;
+            this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
+            // 
+            // btnSysInfo
+            // 
+            this.btnSysInfo.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSysInfo.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSysInfo.BorderRadius = 20;
+            this.btnSysInfo.BorderSize = 0;
+            this.btnSysInfo.FlatAppearance.BorderSize = 0;
+            this.btnSysInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSysInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSysInfo.Location = new System.Drawing.Point(545, 199);
+            this.btnSysInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSysInfo.Name = "btnSysInfo";
+            this.btnSysInfo.Size = new System.Drawing.Size(217, 50);
+            this.btnSysInfo.TabIndex = 3;
+            this.btnSysInfo.Text = "System Info";
+            this.btnSysInfo.UseVisualStyleBackColor = true;
+            this.btnSysInfo.Click += new System.EventHandler(this.btnSysInfo_Click);
+            // 
+            // btnLockCtrl
+            // 
+            this.btnLockCtrl.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnLockCtrl.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnLockCtrl.BorderRadius = 20;
+            this.btnLockCtrl.BorderSize = 0;
+            this.btnLockCtrl.FlatAppearance.BorderSize = 0;
+            this.btnLockCtrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLockCtrl.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnLockCtrl.Location = new System.Drawing.Point(7, 274);
+            this.btnLockCtrl.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLockCtrl.Name = "btnLockCtrl";
+            this.btnLockCtrl.Size = new System.Drawing.Size(217, 50);
+            this.btnLockCtrl.TabIndex = 3;
+            this.btnLockCtrl.Text = "Lock Control";
+            this.btnLockCtrl.UseVisualStyleBackColor = true;
+            this.btnLockCtrl.Click += new System.EventHandler(this.btnLockCtrl_Click);
+            // 
+            // btnBellSetting
+            // 
+            this.btnBellSetting.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnBellSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnBellSetting.BorderRadius = 20;
+            this.btnBellSetting.BorderSize = 0;
+            this.btnBellSetting.FlatAppearance.BorderSize = 0;
+            this.btnBellSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBellSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnBellSetting.Location = new System.Drawing.Point(276, 274);
+            this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBellSetting.Name = "btnBellSetting";
+            this.btnBellSetting.Size = new System.Drawing.Size(217, 50);
+            this.btnBellSetting.TabIndex = 3;
+            this.btnBellSetting.Text = "Bell Time Setting";
+            this.btnBellSetting.UseVisualStyleBackColor = true;
+            this.btnBellSetting.Click += new System.EventHandler(this.btnBellSetting_Click);
+            // 
+            // btnSetPassTime
+            // 
+            this.btnSetPassTime.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetPassTime.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetPassTime.BorderRadius = 20;
+            this.btnSetPassTime.BorderSize = 0;
+            this.btnSetPassTime.FlatAppearance.BorderSize = 0;
+            this.btnSetPassTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetPassTime.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetPassTime.Location = new System.Drawing.Point(545, 274);
+            this.btnSetPassTime.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSetPassTime.Name = "btnSetPassTime";
+            this.btnSetPassTime.Size = new System.Drawing.Size(217, 50);
+            this.btnSetPassTime.TabIndex = 3;
+            this.btnSetPassTime.Text = "Setting Pass Time";
+            this.btnSetPassTime.UseVisualStyleBackColor = true;
+            this.btnSetPassTime.Click += new System.EventHandler(this.btnSetPassTime_Click);
+            // 
+            // btnDeviceInfo
+            // 
+            this.btnDeviceInfo.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDeviceInfo.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDeviceInfo.BorderRadius = 20;
+            this.btnDeviceInfo.BorderSize = 0;
+            this.btnDeviceInfo.FlatAppearance.BorderSize = 0;
+            this.btnDeviceInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeviceInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDeviceInfo.Location = new System.Drawing.Point(7, 349);
+            this.btnDeviceInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDeviceInfo.Name = "btnDeviceInfo";
+            this.btnDeviceInfo.Size = new System.Drawing.Size(217, 50);
+            this.btnDeviceInfo.TabIndex = 3;
+            this.btnDeviceInfo.Text = "Device Serial Number";
+            this.btnDeviceInfo.UseVisualStyleBackColor = true;
+            this.btnDeviceInfo.Click += new System.EventHandler(this.btnDeviceInfo_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(778, 37);
+            this.toolStrip1.TabIndex = 9;
+            // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.helpButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
+            this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(96, 34);
+            this.helpButton.Text = "Yardım";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pictureBox1.BackgroundImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.InitialImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo1;
+            this.pictureBox1.Location = new System.Drawing.Point(7, 51);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(771, 90);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.WaitOnLoad = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 434);
-            this.Controls.Add(this.axFP_CLOCK);
-            this.Controls.Add(this.cmbMachineNumber);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnOpenDev);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(778, 449);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnDeviceInfo);
+            this.Controls.Add(this.btnSetPassTime);
+            this.Controls.Add(this.btnBellSetting);
+            this.Controls.Add(this.btnEnrollMangement);
+            this.Controls.Add(this.btnLockCtrl);
+            this.Controls.Add(this.btnSaveDevice);
+            this.Controls.Add(this.btnSysInfo);
+            this.Controls.Add(this.btnLogManagement);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
-            // when ı close the form , welcome page will be opened
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            //this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,40 +325,23 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnOpenDev;
+        //private FP_CLOCK.CustomButton btnOpenDev;
         private System.Windows.Forms.ComboBox cmbInterface;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmbComPort;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnEnrollMangement;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+
         private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.TextBox textPort;
-        public  AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox P2STimeOut;
-        private System.Windows.Forms.TextBox P2SPort;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cmbMachineNumber;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnSetPassTime;
-        private System.Windows.Forms.Button btnBellSetting;
-        private System.Windows.Forms.Button btnLockCtrl;
-        private System.Windows.Forms.Button btnSysInfo;
-        private System.Windows.Forms.Button btnLogManagement;
-        private System.Windows.Forms.Button btnDeviceInfo;
         private IPAddressControlLib.IPAddressControl ipAddressControl1;
-        
+        private FP_CLOCK.CustomButton btnSaveDevice;
+        private FP_CLOCK.CustomButton btnEnrollMangement;
+        private FP_CLOCK.CustomButton btnLogManagement;
+        private FP_CLOCK.CustomButton btnSysInfo;
+        private FP_CLOCK.CustomButton btnLockCtrl;
+        private FP_CLOCK.CustomButton btnBellSetting;
+        private FP_CLOCK.CustomButton btnSetPassTime;
+        private FP_CLOCK.CustomButton btnDeviceInfo;
+        private ToolStrip toolStrip1;
+        private ToolStripButton helpButton;
+        private PictureBox pictureBox1;
     }
 }
 

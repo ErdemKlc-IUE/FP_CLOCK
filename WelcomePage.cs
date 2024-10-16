@@ -1,4 +1,5 @@
 ﻿using FPClient;
+using IPAddressControlLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,12 +24,6 @@ namespace FP_CLOCK
         public WelcomePage()
         {
             InitializeComponent();
-
-        }
-        public WelcomePage(AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK)
-        {
-            InitializeComponent();
-            this.axFP_CLOCK = axFP_CLOCK;
             listView1.GridLines = true;
             listView1.FullRowSelect = true;
             listView1.View = View.Details;
@@ -61,7 +56,7 @@ namespace FP_CLOCK
                     }
                 }*/
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void WelcomePage_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (m_bDeviceOpened)
             {
@@ -97,9 +92,9 @@ namespace FP_CLOCK
         private void customButton2_Click(object sender, EventArgs e)
         {
             // open MainForm but ı dont want to see WelcomePage
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-            this.Hide();
+            Visible = false;
+            this.AddOwnedForm(new MainForm(m_nCurSelID,ref axFP_CLOCK));
+            this.OwnedForms[0].Visible = true;
 
         }
 
@@ -131,6 +126,44 @@ namespace FP_CLOCK
 
             int nPort = Convert.ToInt32(5005);
 
+            /*bool bRet;
+
+            if (m_bDeviceOpened)
+            {
+                btnOpenDev.Text = "Open";
+                m_bDeviceOpened = false;
+
+                axFP_CLOCK.CloseCommPort();
+                return;
+            }
+
+            this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
+            int nPort = Convert.ToInt32(textPort.Text);
+            int nPassword = Convert.ToInt32(textPassword.Text);
+            string strIP = ipAddressControl1.IPAddress.ToString();
+            bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
+            if (!bRet)
+            {
+                return;
+            }
+
+            bRet = axFP_CLOCK.OpenCommPort(m_nCurSelID);
+            if (bRet)
+            {
+                m_bDeviceOpened = true;
+                btnOpenDev.Text = "Close";
+            }
+*/
+
+        }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\r\nAdres:\r\nPerpa Ticaret Merkezi A.Blok Kat:8 No:768 Şişli / İSTANBUL\r\n\n" +
+               "Telefon:\r(0212) 320 10 60 - 61\r\n\n" +
+               "E-Mail:\r\ninfo@enkateknoloji.com",
+               "İletişim Bilgileri",
+               MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

@@ -71,6 +71,7 @@
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(96, 34);
             this.helpButton.Text = "Yardım";
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // pictureBox1
             // 
@@ -167,7 +168,7 @@
             this.Name = "WelcomePage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WelcomePage_FormClosing);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

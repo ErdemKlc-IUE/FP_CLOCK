@@ -1,4 +1,6 @@
-﻿using FP_CLOCK;
+﻿using AxFP_CLOCKLib;
+using FP_CLOCK;
+using FP_CLOCKLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,83 +22,39 @@ namespace FPClient
         private int m_nCurSelID = 1;
         private bool m_bDeviceOpened = false;
 
+
+        private int m_nMachineNum;
+        private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
         public MainForm()
         {
             InitializeComponent();
+        }
+        public MainForm(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
+        {
+
+            InitializeComponent();
+            this.m_nMachineNum = nMachineNum;
+            this.pOcxObject = ptrObject;
 
 
             this.cmbInterface.SelectedIndex = 1;
-            this.cmbComPort.SelectedIndex = 0;
 
             this.ipAddressControl1.Text = "192.168.1.224";
             this.textPort.Text = "5005";
             textPassword.Text = "0";
-
-            P2SPort.Text = "0";
-            P2STimeOut.Text = "0";
-
-            this.cmbMachineNumber.SelectedIndex = 0;
         }
 
         private void cmbInterface_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            string selectedConenction = (string)comboBox.SelectedItem;
-            int resultIndex = -1;
-            resultIndex = comboBox.FindStringExact(selectedConenction);
-            
-            switch (resultIndex)
-            {
-                case 0: //COM
-                    {
-                        this.cmbComPort.Enabled = true;
+            //this.cmbComPort.Enabled = false;
 
-                        this.ipAddressControl1.Enabled = false;
-                        this.textPort.Enabled = false;
-                        this.textPassword.Enabled = false;
-
-                        this.P2SPort.Enabled = false;
-                        this.P2STimeOut.Enabled = false;
-                    }
-                    break;
-                case 1: //NET
-                    {
-                        this.cmbComPort.Enabled = false;
-
-                        this.ipAddressControl1.Enabled = true;
-                        this.textPort.Enabled = true;
-                        this.textPassword.Enabled = true;
-
-                        this.P2SPort.Enabled = false;
-                        this.P2STimeOut.Enabled = false;
-                        
-                    }
-                    break;
-                case 2: //P2S
-                    {
-                        this.cmbComPort.Enabled = false;
-
-                        this.ipAddressControl1.Enabled = false;
-                        this.textPort.Enabled = false;
-                        this.textPassword.Enabled = false;
-
-                        this.P2SPort.Enabled = true;
-                        this.P2STimeOut.Enabled = true;
-                    }
-                    break;
-                case 3:   //USB
-                    {
-                        this.cmbComPort.Enabled = false;
-
-                        this.ipAddressControl1.Enabled = false;
-                        this.textPort.Enabled = false;
-                        this.textPassword.Enabled = false;
-
-                        this.P2SPort.Enabled = false;
-                        this.P2STimeOut.Enabled = false;
-                    }
-                    break;
-            }
+            this.ipAddressControl1.Enabled = true;
+            this.textPort.Enabled = true;
+            this.textPassword.Enabled = true;
+            /*
+             * this.P2SPort.Enabled = false;
+             * this.P2STimeOut.Enabled = false;
+             */
         }
 
         private void cmbMachineNumber_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,7 +63,7 @@ namespace FPClient
             m_nCurSelID = comboBox.SelectedIndex + 1;
         }
 
-        private void btnOpenDevice_Click(object sender, EventArgs e)
+        /*private void btnOpenDevice_Click(object sender, EventArgs e)
         {
             bool bRet;
 
@@ -119,44 +77,13 @@ namespace FPClient
             }
 
             this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            int nConnecttype = this.cmbInterface.SelectedIndex;
-
-            switch(nConnecttype)
+            int nPort = Convert.ToInt32(textPort.Text);
+            int nPassword = Convert.ToInt32(textPassword.Text);
+            string strIP = ipAddressControl1.IPAddress.ToString();
+            bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
+            if (!bRet)
             {
-                case (int)CURDEVICETYPE.DEVICE_COM:
-                    {
-                        this.axFP_CLOCK.CommPort = this.cmbComPort.SelectedIndex + 1;
-                        axFP_CLOCK.Baudrate = 38400;
-
-                    }
-                    break;
-                case (int)CURDEVICETYPE.DEVICE_NET:
-                    {
-                        int nPort = Convert.ToInt32(textPort.Text);
-                        int nPassword = Convert.ToInt32(textPassword.Text);
-                        string strIP = ipAddressControl1.IPAddress.ToString();
-                        bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
-                        if(!bRet)
-                        {
-                            return;
-                        }
-
-                    }
-                    break;
-                case (int)CURDEVICETYPE.DEVICE_USB:
-                    {
-                        axFP_CLOCK.IsUSB = true;
-                       
-                    }
-                    break;
-                case (int)CURDEVICETYPE.DEVICE_P2S:
-                    {
-                        int nPort = Convert.ToInt32(P2SPort.Text);
-                        int nTimeOut = Convert.ToInt32(P2STimeOut.Text);
-
-                        axFP_CLOCK.SetServerPortandtick(nPort, nTimeOut);
-                    }
-                    break;
+                return;
             }
 
             bRet = axFP_CLOCK.OpenCommPort(m_nCurSelID);
@@ -165,32 +92,41 @@ namespace FPClient
                 m_bDeviceOpened = true;
                 btnOpenDev.Text = "Close";
             }
+        }*/
+
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            /*this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
+            //int nConnectType = (int)CURDEVICETYPE.DEVICE_NET;
+            int nPort = Convert.ToInt32(5005);
+            string strIP = "192.168.1.224";
+            int nPassword = 0;
+            bool bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
+            if (!bRet)
+            {
+                return;
+            }*/
+
         }
 
-
-       /* private void MainForm_Load(object sender, EventArgs e)
-        {
-            AddOwnedForm(new SysInfo());
-
-        }*/1
-
-       /* ///重写窗体的消息处理函数DefWndProc，从中加入自己定义消息　MYMESSAGE　的检测的处理入口
-        protected override void DefWndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                //接收自定义消息MYMESSAGE，并显示其参数
-                case MYMESSAGE:
-                    commonDefine.SENDDATASTRUCT myData = new commonDefine.SENDDATASTRUCT();//这是创建自定义信息的结构
-                    Type mytype = myData.GetType();
-                    myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);
-                    //textBox1.Text = myData.lpData; //显示收到的自定义信息
-                    break;
-                default:
-                    base.DefWndProc(ref m);
-                    break;
-            }
-        }*/
+        /* ///重写窗体的消息处理函数DefWndProc，从中加入自己定义消息　MYMESSAGE　的检测的处理入口
+         protected override void DefWndProc(ref Message m)
+         {
+             switch (m.Msg)
+             {
+                 //接收自定义消息MYMESSAGE，并显示其参数
+                 case MYMESSAGE:
+                     commonDefine.SENDDATASTRUCT myData = new commonDefine.SENDDATASTRUCT();//这是创建自定义信息的结构
+                     Type mytype = myData.GetType();
+                     myData = (commonDefine.SENDDATASTRUCT)m.GetLParam(mytype);
+                     //textBox1.Text = myData.lpData; //显示收到的自定义信息
+                     break;
+                 default:
+                     base.DefWndProc(ref m);
+                     break;
+             }
+         }*/
 
         private void btnLogManagement_Click(object sender, EventArgs e)
         {
@@ -264,19 +200,23 @@ namespace FPClient
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WelcomePage welcomePage = new WelcomePage();
-            welcomePage.Show();
-            this.Hide();
-            if (m_bDeviceOpened)
-            {
-                axFP_CLOCK.CloseCommPort();
-            }
+            Owner.Visible = true;
+           
         }
 
-//         public void GetDeivceObject( ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject, int nMechineNum)
-//         {
-//             ptrObject = axFP_CLOCK;    
-//         }
+        private void btnSaveDevice_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            this.AddOwnedForm(new SaveDevice(m_nCurSelID, ref axFP_CLOCK));
+            this.OwnedForms[0].Visible = true;
+        }
+
+        //         public void GetDeivceObject( ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject, int nMechineNum)
+        //         {
+        //             ptrObject = axFP_CLOCK;    
+        //         }
+
+
 
     }
 }

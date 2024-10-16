@@ -748,9 +748,6 @@ namespace FPClient
                 "E-Mail:\r\ninfo@enkateknoloji.com",
                 "İletişim Bilgileri",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-
         }
     }
 }
