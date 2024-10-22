@@ -61,7 +61,7 @@
             this.btnGetDoorStatus.Name = "btnGetDoorStatus";
             this.btnGetDoorStatus.Size = new System.Drawing.Size(125, 46);
             this.btnGetDoorStatus.TabIndex = 3;
-            this.btnGetDoorStatus.Text = "GetDoorStatus";
+            this.btnGetDoorStatus.Text = "Kapı Durumu";
             this.btnGetDoorStatus.UseVisualStyleBackColor = false;
             this.btnGetDoorStatus.Click += new System.EventHandler(this.btnGetDoorStatus_Click);
             // 
@@ -78,7 +78,7 @@
             this.btnDoorOpen.Name = "btnDoorOpen";
             this.btnDoorOpen.Size = new System.Drawing.Size(125, 25);
             this.btnDoorOpen.TabIndex = 3;
-            this.btnDoorOpen.Text = "Door Open";
+            this.btnDoorOpen.Text = "Kapı Aç";
             this.btnDoorOpen.UseVisualStyleBackColor = false;
             this.btnDoorOpen.Click += new System.EventHandler(this.btnDoorOpen_Click);
             // 
@@ -95,7 +95,7 @@
             this.btnUncondOpen.Name = "btnUncondOpen";
             this.btnUncondOpen.Size = new System.Drawing.Size(127, 25);
             this.btnUncondOpen.TabIndex = 3;
-            this.btnUncondOpen.Text = "Uncond Open";
+            this.btnUncondOpen.Text = "Koşulsuz Açık";
             this.btnUncondOpen.UseVisualStyleBackColor = false;
             this.btnUncondOpen.Click += new System.EventHandler(this.btnUncondOpen_Click);
             // 
@@ -112,7 +112,7 @@
             this.btnAutoRecover.Name = "btnAutoRecover";
             this.btnAutoRecover.Size = new System.Drawing.Size(125, 25);
             this.btnAutoRecover.TabIndex = 3;
-            this.btnAutoRecover.Text = "AutoRecover";
+            this.btnAutoRecover.Text = "Otomatik Kurtar";
             this.btnAutoRecover.UseVisualStyleBackColor = false;
             this.btnAutoRecover.Click += new System.EventHandler(this.btnAutoRecover_Click);
             // 
@@ -129,7 +129,7 @@
             this.btnReboot.Name = "btnReboot";
             this.btnReboot.Size = new System.Drawing.Size(125, 25);
             this.btnReboot.TabIndex = 3;
-            this.btnReboot.Text = "Reboot";
+            this.btnReboot.Text = "Yeniden Başlat";
             this.btnReboot.UseVisualStyleBackColor = false;
             this.btnReboot.Click += new System.EventHandler(this.btnReboot_Click);
             // 
@@ -146,7 +146,7 @@
             this.btnUncondClose.Name = "btnUncondClose";
             this.btnUncondClose.Size = new System.Drawing.Size(127, 25);
             this.btnUncondClose.TabIndex = 3;
-            this.btnUncondClose.Text = "Uncond Close";
+            this.btnUncondClose.Text = "Koşulsuz Kapalı";
             this.btnUncondClose.UseVisualStyleBackColor = false;
             this.btnUncondClose.Click += new System.EventHandler(this.btnUncondClose_Click);
             // 
@@ -163,7 +163,7 @@
             this.btnWarnCancel.Name = "btnWarnCancel";
             this.btnWarnCancel.Size = new System.Drawing.Size(127, 25);
             this.btnWarnCancel.TabIndex = 3;
-            this.btnWarnCancel.Text = "Warn Cancel";
+            this.btnWarnCancel.Text = "Uyarı İptal";
             this.btnWarnCancel.UseVisualStyleBackColor = false;
             this.btnWarnCancel.Click += new System.EventHandler(this.btnWarnCancel_Click);
             // 
@@ -184,7 +184,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "LockCtrl";
-            this.Text = "LockCtrl";
+            this.Text = "Kilit Kontrol";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockCtrl_FormClosed);
             this.ResumeLayout(false);
 

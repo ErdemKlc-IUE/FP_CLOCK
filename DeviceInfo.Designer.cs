@@ -44,7 +44,6 @@ namespace FPClient
             this.btnGetBackupNumber = new FP_CLOCK.CustomButton();
             this.btnGetProductCode = new FP_CLOCK.CustomButton();
             this.btnGetSerialNumber = new FP_CLOCK.CustomButton();
-            this.chatGPTButton1 = new ChatGPTButton();
             this.SuspendLayout();
             // 
             // labelInfo
@@ -92,18 +91,18 @@ namespace FPClient
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 112);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 16);
+            this.label5.Size = new System.Drawing.Size(92, 16);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Serial Number";
+            this.label5.Text = "Seri Numarası";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(10, 180);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 16);
+            this.label6.Size = new System.Drawing.Size(108, 16);
             this.label6.TabIndex = 1;
-            this.label6.Text = "Backup Number";
+            this.label6.Text = "Yedek Numarası";
             // 
             // label7
             // 
@@ -111,9 +110,9 @@ namespace FPClient
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label7.Location = new System.Drawing.Point(17, 253);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 16);
+            this.label7.Size = new System.Drawing.Size(69, 16);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Product Code";
+            this.label7.Text = "Ürün Kodu";
             // 
             // btnGetBackupNumber
             // 
@@ -128,7 +127,7 @@ namespace FPClient
             this.btnGetBackupNumber.Name = "btnGetBackupNumber";
             this.btnGetBackupNumber.Size = new System.Drawing.Size(150, 40);
             this.btnGetBackupNumber.TabIndex = 3;
-            this.btnGetBackupNumber.Text = "Backup Number";
+            this.btnGetBackupNumber.Text = "Yedek Numarası Al";
             this.btnGetBackupNumber.UseVisualStyleBackColor = false;
             this.btnGetBackupNumber.Click += new System.EventHandler(this.btnGetBackupNumber_Click);
             // 
@@ -145,7 +144,7 @@ namespace FPClient
             this.btnGetProductCode.Name = "btnGetProductCode";
             this.btnGetProductCode.Size = new System.Drawing.Size(150, 40);
             this.btnGetProductCode.TabIndex = 3;
-            this.btnGetProductCode.Text = "Product Code";
+            this.btnGetProductCode.Text = "Ürün Kodu Al";
             this.btnGetProductCode.UseVisualStyleBackColor = false;
             this.btnGetProductCode.Click += new System.EventHandler(this.btnGetProductCode_Click);
             // 
@@ -162,25 +161,9 @@ namespace FPClient
             this.btnGetSerialNumber.Name = "btnGetSerialNumber";
             this.btnGetSerialNumber.Size = new System.Drawing.Size(150, 40);
             this.btnGetSerialNumber.TabIndex = 3;
-            this.btnGetSerialNumber.Text = "Get Serial Number";
+            this.btnGetSerialNumber.Text = "Seri Numarası Al";
             this.btnGetSerialNumber.UseVisualStyleBackColor = false;
             this.btnGetSerialNumber.Click += new System.EventHandler(this.btnGetSerialNum_Click);
-            // 
-            // chatGPTButton1
-            // 
-            this.chatGPTButton1.BackColor = System.Drawing.Color.Transparent;
-            this.chatGPTButton1.BorderRadius = 10;
-            this.chatGPTButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chatGPTButton1.FlatAppearance.BorderSize = 0;
-            this.chatGPTButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chatGPTButton1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.chatGPTButton1.ForeColor = System.Drawing.Color.White;
-            this.chatGPTButton1.Location = new System.Drawing.Point(275, 136);
-            this.chatGPTButton1.Name = "chatGPTButton1";
-            this.chatGPTButton1.Size = new System.Drawing.Size(198, 68);
-            this.chatGPTButton1.TabIndex = 4;
-            this.chatGPTButton1.Text = "chatGPTButton1";
-            this.chatGPTButton1.UseVisualStyleBackColor = false;
             // 
             // DeviceInfo
             // 
@@ -188,7 +171,6 @@ namespace FPClient
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(758, 355);
-            this.Controls.Add(this.chatGPTButton1);
             this.Controls.Add(this.btnGetSerialNumber);
             this.Controls.Add(this.btnGetProductCode);
             this.Controls.Add(this.btnGetBackupNumber);
@@ -201,7 +183,7 @@ namespace FPClient
             this.Controls.Add(this.labelInfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "DeviceInfo";
-            this.Text = "DeviceInfo";
+            this.Text = "Cihaz Bilgi";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DeviceInfo_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -220,6 +202,5 @@ namespace FPClient
         private FP_CLOCK.CustomButton btnGetBackupNumber;
         private FP_CLOCK.CustomButton btnGetProductCode;
         private FP_CLOCK.CustomButton btnGetSerialNumber;
-        private ChatGPTButton chatGPTButton1;
     }
 }

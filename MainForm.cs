@@ -1,6 +1,4 @@
-﻿using AxFP_CLOCKLib;
-using FP_CLOCK;
-using FP_CLOCKLib;
+﻿using FP_CLOCK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.IO;  Stream ?
 
 namespace FPClient
 {
@@ -25,89 +24,45 @@ namespace FPClient
 
         private int m_nMachineNum;
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
+        WelcomePage welcomePage = new WelcomePage();
+        
         public MainForm()
         {
             InitializeComponent();
         }
         public MainForm(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
-
             InitializeComponent();
+            
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
 
 
-            this.cmbInterface.SelectedIndex = 1;
+            //this.cmbInterface.SelectedIndex = 1;
 
-            this.ipAddressControl1.Text = "192.168.1.224";
-            this.textPort.Text = "5005";
-            textPassword.Text = "0";
         }
 
-        private void cmbInterface_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //this.cmbComPort.Enabled = false;
+        //private void cmbInterface_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //this.cmbComPort.Enabled = false;
 
-            this.ipAddressControl1.Enabled = true;
-            this.textPort.Enabled = true;
-            this.textPassword.Enabled = true;
-            /*
-             * this.P2SPort.Enabled = false;
-             * this.P2STimeOut.Enabled = false;
-             */
-        }
+        //    //this.ipAddressControl1.Enabled = true;
+        //    this.textPort.Enabled = true;
+        //    this.textPassword.Enabled = true;
+        //    /*
+        //     * this.P2SPort.Enabled = false;
+        //     * this.P2STimeOut.Enabled = false;
+        //     */
+        //}
 
-        private void cmbMachineNumber_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)sender;
-            m_nCurSelID = comboBox.SelectedIndex + 1;
-        }
-
-        /*private void btnOpenDevice_Click(object sender, EventArgs e)
-        {
-            bool bRet;
-
-            if (m_bDeviceOpened)
-            {
-                btnOpenDev.Text = "Open";
-                m_bDeviceOpened = false;
-
-                axFP_CLOCK.CloseCommPort();
-                return;
-            }
-
-            this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            int nPort = Convert.ToInt32(textPort.Text);
-            int nPassword = Convert.ToInt32(textPassword.Text);
-            string strIP = ipAddressControl1.IPAddress.ToString();
-            bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
-            if (!bRet)
-            {
-                return;
-            }
-
-            bRet = axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            if(bRet)
-            {
-                m_bDeviceOpened = true;
-                btnOpenDev.Text = "Close";
-            }
-        }*/
-
+        //private void cmbMachineNumber_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    ComboBox comboBox = (ComboBox)sender;
+        //    m_nCurSelID = comboBox.SelectedIndex + 1;
+        //}
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            /*this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            //int nConnectType = (int)CURDEVICETYPE.DEVICE_NET;
-            int nPort = Convert.ToInt32(5005);
-            string strIP = "192.168.1.224";
-            int nPassword = 0;
-            bool bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, nPassword);
-            if (!bRet)
-            {
-                return;
-            }*/
-
         }
 
         /* ///重写窗体的消息处理函数DefWndProc，从中加入自己定义消息　MYMESSAGE　的检测的处理入口
@@ -131,8 +86,10 @@ namespace FPClient
         private void btnLogManagement_Click(object sender, EventArgs e)
         {
             Visible = false;
+            welcomePage.GetDeviceObject(ref pOcxObject);
 
-            this.AddOwnedForm(new LogManagement(m_nCurSelID, ref axFP_CLOCK));
+
+            this.AddOwnedForm(new LogManagement(m_nCurSelID, ref pOcxObject));
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
@@ -142,7 +99,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new LockCtrl(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new LockCtrl(m_nCurSelID, ref pOcxObject));
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
@@ -152,7 +109,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new bellTimeSetting(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new bellTimeSetting(m_nCurSelID, ref pOcxObject));
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
@@ -162,7 +119,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new SetPassTime(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new SetPassTime(m_nCurSelID, ref pOcxObject));
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
@@ -173,7 +130,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new SysInfo(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new SysInfo(m_nCurSelID, ref pOcxObject));
 
             this.OwnedForms[0].Visible = true;
 
@@ -184,7 +141,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new DeviceInfo(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new DeviceInfo(m_nCurSelID, ref pOcxObject));
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
@@ -194,7 +151,7 @@ namespace FPClient
         {
             Visible = false;
 
-            this.AddOwnedForm(new EnrollDataManagement(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new EnrollDataManagement(m_nCurSelID, ref pOcxObject));
             this.OwnedForms[0].Visible = true;
         }
 
@@ -207,7 +164,7 @@ namespace FPClient
         private void btnSaveDevice_Click(object sender, EventArgs e)
         {
             Visible = false;
-            this.AddOwnedForm(new SaveDevice(m_nCurSelID, ref axFP_CLOCK));
+            this.AddOwnedForm(new SaveDevice(m_nCurSelID, ref pOcxObject));
             this.OwnedForms[0].Visible = true;
         }
 
@@ -216,7 +173,20 @@ namespace FPClient
         //             ptrObject = axFP_CLOCK;    
         //         }
 
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\r\nAdres:\r\nPerpa Ticaret Merkezi A.Blok Kat:8 No:768 Şişli / İSTANBUL\r\n\n" +
+               "Telefon:\r(0212) 320 10 60 - 61\r\n\n" +
+               "E-Mail:\r\ninfo@enkateknoloji.com",
+               "İletişim Bilgileri",
+               MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            this.Owner.Visible = true;
+        }
 
     }
 }

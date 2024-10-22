@@ -91,7 +91,7 @@
             this.btnClearAllData.Name = "btnClearAllData";
             this.btnClearAllData.Size = new System.Drawing.Size(157, 51);
             this.btnClearAllData.TabIndex = 3;
-            this.btnClearAllData.Text = "Clear All Data(E,GL,SL) ";
+            this.btnClearAllData.Text = "Bütün Verileri Temizle(E,GL,SL) ";
             this.btnClearAllData.UseVisualStyleBackColor = false;
             this.btnClearAllData.Click += new System.EventHandler(this.btnClearAllData_Click);
             // 
@@ -108,7 +108,7 @@
             this.btnRmAllManager.Name = "btnRmAllManager";
             this.btnRmAllManager.Size = new System.Drawing.Size(143, 51);
             this.btnRmAllManager.TabIndex = 3;
-            this.btnRmAllManager.Text = "Benumb All Manager";
+            this.btnRmAllManager.Text = "Bütün Yönetici Sil";
             this.btnRmAllManager.UseVisualStyleBackColor = false;
             this.btnRmAllManager.Click += new System.EventHandler(this.btnRmAllManager_Click);
             // 
@@ -117,9 +117,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(37, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 16);
+            this.label2.Size = new System.Drawing.Size(71, 16);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Company Name:";
+            this.label2.Text = "Şirket İsmi:";
             // 
             // tbcompanyString
             // 
@@ -138,11 +138,11 @@
             this.btnSetCompanyString.FlatAppearance.BorderSize = 0;
             this.btnSetCompanyString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetCompanyString.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetCompanyString.Location = new System.Drawing.Point(517, 104);
+            this.btnSetCompanyString.Location = new System.Drawing.Point(463, 97);
             this.btnSetCompanyString.Name = "btnSetCompanyString";
-            this.btnSetCompanyString.Size = new System.Drawing.Size(101, 24);
+            this.btnSetCompanyString.Size = new System.Drawing.Size(139, 26);
             this.btnSetCompanyString.TabIndex = 3;
-            this.btnSetCompanyString.Text = "SetString";
+            this.btnSetCompanyString.Text = "Şirket İsmi Kaydet";
             this.btnSetCompanyString.UseVisualStyleBackColor = false;
             this.btnSetCompanyString.Click += new System.EventHandler(this.btnSetCompanyString_Click);
             // 
@@ -155,11 +155,11 @@
             this.btnDelCompanyString.FlatAppearance.BorderSize = 0;
             this.btnDelCompanyString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelCompanyString.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelCompanyString.Location = new System.Drawing.Point(716, 104);
+            this.btnDelCompanyString.Location = new System.Drawing.Point(611, 98);
             this.btnDelCompanyString.Name = "btnDelCompanyString";
             this.btnDelCompanyString.Size = new System.Drawing.Size(123, 24);
             this.btnDelCompanyString.TabIndex = 3;
-            this.btnDelCompanyString.Text = "Del String";
+            this.btnDelCompanyString.Text = "Şirket İsmi Sil";
             this.btnDelCompanyString.UseVisualStyleBackColor = false;
             this.btnDelCompanyString.Click += new System.EventHandler(this.btnDelCompanyString_Click);
             // 
@@ -184,27 +184,27 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(24, 180);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 16);
+            this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Enroll Num:";
+            this.label5.Text = "Kullanıcı No:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(24, 221);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 16);
+            this.label6.Size = new System.Drawing.Size(112, 16);
             this.label6.TabIndex = 2;
-            this.label6.Text = "EMechine Num:";
+            this.label6.Text = "Makine Numarası";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(24, 264);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 16);
+            this.label7.Size = new System.Drawing.Size(65, 16);
             this.label7.TabIndex = 2;
-            this.label7.Text = "BackupNum:";
+            this.label7.Text = "Kayıt Tipi:";
             // 
             // tbEnrollNum
             // 
@@ -263,27 +263,27 @@
             this.lable12.AutoSize = true;
             this.lable12.Location = new System.Drawing.Point(417, 180);
             this.lable12.Name = "lable12";
-            this.lable12.Size = new System.Drawing.Size(84, 16);
+            this.lable12.Size = new System.Drawing.Size(86, 16);
             this.lable12.TabIndex = 2;
-            this.lable12.Text = "Enroll Name:";
+            this.lable12.Text = "Kullanıcı İsim:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(417, 221);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 16);
+            this.label9.Size = new System.Drawing.Size(81, 16);
             this.label9.TabIndex = 2;
-            this.label9.Text = "Privilege:";
+            this.label9.Text = "Kullanıcı İzin:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(417, 264);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 16);
+            this.label11.Size = new System.Drawing.Size(94, 16);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Card Number:";
+            this.label11.Text = "Kart Numarası:";
             // 
             // tbCardNum
             // 
@@ -325,11 +325,11 @@
             this.btnGetUserName.FlatAppearance.BorderSize = 0;
             this.btnGetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetUserName.Location = new System.Drawing.Point(759, 176);
+            this.btnGetUserName.Location = new System.Drawing.Point(724, 180);
             this.btnGetUserName.Name = "btnGetUserName";
             this.btnGetUserName.Size = new System.Drawing.Size(123, 24);
             this.btnGetUserName.TabIndex = 3;
-            this.btnGetUserName.Text = "GetUserName";
+            this.btnGetUserName.Text = "Kullanıcı İsmi Al";
             this.btnGetUserName.UseVisualStyleBackColor = false;
             this.btnGetUserName.Click += new System.EventHandler(this.btnGetUserName_Click);
             // 
@@ -342,11 +342,11 @@
             this.btnSetUserName.FlatAppearance.BorderSize = 0;
             this.btnSetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetUserName.Location = new System.Drawing.Point(923, 176);
+            this.btnSetUserName.Location = new System.Drawing.Point(875, 180);
             this.btnSetUserName.Name = "btnSetUserName";
-            this.btnSetUserName.Size = new System.Drawing.Size(112, 24);
+            this.btnSetUserName.Size = new System.Drawing.Size(137, 24);
             this.btnSetUserName.TabIndex = 3;
-            this.btnSetUserName.Text = "SetUserName";
+            this.btnSetUserName.Text = "Kullanıcı İsmi Kaydet";
             this.btnSetUserName.UseVisualStyleBackColor = false;
             this.btnSetUserName.Click += new System.EventHandler(this.btnSetUserName_Click);
             // 
@@ -359,11 +359,11 @@
             this.btnModifyPrivilege.FlatAppearance.BorderSize = 0;
             this.btnModifyPrivilege.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModifyPrivilege.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnModifyPrivilege.Location = new System.Drawing.Point(923, 221);
+            this.btnModifyPrivilege.Location = new System.Drawing.Point(909, 221);
             this.btnModifyPrivilege.Name = "btnModifyPrivilege";
             this.btnModifyPrivilege.Size = new System.Drawing.Size(139, 43);
             this.btnModifyPrivilege.TabIndex = 3;
-            this.btnModifyPrivilege.Text = "ModifyPrivilege";
+            this.btnModifyPrivilege.Text = "İzin Güncelle";
             this.btnModifyPrivilege.UseVisualStyleBackColor = false;
             this.btnModifyPrivilege.Click += new System.EventHandler(this.btnModifyPrivilege_Click);
             // 
@@ -380,7 +380,7 @@
             this.btnGetEnroll.Name = "btnGetEnroll";
             this.btnGetEnroll.Size = new System.Drawing.Size(148, 43);
             this.btnGetEnroll.TabIndex = 3;
-            this.btnGetEnroll.Text = "Get Enroll Info";
+            this.btnGetEnroll.Text = "Cihazdan Kayıt Bilgi Al";
             this.btnGetEnroll.UseVisualStyleBackColor = false;
             this.btnGetEnroll.Click += new System.EventHandler(this.btnGetEnrollInfo_Click);
             // 
@@ -410,7 +410,7 @@
             this.btnSendAllEnrollData.Name = "btnSendAllEnrollData";
             this.btnSendAllEnrollData.Size = new System.Drawing.Size(123, 44);
             this.btnSendAllEnrollData.TabIndex = 3;
-            this.btnSendAllEnrollData.Text = "Send All Enroll Data";
+            this.btnSendAllEnrollData.Text = "Bütün Verileri Database Yolla";
             this.btnSendAllEnrollData.UseVisualStyleBackColor = false;
             this.btnSendAllEnrollData.Click += new System.EventHandler(this.btnSendAllEnrollData_Click);
             // 
@@ -427,7 +427,7 @@
             this.btnDelDBData.Name = "btnDelDBData";
             this.btnDelDBData.Size = new System.Drawing.Size(123, 41);
             this.btnDelDBData.TabIndex = 3;
-            this.btnDelDBData.Text = "Delete DB Data";
+            this.btnDelDBData.Text = "Database Temizle";
             this.btnDelDBData.UseVisualStyleBackColor = false;
             this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
             // 
@@ -444,7 +444,7 @@
             this.btnSetAllEnData.Name = "btnSetAllEnData";
             this.btnSetAllEnData.Size = new System.Drawing.Size(123, 45);
             this.btnSetAllEnData.TabIndex = 3;
-            this.btnSetAllEnData.Text = "Set All Enroll Data";
+            this.btnSetAllEnData.Text = "Bütün Verileri Kaydet";
             this.btnSetAllEnData.UseVisualStyleBackColor = false;
             this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
             // 
@@ -461,7 +461,7 @@
             this.btnGetAllEnData.Name = "btnGetAllEnData";
             this.btnGetAllEnData.Size = new System.Drawing.Size(123, 44);
             this.btnGetAllEnData.TabIndex = 3;
-            this.btnGetAllEnData.Text = "Get All Enroll Data";
+            this.btnGetAllEnData.Text = "Bütün Verileri Al";
             this.btnGetAllEnData.UseVisualStyleBackColor = false;
             this.btnGetAllEnData.Click += new System.EventHandler(this.btnGetAllEnData_Click);
             // 
@@ -478,7 +478,7 @@
             this.btnSetEnrollData.Name = "btnSetEnrollData";
             this.btnSetEnrollData.Size = new System.Drawing.Size(135, 51);
             this.btnSetEnrollData.TabIndex = 3;
-            this.btnSetEnrollData.Text = "SetEnrollData";
+            this.btnSetEnrollData.Text = "Cihaza Gönder";
             this.btnSetEnrollData.UseVisualStyleBackColor = false;
             this.btnSetEnrollData.Click += new System.EventHandler(this.btnSetEnrollData_Click);
             // 
@@ -495,7 +495,7 @@
             this.btnGetEnrollData.Name = "btnGetEnrollData";
             this.btnGetEnrollData.Size = new System.Drawing.Size(135, 51);
             this.btnGetEnrollData.TabIndex = 3;
-            this.btnGetEnrollData.Text = "GetEnrollData";
+            this.btnGetEnrollData.Text = "Cihazdan Al";
             this.btnGetEnrollData.UseVisualStyleBackColor = false;
             this.btnGetEnrollData.Click += new System.EventHandler(this.btnGetEnrollData_Click);
             // 
@@ -512,7 +512,7 @@
             this.btnDelEnData.Name = "btnDelEnData";
             this.btnDelEnData.Size = new System.Drawing.Size(135, 51);
             this.btnDelEnData.TabIndex = 3;
-            this.btnDelEnData.Text = "Delete Enroll Data";
+            this.btnDelEnData.Text = "Kullanıcı Veri Sil";
             this.btnDelEnData.UseVisualStyleBackColor = false;
             this.btnDelEnData.Click += new System.EventHandler(this.btnDelEnData_Click);
             // 
@@ -529,7 +529,7 @@
             this.btnUDiskDownLoad.Name = "btnUDiskDownLoad";
             this.btnUDiskDownLoad.Size = new System.Drawing.Size(135, 51);
             this.btnUDiskDownLoad.TabIndex = 3;
-            this.btnUDiskDownLoad.Text = "U disk Download";
+            this.btnUDiskDownLoad.Text = "USB Veri Al";
             this.btnUDiskDownLoad.UseVisualStyleBackColor = false;
             this.btnUDiskDownLoad.Click += new System.EventHandler(this.btnUDiskDownLoad_Click);
             // 
@@ -546,7 +546,7 @@
             this.btnUDiskUpload.Name = "btnUDiskUpload";
             this.btnUDiskUpload.Size = new System.Drawing.Size(135, 51);
             this.btnUDiskUpload.TabIndex = 3;
-            this.btnUDiskUpload.Text = "U disk Upload";
+            this.btnUDiskUpload.Text = "USB Veri Yolla";
             this.btnUDiskUpload.UseVisualStyleBackColor = false;
             this.btnUDiskUpload.Click += new System.EventHandler(this.btnUDiskUpload_Click);
             // 
@@ -563,7 +563,7 @@
             this.btnEmptyEnData.Name = "btnEmptyEnData";
             this.btnEmptyEnData.Size = new System.Drawing.Size(135, 51);
             this.btnEmptyEnData.TabIndex = 3;
-            this.btnEmptyEnData.Text = "Empty Enroll Data";
+            this.btnEmptyEnData.Text = "Bütün Kullanıcı Verileri Sİl";
             this.btnEmptyEnData.UseVisualStyleBackColor = false;
             this.btnEmptyEnData.Click += new System.EventHandler(this.btnEmptyEnData_Click);
             // 
@@ -582,7 +582,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1060, 795);
+            this.ClientSize = new System.Drawing.Size(1067, 795);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbPrivilege);
@@ -618,7 +618,7 @@
             this.Controls.Add(this.labelInfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "EnrollDataManagement";
-            this.Text = "EnrollDataManagement";
+            this.Text = "Kullanıcı Yönetim";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EnrollDataManagement_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

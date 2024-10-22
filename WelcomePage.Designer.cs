@@ -1,4 +1,6 @@
-﻿namespace FP_CLOCK
+﻿using AxFP_CLOCKLib;
+
+namespace FP_CLOCK
 {
     partial class WelcomePage
     {
@@ -6,6 +8,8 @@
         /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        public AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
+
 
         /// <summary>
         /// 清理所有正在使用的资源。
@@ -29,6 +33,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomePage));
+            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
+            this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
             this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
@@ -36,9 +42,36 @@
             this.quitButton = new FP_CLOCK.CustomButton();
             this.settingsButton = new FP_CLOCK.CustomButton();
             this.transferButton = new FP_CLOCK.CustomButton();
+            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // axFP_CLOCK
+            // 
+            this.axFP_CLOCK.Enabled = true;
+            this.axFP_CLOCK.Location = new System.Drawing.Point(476, 382);
+            this.axFP_CLOCK.Name = "axFP_CLOCK";
+            this.axFP_CLOCK.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axFP_CLOCK.OcxState")));
+            this.axFP_CLOCK.Size = new System.Drawing.Size(100, 50);
+            this.axFP_CLOCK.TabIndex = 11;
+            this.axFP_CLOCK.Visible = false;
+            // 
+            // ipAddressControl1
+            // 
+            this.ipAddressControl1.AllowInternalTab = false;
+            this.ipAddressControl1.AutoHeight = true;
+            this.ipAddressControl1.BackColor = System.Drawing.SystemColors.Window;
+            this.ipAddressControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ipAddressControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ipAddressControl1.Location = new System.Drawing.Point(0, 0);
+            this.ipAddressControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ipAddressControl1.MinimumSize = new System.Drawing.Size(99, 22);
+            this.ipAddressControl1.Name = "ipAddressControl1";
+            this.ipAddressControl1.ReadOnly = false;
+            this.ipAddressControl1.Size = new System.Drawing.Size(99, 22);
+            this.ipAddressControl1.TabIndex = 0;
+            this.ipAddressControl1.Text = "...";
             // 
             // listView1
             // 
@@ -46,7 +79,7 @@
             this.listView1.Location = new System.Drawing.Point(215, 167);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(665, 375);
-            this.listView1.TabIndex = 5;
+            this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -161,6 +194,7 @@
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.transferButton);
+            this.Controls.Add(this.axFP_CLOCK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(919, 695);
@@ -169,6 +203,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WelcomePage_FormClosing);
+            this.Load += new System.EventHandler(this.WelcomePage_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -178,7 +214,6 @@
         }
 
         #endregion
-        public  AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
         private CustomButton transferButton;
         private CustomButton settingsButton;
         private CustomButton quitButton;
@@ -186,5 +221,7 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton helpButton;
+        private IPAddressControlLib.IPAddressControl ipAddressControl1;
+
     }
 }

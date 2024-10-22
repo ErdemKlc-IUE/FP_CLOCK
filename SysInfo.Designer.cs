@@ -32,7 +32,7 @@
             this.btnGetDeviceTime = new FP_CLOCK.CustomButton();
             this.btnSetDeviceTime = new FP_CLOCK.CustomButton();
             this.btnPowerOnDev = new FP_CLOCK.CustomButton();
-            this.btnPowerOffDev = new   FP_CLOCK.CustomButton();
+            this.btnPowerOffDev = new FP_CLOCK.CustomButton();
             this.btnDisableDevice = new FP_CLOCK.CustomButton();
             this.btnOK = new FP_CLOCK.CustomButton();
             this.btnGetDevInfo = new FP_CLOCK.CustomButton();
@@ -69,7 +69,7 @@
             this.btnGetDeviceTime.Name = "btnGetDeviceTime";
             this.btnGetDeviceTime.Size = new System.Drawing.Size(156, 45);
             this.btnGetDeviceTime.TabIndex = 3;
-            this.btnGetDeviceTime.Text = "GetDeviceTime";
+            this.btnGetDeviceTime.Text = "Cihazdan Saat Al";
             this.btnGetDeviceTime.UseVisualStyleBackColor = false;
             this.btnGetDeviceTime.Click += new System.EventHandler(this.btnGetDeviceTime_Click);
             // 
@@ -86,7 +86,7 @@
             this.btnSetDeviceTime.Name = "btnSetDeviceTime";
             this.btnSetDeviceTime.Size = new System.Drawing.Size(156, 45);
             this.btnSetDeviceTime.TabIndex = 3;
-            this.btnSetDeviceTime.Text = "SetDeviceTime";
+            this.btnSetDeviceTime.Text = "Cihaz Saat Ayarla";
             this.btnSetDeviceTime.UseVisualStyleBackColor = false;
             this.btnSetDeviceTime.Click += new System.EventHandler(this.btnSetDeviceTime_Click);
             // 
@@ -103,7 +103,7 @@
             this.btnPowerOnDev.Name = "btnPowerOnDev";
             this.btnPowerOnDev.Size = new System.Drawing.Size(139, 45);
             this.btnPowerOnDev.TabIndex = 3;
-            this.btnPowerOnDev.Text = "PowerOnDevice";
+            this.btnPowerOnDev.Text = "Cihaz Aç";
             this.btnPowerOnDev.UseVisualStyleBackColor = false;
             this.btnPowerOnDev.Click += new System.EventHandler(this.btnPowerOnDev_Click);
             // 
@@ -120,7 +120,7 @@
             this.btnPowerOffDev.Name = "btnPowerOffDev";
             this.btnPowerOffDev.Size = new System.Drawing.Size(139, 45);
             this.btnPowerOffDev.TabIndex = 3;
-            this.btnPowerOffDev.Text = "PowerOffDevice";
+            this.btnPowerOffDev.Text = "Cihaz Kapat";
             this.btnPowerOffDev.UseVisualStyleBackColor = false;
             this.btnPowerOffDev.Click += new System.EventHandler(this.btnPowerOffDev_Click);
             // 
@@ -137,7 +137,7 @@
             this.btnDisableDevice.Name = "btnDisableDevice";
             this.btnDisableDevice.Size = new System.Drawing.Size(123, 45);
             this.btnDisableDevice.TabIndex = 3;
-            this.btnDisableDevice.Text = "DisableDevice";
+            this.btnDisableDevice.Text = "Bağlantıyı Kapat";
             this.btnDisableDevice.UseVisualStyleBackColor = false;
             this.btnDisableDevice.Click += new System.EventHandler(this.btnDisableDevice_Click);
             // 
@@ -154,7 +154,7 @@
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(139, 45);
             this.btnOK.TabIndex = 3;
-            this.btnOK.Text = "OK";
+            this.btnOK.Text = "Tamam";
             this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -171,7 +171,7 @@
             this.btnGetDevInfo.Name = "btnGetDevInfo";
             this.btnGetDevInfo.Size = new System.Drawing.Size(139, 45);
             this.btnGetDevInfo.TabIndex = 3;
-            this.btnGetDevInfo.Text = "GetDeviceInfo";
+            this.btnGetDevInfo.Text = "Cihaz Bilgi Al";
             this.btnGetDevInfo.UseVisualStyleBackColor = false;
             this.btnGetDevInfo.Click += new System.EventHandler(this.btnGetDevInfo_Click);
             // 
@@ -188,7 +188,7 @@
             this.btnSetDevInfo.Name = "btnSetDevInfo";
             this.btnSetDevInfo.Size = new System.Drawing.Size(139, 45);
             this.btnSetDevInfo.TabIndex = 3;
-            this.btnSetDevInfo.Text = "SetDeviceInfo";
+            this.btnSetDevInfo.Text = "Cihaz Bilgi Ayarla";
             this.btnSetDevInfo.UseVisualStyleBackColor = false;
             this.btnSetDevInfo.Click += new System.EventHandler(this.btnSetDevInfo_Click);
             // 
@@ -205,7 +205,7 @@
             this.btnGetDevStatus.Name = "btnGetDevStatus";
             this.btnGetDevStatus.Size = new System.Drawing.Size(139, 45);
             this.btnGetDevStatus.TabIndex = 3;
-            this.btnGetDevStatus.Text = "GetDeviceStatus";
+            this.btnGetDevStatus.Text = "Cihaz Durumu Al";
             this.btnGetDevStatus.UseVisualStyleBackColor = false;
             this.btnGetDevStatus.Click += new System.EventHandler(this.btnGetDevStatus_Click);
             // 
@@ -215,7 +215,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(135, 45);
             this.label1.TabIndex = 4;
-            this.label1.Text = "StatusParameter:  Info Parameter:";
+            this.label1.Text = "Durum Parametre:  Bilgi Parametrer:";
             // 
             // cmbItemList
             // 
@@ -243,9 +243,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(329, 241);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 16);
+            this.label2.Size = new System.Drawing.Size(93, 16);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Status Value:";
+            this.label2.Text = "Durum Değeri:";
             // 
             // textStatusInfo
             // 
@@ -297,7 +297,7 @@
             this.Controls.Add(this.labelInfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "SysInfo";
-            this.Text = "SysInfo";
+            this.Text = "Sistem Bilgi";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SysInfo_FormClosed);
             this.Load += new System.EventHandler(this.SysInfo_Load);
             this.ResumeLayout(false);

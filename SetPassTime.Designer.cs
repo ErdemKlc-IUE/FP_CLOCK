@@ -166,13 +166,13 @@
             this.groupBox1.Size = new System.Drawing.Size(432, 296);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Day Passtime";
+            this.groupBox1.Text = "Günlük Parametreler";
             // 
             // textStartTime_Hour5
             // 
             this.textStartTime_Hour5.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Hour5.Location = new System.Drawing.Point(168, 216);
-            this.textStartTime_Hour5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Hour5.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Hour5.Name = "textStartTime_Hour5";
             this.textStartTime_Hour5.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Hour5.TabIndex = 4;
@@ -182,7 +182,7 @@
             // 
             this.textStartTime_Minute5.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Minute5.Location = new System.Drawing.Point(229, 216);
-            this.textStartTime_Minute5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Minute5.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Minute5.Name = "textStartTime_Minute5";
             this.textStartTime_Minute5.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Minute5.TabIndex = 4;
@@ -192,7 +192,7 @@
             // 
             this.textStartTime_Hour4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Hour4.Location = new System.Drawing.Point(168, 180);
-            this.textStartTime_Hour4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Hour4.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Hour4.Name = "textStartTime_Hour4";
             this.textStartTime_Hour4.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Hour4.TabIndex = 4;
@@ -202,7 +202,7 @@
             // 
             this.textStartTime_Minute4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Minute4.Location = new System.Drawing.Point(229, 180);
-            this.textStartTime_Minute4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Minute4.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Minute4.Name = "textStartTime_Minute4";
             this.textStartTime_Minute4.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Minute4.TabIndex = 4;
@@ -212,7 +212,7 @@
             // 
             this.textStartTime_Hour3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Hour3.Location = new System.Drawing.Point(168, 144);
-            this.textStartTime_Hour3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Hour3.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Hour3.Name = "textStartTime_Hour3";
             this.textStartTime_Hour3.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Hour3.TabIndex = 4;
@@ -222,7 +222,7 @@
             // 
             this.textStartTime_Minute3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Minute3.Location = new System.Drawing.Point(229, 144);
-            this.textStartTime_Minute3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Minute3.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Minute3.Name = "textStartTime_Minute3";
             this.textStartTime_Minute3.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Minute3.TabIndex = 4;
@@ -232,7 +232,7 @@
             // 
             this.textEndTime_Hour5.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Hour5.Location = new System.Drawing.Point(311, 216);
-            this.textEndTime_Hour5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Hour5.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Hour5.Name = "textEndTime_Hour5";
             this.textEndTime_Hour5.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Hour5.TabIndex = 4;
@@ -242,7 +242,7 @@
             // 
             this.textStartTime_Hour2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Hour2.Location = new System.Drawing.Point(168, 108);
-            this.textStartTime_Hour2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Hour2.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Hour2.Name = "textStartTime_Hour2";
             this.textStartTime_Hour2.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Hour2.TabIndex = 4;
@@ -252,7 +252,7 @@
             // 
             this.textEndTime_Hour4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Hour4.Location = new System.Drawing.Point(311, 180);
-            this.textEndTime_Hour4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Hour4.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Hour4.Name = "textEndTime_Hour4";
             this.textEndTime_Hour4.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Hour4.TabIndex = 4;
@@ -262,7 +262,7 @@
             // 
             this.textStartTime_Minute2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Minute2.Location = new System.Drawing.Point(229, 108);
-            this.textStartTime_Minute2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Minute2.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Minute2.Name = "textStartTime_Minute2";
             this.textStartTime_Minute2.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Minute2.TabIndex = 4;
@@ -272,7 +272,7 @@
             // 
             this.textEndTime_Hour3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Hour3.Location = new System.Drawing.Point(311, 144);
-            this.textEndTime_Hour3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Hour3.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Hour3.Name = "textEndTime_Hour3";
             this.textEndTime_Hour3.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Hour3.TabIndex = 4;
@@ -282,7 +282,7 @@
             // 
             this.textEndTime_Minute5.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Minute5.Location = new System.Drawing.Point(372, 216);
-            this.textEndTime_Minute5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Minute5.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Minute5.Name = "textEndTime_Minute5";
             this.textEndTime_Minute5.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Minute5.TabIndex = 4;
@@ -292,7 +292,7 @@
             // 
             this.textStartTime_Hour1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Hour1.Location = new System.Drawing.Point(168, 72);
-            this.textStartTime_Hour1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Hour1.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Hour1.Name = "textStartTime_Hour1";
             this.textStartTime_Hour1.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Hour1.TabIndex = 4;
@@ -302,7 +302,7 @@
             // 
             this.textEndTime_Minute4.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Minute4.Location = new System.Drawing.Point(372, 180);
-            this.textEndTime_Minute4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Minute4.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Minute4.Name = "textEndTime_Minute4";
             this.textEndTime_Minute4.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Minute4.TabIndex = 4;
@@ -312,7 +312,7 @@
             // 
             this.textEndTime_Hour2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Hour2.Location = new System.Drawing.Point(311, 108);
-            this.textEndTime_Hour2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Hour2.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Hour2.Name = "textEndTime_Hour2";
             this.textEndTime_Hour2.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Hour2.TabIndex = 4;
@@ -322,7 +322,7 @@
             // 
             this.textEndTime_Minute3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Minute3.Location = new System.Drawing.Point(372, 144);
-            this.textEndTime_Minute3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Minute3.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Minute3.Name = "textEndTime_Minute3";
             this.textEndTime_Minute3.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Minute3.TabIndex = 4;
@@ -332,7 +332,7 @@
             // 
             this.textStartTime_Minute1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textStartTime_Minute1.Location = new System.Drawing.Point(229, 72);
-            this.textStartTime_Minute1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textStartTime_Minute1.Margin = new System.Windows.Forms.Padding(4);
             this.textStartTime_Minute1.Name = "textStartTime_Minute1";
             this.textStartTime_Minute1.Size = new System.Drawing.Size(36, 22);
             this.textStartTime_Minute1.TabIndex = 4;
@@ -352,7 +352,7 @@
             // 
             this.textEndTime_Minute2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Minute2.Location = new System.Drawing.Point(372, 108);
-            this.textEndTime_Minute2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Minute2.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Minute2.Name = "textEndTime_Minute2";
             this.textEndTime_Minute2.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Minute2.TabIndex = 4;
@@ -372,7 +372,7 @@
             // 
             this.textEndTime_Hour1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Hour1.Location = new System.Drawing.Point(311, 72);
-            this.textEndTime_Hour1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Hour1.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Hour1.Name = "textEndTime_Hour1";
             this.textEndTime_Hour1.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Hour1.TabIndex = 4;
@@ -402,7 +402,7 @@
             // 
             this.textEndTime_Minute1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textEndTime_Minute1.Location = new System.Drawing.Point(372, 72);
-            this.textEndTime_Minute1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEndTime_Minute1.Margin = new System.Windows.Forms.Padding(4);
             this.textEndTime_Minute1.Name = "textEndTime_Minute1";
             this.textEndTime_Minute1.Size = new System.Drawing.Size(36, 22);
             this.textEndTime_Minute1.TabIndex = 4;
@@ -444,9 +444,9 @@
             this.label10.Location = new System.Drawing.Point(315, 43);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(65, 16);
+            this.label10.Size = new System.Drawing.Size(80, 16);
             this.label10.TabIndex = 3;
-            this.label10.Text = "End Time";
+            this.label10.Text = "Bitiş Zamanı";
             // 
             // label23
             // 
@@ -524,9 +524,9 @@
             this.label11.Location = new System.Drawing.Point(175, 45);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 16);
+            this.label11.Size = new System.Drawing.Size(115, 16);
             this.label11.TabIndex = 3;
-            this.label11.Text = "Start Time";
+            this.label11.Text = "Başlangıç Zamanı";
             // 
             // label9
             // 
@@ -548,11 +548,11 @@
             this.btnPasstimeReadSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPasstimeReadSet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnPasstimeReadSet.Location = new System.Drawing.Point(11, 116);
-            this.btnPasstimeReadSet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPasstimeReadSet.Margin = new System.Windows.Forms.Padding(4);
             this.btnPasstimeReadSet.Name = "btnPasstimeReadSet";
             this.btnPasstimeReadSet.Size = new System.Drawing.Size(100, 31);
             this.btnPasstimeReadSet.TabIndex = 3;
-            this.btnPasstimeReadSet.Text = "ReadSet";
+            this.btnPasstimeReadSet.Text = "Cihazdan Oku";
             this.btnPasstimeReadSet.UseVisualStyleBackColor = false;
             this.btnPasstimeReadSet.Click += new System.EventHandler(this.btnPasstimeReadSet_Click);
             // 
@@ -566,11 +566,11 @@
             this.btnPasstimeWriteSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPasstimeWriteSet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnPasstimeWriteSet.Location = new System.Drawing.Point(11, 203);
-            this.btnPasstimeWriteSet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPasstimeWriteSet.Margin = new System.Windows.Forms.Padding(4);
             this.btnPasstimeWriteSet.Name = "btnPasstimeWriteSet";
             this.btnPasstimeWriteSet.Size = new System.Drawing.Size(100, 31);
             this.btnPasstimeWriteSet.TabIndex = 3;
-            this.btnPasstimeWriteSet.Text = "WriteSet";
+            this.btnPasstimeWriteSet.Text = "Cihaza Yaz";
             this.btnPasstimeWriteSet.UseVisualStyleBackColor = false;
             this.btnPasstimeWriteSet.Click += new System.EventHandler(this.btnPasstimeWriteSet_Click);
             // 
@@ -588,7 +588,7 @@
             "7",
             "8"});
             this.cmbPasstimeDayList.Location = new System.Drawing.Point(71, 40);
-            this.cmbPasstimeDayList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbPasstimeDayList.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPasstimeDayList.Name = "cmbPasstimeDayList";
             this.cmbPasstimeDayList.Size = new System.Drawing.Size(56, 24);
             this.cmbPasstimeDayList.TabIndex = 1;
@@ -599,9 +599,9 @@
             this.label8.Location = new System.Drawing.Point(8, 44);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 16);
+            this.label8.Size = new System.Drawing.Size(31, 16);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Day";
+            this.label8.Text = "Gün";
             // 
             // groupBox2
             // 
@@ -628,7 +628,7 @@
             this.groupBox2.Size = new System.Drawing.Size(467, 296);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Week Passtime";
+            this.groupBox2.Text = "Haftalık Parametreler";
             // 
             // btnWeekWriteSet
             // 
@@ -640,11 +640,11 @@
             this.btnWeekWriteSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWeekWriteSet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnWeekWriteSet.Location = new System.Drawing.Point(249, 227);
-            this.btnWeekWriteSet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWeekWriteSet.Margin = new System.Windows.Forms.Padding(4);
             this.btnWeekWriteSet.Name = "btnWeekWriteSet";
             this.btnWeekWriteSet.Size = new System.Drawing.Size(100, 31);
             this.btnWeekWriteSet.TabIndex = 3;
-            this.btnWeekWriteSet.Text = "WriteSet";
+            this.btnWeekWriteSet.Text = "Cihaza Yaz";
             this.btnWeekWriteSet.UseVisualStyleBackColor = false;
             this.btnWeekWriteSet.Click += new System.EventHandler(this.btnWeekWriteSet_Click);
             // 
@@ -658,11 +658,11 @@
             this.btnWeekReadSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWeekReadSet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnWeekReadSet.Location = new System.Drawing.Point(48, 227);
-            this.btnWeekReadSet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWeekReadSet.Margin = new System.Windows.Forms.Padding(4);
             this.btnWeekReadSet.Name = "btnWeekReadSet";
             this.btnWeekReadSet.Size = new System.Drawing.Size(100, 31);
             this.btnWeekReadSet.TabIndex = 3;
-            this.btnWeekReadSet.Text = "ReadSet";
+            this.btnWeekReadSet.Text = "Cihazdan Oku";
             this.btnWeekReadSet.UseVisualStyleBackColor = false;
             this.btnWeekReadSet.Click += new System.EventHandler(this.btnWeekReadSet_Click);
             // 
@@ -670,7 +670,7 @@
             // 
             this.textSataday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textSataday.Location = new System.Drawing.Point(429, 129);
-            this.textSataday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textSataday.Margin = new System.Windows.Forms.Padding(4);
             this.textSataday.Name = "textSataday";
             this.textSataday.Size = new System.Drawing.Size(36, 22);
             this.textSataday.TabIndex = 2;
@@ -679,7 +679,7 @@
             // 
             this.textFriday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textFriday.Location = new System.Drawing.Point(369, 129);
-            this.textFriday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textFriday.Margin = new System.Windows.Forms.Padding(4);
             this.textFriday.Name = "textFriday";
             this.textFriday.Size = new System.Drawing.Size(36, 22);
             this.textFriday.TabIndex = 2;
@@ -688,7 +688,7 @@
             // 
             this.textThursday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textThursday.Location = new System.Drawing.Point(297, 129);
-            this.textThursday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textThursday.Margin = new System.Windows.Forms.Padding(4);
             this.textThursday.Name = "textThursday";
             this.textThursday.Size = new System.Drawing.Size(36, 22);
             this.textThursday.TabIndex = 2;
@@ -697,7 +697,7 @@
             // 
             this.textWednesday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textWednesday.Location = new System.Drawing.Point(225, 129);
-            this.textWednesday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textWednesday.Margin = new System.Windows.Forms.Padding(4);
             this.textWednesday.Name = "textWednesday";
             this.textWednesday.Size = new System.Drawing.Size(36, 22);
             this.textWednesday.TabIndex = 2;
@@ -706,7 +706,7 @@
             // 
             this.textTuesday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textTuesday.Location = new System.Drawing.Point(153, 129);
-            this.textTuesday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textTuesday.Margin = new System.Windows.Forms.Padding(4);
             this.textTuesday.Name = "textTuesday";
             this.textTuesday.Size = new System.Drawing.Size(36, 22);
             this.textTuesday.TabIndex = 2;
@@ -715,7 +715,7 @@
             // 
             this.textMonday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textMonday.Location = new System.Drawing.Point(81, 129);
-            this.textMonday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textMonday.Margin = new System.Windows.Forms.Padding(4);
             this.textMonday.Name = "textMonday";
             this.textMonday.Size = new System.Drawing.Size(36, 22);
             this.textMonday.TabIndex = 2;
@@ -724,7 +724,7 @@
             // 
             this.textSunday.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.textSunday.Location = new System.Drawing.Point(9, 129);
-            this.textSunday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textSunday.Margin = new System.Windows.Forms.Padding(4);
             this.textSunday.Name = "textSunday";
             this.textSunday.Size = new System.Drawing.Size(36, 22);
             this.textSunday.TabIndex = 2;
@@ -744,7 +744,7 @@
             "7",
             "8"});
             this.cmbWeekList.Location = new System.Drawing.Point(140, 51);
-            this.cmbWeekList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbWeekList.Margin = new System.Windows.Forms.Padding(4);
             this.cmbWeekList.Name = "cmbWeekList";
             this.cmbWeekList.Size = new System.Drawing.Size(65, 24);
             this.cmbWeekList.TabIndex = 1;
@@ -755,49 +755,49 @@
             this.label27.Location = new System.Drawing.Point(69, 55);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(49, 16);
+            this.label27.Size = new System.Drawing.Size(42, 16);
             this.label27.TabIndex = 0;
-            this.label27.Text = "WEEK:";
+            this.label27.Text = "Hafta:";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(427, 108);
+            this.label33.Location = new System.Drawing.Point(405, 108);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(34, 16);
+            this.label33.Size = new System.Drawing.Size(67, 16);
             this.label33.TabIndex = 0;
-            this.label33.Text = "SAT";
+            this.label33.Text = "Cumartesi";
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(367, 108);
+            this.label32.Location = new System.Drawing.Point(356, 108);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(28, 16);
+            this.label32.Size = new System.Drawing.Size(42, 16);
             this.label32.TabIndex = 0;
-            this.label32.Text = "FRI";
+            this.label32.Text = "Cuma";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(295, 109);
+            this.label31.Location = new System.Drawing.Point(279, 109);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(36, 16);
+            this.label31.Size = new System.Drawing.Size(70, 16);
             this.label31.TabIndex = 0;
-            this.label31.Text = "THU";
+            this.label31.Text = "Perşembe";
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(223, 108);
+            this.label30.Location = new System.Drawing.Point(201, 108);
             this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(39, 16);
+            this.label30.Size = new System.Drawing.Size(70, 16);
             this.label30.TabIndex = 0;
-            this.label30.Text = "WEN";
+            this.label30.Text = "Çarşamba";
             // 
             // label29
             // 
@@ -805,19 +805,19 @@
             this.label29.Location = new System.Drawing.Point(151, 108);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(35, 16);
+            this.label29.Size = new System.Drawing.Size(30, 16);
             this.label29.TabIndex = 0;
-            this.label29.Text = "TUE";
+            this.label29.Text = "Salı";
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(88, 108);
+            this.label28.Location = new System.Drawing.Point(63, 108);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(38, 16);
+            this.label28.Size = new System.Drawing.Size(63, 16);
             this.label28.TabIndex = 0;
-            this.label28.Text = "MON";
+            this.label28.Text = "Pazartesi";
             // 
             // label26
             // 
@@ -825,9 +825,9 @@
             this.label26.Location = new System.Drawing.Point(7, 108);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(30, 16);
+            this.label26.Size = new System.Drawing.Size(42, 16);
             this.label26.TabIndex = 0;
-            this.label26.Text = "Sun";
+            this.label26.Text = "Pazar";
             // 
             // groupBox3
             // 
@@ -842,7 +842,7 @@
             this.groupBox3.Size = new System.Drawing.Size(432, 296);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Lock Group";
+            this.groupBox3.Text = "Kilit Grup";
             // 
             // textGroupValue
             // 
@@ -875,18 +875,18 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(43, 169);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 16);
+            this.label7.Size = new System.Drawing.Size(39, 16);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Group:";
+            this.label7.Text = "Grup:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(59, 83);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 16);
+            this.label6.Size = new System.Drawing.Size(34, 16);
             this.label6.TabIndex = 0;
-            this.label6.Text = "DAY:";
+            this.label6.Text = "Gün:";
             // 
             // btnLockGroupWriteSet
             // 
@@ -901,7 +901,7 @@
             this.btnLockGroupWriteSet.Name = "btnLockGroupWriteSet";
             this.btnLockGroupWriteSet.Size = new System.Drawing.Size(107, 24);
             this.btnLockGroupWriteSet.TabIndex = 3;
-            this.btnLockGroupWriteSet.Text = "Write Set";
+            this.btnLockGroupWriteSet.Text = "Cihaza Yaz";
             this.btnLockGroupWriteSet.UseVisualStyleBackColor = false;
             this.btnLockGroupWriteSet.Click += new System.EventHandler(this.btnWriteSet_Click);
             // 
@@ -918,7 +918,7 @@
             this.btnLockGroupReadSet.Name = "btnLockGroupReadSet";
             this.btnLockGroupReadSet.Size = new System.Drawing.Size(107, 24);
             this.btnLockGroupReadSet.TabIndex = 3;
-            this.btnLockGroupReadSet.Text = "Read Set";
+            this.btnLockGroupReadSet.Text = "Cihazdan Oku";
             this.btnLockGroupReadSet.UseVisualStyleBackColor = false;
             this.btnLockGroupReadSet.Click += new System.EventHandler(this.btnReadSet_Click);
             // 
@@ -943,7 +943,7 @@
             this.groupBox4.Size = new System.Drawing.Size(467, 296);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "User access Info";
+            this.groupBox4.Text = "Kullanıcı Giriş Bilgi";
             // 
             // dateStartTPicker
             // 
@@ -975,7 +975,7 @@
             this.btnClearAllUserCtrl.Name = "btnClearAllUserCtrl";
             this.btnClearAllUserCtrl.Size = new System.Drawing.Size(123, 68);
             this.btnClearAllUserCtrl.TabIndex = 3;
-            this.btnClearAllUserCtrl.Text = "Clear All UserCtrl";
+            this.btnClearAllUserCtrl.Text = "Hepsini Sil";
             this.btnClearAllUserCtrl.UseVisualStyleBackColor = false;
             this.btnClearAllUserCtrl.Click += new System.EventHandler(this.btnClearAllUserCtrl_Click);
             // 
@@ -992,7 +992,7 @@
             this.btnDelUserCtrl.Name = "btnDelUserCtrl";
             this.btnDelUserCtrl.Size = new System.Drawing.Size(123, 24);
             this.btnDelUserCtrl.TabIndex = 3;
-            this.btnDelUserCtrl.Text = "Del UserCtrl";
+            this.btnDelUserCtrl.Text = "Kullanıcı Kontrol Sil";
             this.btnDelUserCtrl.UseVisualStyleBackColor = false;
             this.btnDelUserCtrl.Click += new System.EventHandler(this.btnDelUserCtrl_Click);
             // 
@@ -1009,7 +1009,7 @@
             this.btnSetUserCtrl.Name = "btnSetUserCtrl";
             this.btnSetUserCtrl.Size = new System.Drawing.Size(123, 24);
             this.btnSetUserCtrl.TabIndex = 3;
-            this.btnSetUserCtrl.Text = "Set UserCtrl";
+            this.btnSetUserCtrl.Text = "Kullanıcı Kontrol Ayarla";
             this.btnSetUserCtrl.UseVisualStyleBackColor = false;
             this.btnSetUserCtrl.Click += new System.EventHandler(this.btnSetUserCtrl_Click);
             // 
@@ -1026,7 +1026,7 @@
             this.btnGetUserCtrl.Name = "btnGetUserCtrl";
             this.btnGetUserCtrl.Size = new System.Drawing.Size(123, 28);
             this.btnGetUserCtrl.TabIndex = 3;
-            this.btnGetUserCtrl.Text = "Get UserCtrl";
+            this.btnGetUserCtrl.Text = "Kullanıcı Kontrol Al";
             this.btnGetUserCtrl.UseVisualStyleBackColor = false;
             this.btnGetUserCtrl.Click += new System.EventHandler(this.btnGetUserCtrl_Click);
             // 
@@ -1062,45 +1062,45 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(45, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
+            this.label3.Size = new System.Drawing.Size(103, 16);
             this.label3.TabIndex = 0;
-            this.label3.Text = "WEEK ID:";
+            this.label3.Text = "Hafta Numarası:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(37, 243);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 16);
+            this.label5.Size = new System.Drawing.Size(72, 16);
             this.label5.TabIndex = 0;
-            this.label5.Text = "End date:";
+            this.label5.Text = "Bitiş Tarihi:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(21, 195);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 16);
+            this.label4.Size = new System.Drawing.Size(107, 16);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Start date:";
+            this.label4.Text = "Başlangıç Tarihi:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(37, 141);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 16);
+            this.label2.Size = new System.Drawing.Size(100, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "GROUP ID:";
+            this.label2.Text = "Grup Numarası:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(45, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
+            this.label1.Size = new System.Drawing.Size(120, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "USER ID:";
+            this.label1.Text = "Kullanıcı Numarası:";
             // 
             // labelInfo
             // 
@@ -1127,7 +1127,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "SetPassTime";
-            this.Text = "SetPassTime";
+            this.Text = "Parametre Ayarları";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SetPassTime_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -34,17 +34,14 @@ namespace FPClient
             listView1.GridLines = true;
 
             checkBox1.Checked = true;
-            //checkBox1.CheckState = CheckState.Indeterminate;
-            //checkBox1.CheckAlign = ContentAlignment.TopLeft;
         }
 
         private void LogManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Owner.Visible = true;
-
         }
 
-        private void btnReadGLogData_Click(object sender, EventArgs e)
+        /*private void btnReadGLogData_Click(object sender, EventArgs e)
         {
             InitGLogListView();
 
@@ -125,7 +122,7 @@ namespace FPClient
             labelTotal.Text = i.ToString("Total Read 0");
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
-        }
+        }*/
 
         private void InitGLogListView()
         {
@@ -140,7 +137,7 @@ namespace FPClient
             listView1.Columns.Add("Time", 130, HorizontalAlignment.Left);
 
         }
-        private void btnEmptyGLogData_Click(object sender, EventArgs e)
+        /*private void btnEmptyGLogData_Click(object sender, EventArgs e)
         {
             bool bRet;
 
@@ -158,9 +155,9 @@ namespace FPClient
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
-        }
+        }*/
 
-        private void btnReadAllGLogData_Click(object sender, EventArgs e)
+        public void btnReadAllGLogData_Click(object sender, EventArgs e)
         {
             InitGLogListView();
 
@@ -253,6 +250,7 @@ namespace FPClient
                 sb.AppendLine(strArray);
             }
 
+
             // Dosya yolu
             string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
 
@@ -263,7 +261,7 @@ namespace FPClient
                 System.IO.File.AppendAllText(filePath, sb.ToString());
 
                 // Başarılı olursa kullanıcıya bir mesaj göster
-                MessageBox.Show("Tüm veriler dosyaya başarıyla eklendi!");
+                //MessageBox.Show("Tüm veriler dosyaya başarıyla eklendi!");
             }
             catch (Exception ex)
             {
@@ -275,8 +273,6 @@ namespace FPClient
             labelTotal.Text = i.ToString("Total Read 0");
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
 
-            string txtFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
-
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
@@ -286,7 +282,7 @@ namespace FPClient
                     Console.WriteLine("Connection successful!");
 
                     // CSV dosyasını satır satır oku
-                    using (StreamReader reader = new StreamReader(txtFilePath, Encoding.UTF8))
+                    using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
                     {
                         string line;
                         while ((line = reader.ReadLine()) != null)
@@ -339,8 +335,8 @@ namespace FPClient
                     }
                     MessageBox.Show("TXT verileri başarıyla DBF dosyasına aktarıldı.");
 
-                    File.WriteAllText(txtFilePath, string.Empty);
-                    MessageBox.Show("TXT dosyası başarıyla temizlendi.");
+                    File.WriteAllText(filePath, string.Empty);
+                    //MessageBox.Show("TXT dosyası başarıyla temizlendi.");
                 }
                 catch (Exception ex)
                 {
@@ -348,14 +344,14 @@ namespace FPClient
                 }
             }
 
-            //bRet = pOcxObject.EmptyGeneralLogData(m_nMachineNum);
 
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
+
         }
 
 
-        private void btnReadSLogData_Click(object sender, EventArgs e)
+        /*private void btnReadSLogData_Click(object sender, EventArgs e)
         {
             InitSLogListView();
 
@@ -458,7 +454,7 @@ namespace FPClient
             labelInfo.Text = "GetSuperLogData Success...";
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
-        }
+        }*/
 
         private void InitSLogListView()
         {
@@ -473,7 +469,8 @@ namespace FPClient
             listView1.Columns.Add("FpNo", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("DateTime", 110, HorizontalAlignment.Left);
         }
-        private void btnReadAllSLogData_Click(object sender, EventArgs e)
+
+      /*  private void btnReadAllSLogData_Click(object sender, EventArgs e)
         {
             InitSLogListView();
 
@@ -574,9 +571,9 @@ namespace FPClient
 
             labelInfo.Text = "GetAllSLogData Success...";
             pOcxObject.EnableDevice(m_nMachineNum, 1);
-        }
+        }*/
 
-        private void btnEmptySLogData_Click(object sender, EventArgs e)
+     /*   private void btnEmptySLogData_Click(object sender, EventArgs e)
         {
             bool bRet;
 
@@ -593,7 +590,7 @@ namespace FPClient
             }
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
-        }
+        }*/
 
         private void btnOK_Click(object sender, EventArgs e)
         {

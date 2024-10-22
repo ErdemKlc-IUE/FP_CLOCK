@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OleDb; 
+using System.Data.OleDb;
+using DAO = Microsoft.Office.Interop.Access.Dao;
 
 using System.Runtime.InteropServices;
 
@@ -35,35 +36,38 @@ namespace FPClient
             cmbEMachineNum.SelectedIndex = 0;
             cmbPrivilege.SelectedIndex = 0;
 
-//           string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
-//             conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb");
-//             conn.Open();
-//             string sql = "SELECT * FROM tblEnroll";
-// 
-//             OleDbCommand command = new OleDbCommand(sql, conn);
-// 
-//             OleDbDataReader reader = command.ExecuteReader();
-// 
-//             reader.Read();            
-// 
-//             reader.Close(); 
-//             conn.Close();
-// 
-//             adodc1.ConnectionString = strConnection;
-//             adodc1.RecordSource = "SELECT * FROM tblEnroll";
-//             adodc1.Refresh();
-//             int nCount = adodc1.Recordset.RecordCount;
+           /* OleDbConnection conn;
 
-//             DAO.DBEngine DBE;
-//             DAO.Database DB;
-//             string DBPath = ".\\EnrollData.mdb";
-//             DBE = new DAO.DBEngine();
-//             DB = DBE.OpenDatabase(DBPath, false, false, "");
-//             //MessageBox.Show(DB.Relations.Count.ToString());
-//             //MessageBox.Show(DB.Recordsets.Count.ToString());
-//             DAO.TableDef daoTable = DB.TableDefs["tblEnroll"];
-//             DAO.Field daoField = daoTable.Fields["EnrollNumber"];
-            
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
+            conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb");
+            conn.Open();
+            string sql = "SELECT * FROM tblEnroll";
+
+            OleDbCommand command = new OleDbCommand(sql, conn);
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            reader.Read();
+
+            reader.Close();
+            conn.Close();
+
+            // You can count the records this way if needed
+            OleDbCommand countCommand = new OleDbCommand("SELECT COUNT(*) FROM tblEnroll", conn);
+            int recordCount = (int)countCommand.ExecuteScalar();
+
+            MessageBox.Show($"Record count: {recordCount}");
+
+            DAO.DBEngine DBE;
+            DAO.Database DB;
+            string DBPath = ".\\EnrollData.mdb";
+            DBE = new DAO.DBEngine();
+            DB = DBE.OpenDatabase(DBPath, false, false, "");
+            MessageBox.Show(DB.Relations.Count.ToString());
+            MessageBox.Show(DB.Recordsets.Count.ToString());
+            DAO.TableDef daoTable = DB.TableDefs["tblEnroll"];
+            DAO.Field daoField = daoTable.Fields["EnrollNumber"];*/
+
         }
 
         private void EnrollDataManagement_FormClosed(object sender, FormClosedEventArgs e)
@@ -531,7 +535,7 @@ namespace FPClient
 
         private bool GetFileFullPath_SaveFile(ref string localFilePath)
         {
-            //string localFilePath/*, fileNameExt, newFileName, FilePath*/;
+            string fileNameExt, newFileName, FilePath;
 
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
@@ -544,12 +548,12 @@ namespace FPClient
             {
                 //获得文件路径
                 localFilePath = saveFileDialog1.FileName.ToString();
-                //                 //获取文件名，不带路径
-                //                 fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\") + 1);
-                //                 //获取文件路径，不带文件名
-                //                 FilePath = localFilePath.Substring(0, localFilePath.LastIndexOf("\\"));
-                //                 //给文件名前加上时间
-                //                 newFileName = DateTime.Now.ToString("yyyyMMdd") + fileNameExt;
+                //获取文件名，不带路径
+                fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\") + 1);
+                //获取文件路径，不带文件名
+                FilePath = localFilePath.Substring(0, localFilePath.LastIndexOf("\\"));
+                //给文件名前加上时间
+                newFileName = DateTime.Now.ToString("yyyyMMdd") + fileNameExt;
                 return true;
             }
             else
@@ -601,18 +605,18 @@ namespace FPClient
             int dwBackupNumber = 0;
             int dwMachinePrivilege = 0;
             int dwPassWord = 0;
-//             int[] dwFPData = new int[1420/4];
-//             object obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
-//             string strName ="";
-//             object objName = new System.Runtime.InteropServices.VariantWrapper(strName);
+             int[] dwFPData = new int[1420/4];
+            object obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
+            string strName = "";
+            object objName = new System.Runtime.InteropServices.VariantWrapper(strName);
 
             do 
             {
                 int[] dwData = new int[1420 / 4];
-                object obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
+                obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
 
-                string strName = "";
-                object objName = new System.Runtime.InteropServices.VariantWrapper(strName);
+                strName = "";
+                objName = new System.Runtime.InteropServices.VariantWrapper(strName);
 
                 bRet = pOcxObject.GetUsbEnrollData(
                 ref dwEnrollNumber,
@@ -686,7 +690,7 @@ namespace FPClient
                 OleDbCommand cmd = new OleDbCommand(sql, conn);
                 try
                 {
-                    //conn.Open();
+                    conn.Open();
                     if (parameters != null) cmd.Parameters.AddRange(parameters);
                     cmd.ExecuteNonQuery();
 
@@ -1054,7 +1058,7 @@ namespace FPClient
             OleDbCommand cmd = new OleDbCommand(sql, conn);
             try
             {
-                //conn.Open();
+                conn.Open();
                 if (parameters != null) cmd.Parameters.AddRange(parameters);
                 cmd.ExecuteNonQuery();
 

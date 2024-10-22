@@ -8,7 +8,6 @@ namespace FPClient
         /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
 
 
         /// <summary>
@@ -33,8 +32,8 @@ namespace FPClient
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
-            this.cmbInterface = new System.Windows.Forms.ComboBox();
+            //this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
+            //this.cmbInterface = new System.Windows.Forms.ComboBox();
             this.textPassword = new System.Windows.Forms.TextBox();
             this.textPort = new System.Windows.Forms.TextBox();
             this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
@@ -48,34 +47,35 @@ namespace FPClient
             this.btnDeviceInfo = new FP_CLOCK.CustomButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
+            this.homeButton= new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
-            this.toolStrip1.SuspendLayout();
+            //((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
+            //this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // axFP_CLOCK
             // 
-            this.axFP_CLOCK.Enabled = true;
+            /*this.axFP_CLOCK.Enabled = true;
             this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
             this.axFP_CLOCK.Name = "axFP_CLOCK";
-            this.axFP_CLOCK.TabIndex = 0;
-            // 
-            // cmbInterface
-            // 
-            this.cmbInterface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbInterface.FormattingEnabled = true;
-            this.cmbInterface.Items.AddRange(new object[] {
-            "COM",
-            "NET",
-            "P2S",
-            "USB"});
-            this.cmbInterface.Location = new System.Drawing.Point(160, 30);
-            this.cmbInterface.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbInterface.Name = "cmbInterface";
-            this.cmbInterface.Size = new System.Drawing.Size(102, 24);
-            this.cmbInterface.TabIndex = 1;
-            this.cmbInterface.SelectedIndexChanged += new System.EventHandler(this.cmbInterface_SelectedIndexChanged);
+            this.axFP_CLOCK.TabIndex = 0;*/
+            //// 
+            //// cmbInterface
+            //// 
+            //this.cmbInterface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            //this.cmbInterface.FormattingEnabled = true;
+            //this.cmbInterface.Items.AddRange(new object[] {
+            //"COM",
+            //"NET",
+            //"P2S",
+            //"USB"});
+            //this.cmbInterface.Location = new System.Drawing.Point(160, 30);
+            //this.cmbInterface.Margin = new System.Windows.Forms.Padding(2);
+            //this.cmbInterface.Name = "cmbInterface";
+            //this.cmbInterface.Size = new System.Drawing.Size(102, 24);
+            //this.cmbInterface.TabIndex = 1;
+            //this.cmbInterface.SelectedIndexChanged += new System.EventHandler(this.cmbInterface_SelectedIndexChanged);
             // 
             // textPassword
             // 
@@ -123,7 +123,7 @@ namespace FPClient
             this.btnSaveDevice.Name = "btnSaveDevice";
             this.btnSaveDevice.Size = new System.Drawing.Size(217, 50);
             this.btnSaveDevice.TabIndex = 3;
-            this.btnSaveDevice.Text = "Save Device";
+            this.btnSaveDevice.Text = "Cihaz Kayıt";
             this.btnSaveDevice.UseVisualStyleBackColor = false;
             this.btnSaveDevice.Click += new System.EventHandler(this.btnSaveDevice_Click);
             // 
@@ -144,7 +144,7 @@ namespace FPClient
             this.btnEnrollMangement.Name = "btnEnrollMangement";
             this.btnEnrollMangement.Size = new System.Drawing.Size(217, 50);
             this.btnEnrollMangement.TabIndex = 3;
-            this.btnEnrollMangement.Text = "Enroll Data Management";
+            this.btnEnrollMangement.Text = "Kullanıcı Yönetim";
             this.btnEnrollMangement.UseVisualStyleBackColor = true;
             this.btnEnrollMangement.Click += new System.EventHandler(this.btnEnrollManagement_Click);
             // 
@@ -180,7 +180,7 @@ namespace FPClient
             this.btnSysInfo.Name = "btnSysInfo";
             this.btnSysInfo.Size = new System.Drawing.Size(217, 50);
             this.btnSysInfo.TabIndex = 3;
-            this.btnSysInfo.Text = "System Info";
+            this.btnSysInfo.Text = "Sistem Bilgi";
             this.btnSysInfo.UseVisualStyleBackColor = true;
             this.btnSysInfo.Click += new System.EventHandler(this.btnSysInfo_Click);
             // 
@@ -198,7 +198,7 @@ namespace FPClient
             this.btnLockCtrl.Name = "btnLockCtrl";
             this.btnLockCtrl.Size = new System.Drawing.Size(217, 50);
             this.btnLockCtrl.TabIndex = 3;
-            this.btnLockCtrl.Text = "Lock Control";
+            this.btnLockCtrl.Text = "Kilit Kontrol";
             this.btnLockCtrl.UseVisualStyleBackColor = true;
             this.btnLockCtrl.Click += new System.EventHandler(this.btnLockCtrl_Click);
             // 
@@ -216,7 +216,7 @@ namespace FPClient
             this.btnBellSetting.Name = "btnBellSetting";
             this.btnBellSetting.Size = new System.Drawing.Size(217, 50);
             this.btnBellSetting.TabIndex = 3;
-            this.btnBellSetting.Text = "Bell Time Setting";
+            this.btnBellSetting.Text = "Alarm Ayarları";
             this.btnBellSetting.UseVisualStyleBackColor = true;
             this.btnBellSetting.Click += new System.EventHandler(this.btnBellSetting_Click);
             // 
@@ -234,7 +234,7 @@ namespace FPClient
             this.btnSetPassTime.Name = "btnSetPassTime";
             this.btnSetPassTime.Size = new System.Drawing.Size(217, 50);
             this.btnSetPassTime.TabIndex = 3;
-            this.btnSetPassTime.Text = "Setting Pass Time";
+            this.btnSetPassTime.Text = "Parametre Ayarları";
             this.btnSetPassTime.UseVisualStyleBackColor = true;
             this.btnSetPassTime.Click += new System.EventHandler(this.btnSetPassTime_Click);
             // 
@@ -252,7 +252,7 @@ namespace FPClient
             this.btnDeviceInfo.Name = "btnDeviceInfo";
             this.btnDeviceInfo.Size = new System.Drawing.Size(217, 50);
             this.btnDeviceInfo.TabIndex = 3;
-            this.btnDeviceInfo.Text = "Device Serial Number";
+            this.btnDeviceInfo.Text = "Cihaz Bilgi";
             this.btnDeviceInfo.UseVisualStyleBackColor = true;
             this.btnDeviceInfo.Click += new System.EventHandler(this.btnDeviceInfo_Click);
             // 
@@ -261,6 +261,7 @@ namespace FPClient
             this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.homeButton,
             this.helpButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -276,6 +277,18 @@ namespace FPClient
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(96, 34);
             this.helpButton.Text = "Yardım";
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
+            //
+            // homeButton
+            //
+            this.homeButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.homeButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.homeButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
+            this.homeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.homeButton.Name = "helpButton";
+            this.homeButton.Size = new System.Drawing.Size(96, 34);
+            this.homeButton.Text = "Ana Sayfa";
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // pictureBox1
             // 
@@ -314,9 +327,9 @@ namespace FPClient
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            //((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
+            //this.toolStrip1.ResumeLayout(false);
+            //this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -326,11 +339,12 @@ namespace FPClient
         #endregion
 
         //private FP_CLOCK.CustomButton btnOpenDev;
-        private System.Windows.Forms.ComboBox cmbInterface;
 
+        //private System.Windows.Forms.ComboBox cmbInterface;
         private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.TextBox textPort;
         private IPAddressControlLib.IPAddressControl ipAddressControl1;
+        private ToolStripButton homeButton;
         private FP_CLOCK.CustomButton btnSaveDevice;
         private FP_CLOCK.CustomButton btnEnrollMangement;
         private FP_CLOCK.CustomButton btnLogManagement;
