@@ -96,6 +96,9 @@
     <Reference Include="System.Data.Odbc, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.Odbc.8.0.1\lib\net462\System.Data.Odbc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.OleDb, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.OleDb.8.0.1\lib\net462\System.Data.OleDb.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -247,6 +250,7 @@
     <None Include="Resources\Copy-Refresh-48x48.png" />
     <Content Include="Resources\gcuf_copy.jpg" />
     <None Include="Resources\Information-48x48.png" />
+    <None Include="Resources\House-48x48.png" />
     <Content Include="Resources\password.png" />
     <Content Include="Resources\penal.jpg" />
     <Content Include="Resources\personal.png" />

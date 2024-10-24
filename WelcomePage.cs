@@ -24,13 +24,19 @@ namespace FP_CLOCK
 
         //private int m_nMachineNum;
 
+        private ListViewItem previousSelectedItem = null; // Önceki seçili cihazı takip etmek için
+        
+        SaveDevice saveDevice = new SaveDevice();
+        string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+
 
         public WelcomePage()
         {
             InitializeComponent();
             DeviceLogListView();
+            
 
-            ReceiveListViewItems(listView1.Items);
+            //ReceiveListViewItems(listView1.Items);
         }
         /*private void MainForm_Load(object sender, EventArgs e)
         {
@@ -73,11 +79,100 @@ namespace FP_CLOCK
         }
         private void customButton1_Click(object sender, EventArgs e)
         {
-            //DeviceLogListView();
+            // Eğer ListView boşsa uyarı ver ve işlemi durdur
+            if (listView1.Items.Count == 0)
+            {
+                MessageBox.Show("Listede işlem yapılacak cihaz yok.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK);
-            logManagement.btnReadAllGLogData_Click(sender, e);
+            bool bRet;
+            int count =0;
 
+            // ListView'deki her cihazı sırayla işle
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                ListViewItem currentItem = listView1.Items[i];
+
+                // Eğer önceki bir cihaz açık durumda ise, önce onu kapat
+                if (m_bDeviceOpened)
+                {
+                    m_bDeviceOpened = false;
+                    axFP_CLOCK.CloseCommPort();  // Mevcut bağlantıyı kapat
+                    previousSelectedItem.SubItems[5].Text = "Kapalı"; // Önceki cihazı "Kapalı" olarak işaretle
+                }
+
+                // Şu anki cihazın bilgilerini al
+                string strIP = currentItem.SubItems[2].Text;  // IP Adresi
+                string strDevicePort = currentItem.SubItems[3].Text; // Port
+                string strPassword = currentItem.SubItems[4].Text;   // Şifre
+
+                // Port ve Şifreyi integer tipine dönüştür
+                strDevicePort = strDevicePort.Trim();
+                int nPort;
+                int password;
+
+                // Port ve Şifre formatlarının doğru olup olmadığını kontrol et
+                if (!int.TryParse(strDevicePort, out nPort) || !int.TryParse(strPassword, out password))
+                {
+                    MessageBox.Show($"Cihaz {i + 1} için port veya şifre formatı hatalı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    currentItem.SubItems[5].Text = "Fail.";
+                    continue;  // Bu cihazı atla ve sonraki cihaza geç
+                }
+
+                // Cihazın IP, Port ve Şifresini ayarla
+                bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, password);
+                if (!bRet)
+                {
+                    MessageBox.Show($"Cihaz {i + 1} için bağlantı hatası.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    currentItem.SubItems[5].Text = "Fail.";
+                    continue;  // Bu cihazı atla ve sonraki cihaza geç
+                }
+
+                // Cihaz ile bağlantıyı aç
+                bRet = axFP_CLOCK.OpenCommPort(m_nCurSelID);
+                if (bRet)
+                {
+                    m_bDeviceOpened = true;
+                    currentItem.SubItems[5].Text = "Açık";
+
+
+                    // Opsiyonel: Cihazın seri numarasını al ve listeye ekle
+                    string strDeviceSerialNumber = getDeviceSerialNumber();
+                    currentItem.SubItems[6].Text = strDeviceSerialNumber;
+
+                    LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK);
+                    logManagement.btnReadAllGLogData_Click(sender, e);
+
+
+                    SysInfo sysInfo = new SysInfo(m_nCurSelID, ref axFP_CLOCK);
+                    sysInfo.btnSetDeviceTime_Click(sender, e);
+                    count++;
+
+                }
+                else
+                {
+                    MessageBox.Show($"Cihaz {i + 1} bağlanamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Yeni cihazı önceki cihaz olarak güncelle
+                previousSelectedItem = currentItem;
+
+                // Her cihaz arasında kısa bir bekleme süresi eklemek isterseniz:
+                // System.Threading.Thread.Sleep(500); // 500ms bekleme süresi ekleyebilirsiniz.
+            }
+
+            // İşlem tamamlandığında, son cihazın bağlantısını kapat
+            if (m_bDeviceOpened)
+            {
+                m_bDeviceOpened = false;
+                axFP_CLOCK.CloseCommPort();  // Son bağlantıyı kapat
+                //previousSelectedItem.SubItems[5].Text = "Kapalı"; // Son cihazı "Kapalı" yap
+            }
+            if(count>0)
+            {
+                MessageBox.Show("Tüm cihazlar işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
 
 
@@ -100,6 +195,7 @@ namespace FP_CLOCK
 
         private void DeviceLogListView()
         {
+   
             listView1.GridLines = true;
             listView1.FullRowSelect = true;
             listView1.View = View.Details;
@@ -111,53 +207,13 @@ namespace FP_CLOCK
             listView1.Columns.Add("Port", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Şifre", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Durum", 100, HorizontalAlignment.Left);
+            listView1.Columns.Add("Seri Numarası", 100, HorizontalAlignment.Left);
+
+            listView1.Items.Clear();
+            dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            saveDevice.LoadDBFDataToListView(listView1, dbfFilePath);
+
         }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool bRet;
-            //int nCount = 0;
-
-
-            if (m_bDeviceOpened)
-            {
-                m_bDeviceOpened = false;
-
-                axFP_CLOCK.CloseCommPort();
-                return;
-            }
-            this.axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            //int nConnectType = (int) CURDEVICETYPE.DEVICE_NET;
-
-
-            //I should take the information from the listview and assign them to the variables
-            string strIP = listView1.SelectedItems[0].SubItems[2].Text;
-            //strIP = ipAddressControl1.IPAddress.ToString();
-            //string strDeviceName = listView1.SelectedItems[0].SubItems[4].Text;
-            string strDevicePort = listView1.SelectedItems[0].SubItems[3].Text;
-            //string strDeviceSituation = listView1.SelectedItems[0].SubItems[5].Text;
-
-            strDevicePort = strDevicePort.Trim();
-            int nPort = Convert.ToInt32(strDevicePort);
-            int password = Convert.ToInt32(listView1.SelectedItems[0].SubItems[4].Text);
-
-
-            bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, password);
-            if (!bRet)
-            {
-                MessageBox.Show("Bağlantı Hatası", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            bRet = axFP_CLOCK.OpenCommPort(m_nCurSelID);
-            if (bRet)
-            {
-                m_bDeviceOpened = true;
-                listView1.SelectedItems[0].SubItems[5].Text = "Açık";
-                MessageBox.Show("Cihaz Açıldı", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-           
-        }
-
         private void helpButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("\r\nAdres:\r\nPerpa Ticaret Merkezi A.Blok Kat:8 No:768 Şişli / İSTANBUL\r\n\n" +
@@ -179,10 +235,22 @@ namespace FP_CLOCK
         {
             foreach (ListViewItem item in items)
             {
-                // Optionally, add to another ListView or process the items as needed
-                listView1.Items.Add((ListViewItem)item.Clone()); // Assuming listView2 is the ListView in WelcomePage
+                listView1.Items.Add((ListViewItem)item.Clone());  // Clone kullanımı ile her item benzersiz olur
             }
         }
-        
+        private string getDeviceSerialNumber()
+        {
+            string str = "";
+            bool bRet = axFP_CLOCK.GetSerialNumber(m_nCurSelID, ref str);
+            if (bRet)
+            {
+                return str;
+            }
+            else
+            {
+                return "No Device...";
+            }
+        }
+
     }
 }

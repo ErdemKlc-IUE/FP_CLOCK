@@ -50,7 +50,7 @@ namespace FPClient
             }
         }
 
-        private void btnGetSerialNum_Click(object sender, EventArgs e)
+        public void btnGetSerialNum_Click(object sender, EventArgs e)
         {
             bool bRet;
             bRet = DisableDevice();

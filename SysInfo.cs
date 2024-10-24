@@ -106,7 +106,7 @@ namespace FPClient
             }
         }
 
-        private void btnSetDeviceTime_Click(object sender, EventArgs e)
+        public void btnSetDeviceTime_Click(object sender, EventArgs e)
         {
             bool bRet;
 
@@ -119,7 +119,7 @@ namespace FPClient
             bRet = pOcxObject.SetDeviceTime(m_nMachineNum);
             if(bRet)
             {
-                labelInfo.Text = "Success...";
+               // MessageBox.Show("Cihaz Saati Ayarlandı","Başarılı",MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

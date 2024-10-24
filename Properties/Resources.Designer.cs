@@ -183,6 +183,16 @@ namespace FP_CLOCK.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap House_48x48 {
+            get {
+                object obj = ResourceManager.GetObject("House-48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Information_48x48 {
             get {
                 object obj = ResourceManager.GetObject("Information-48x48", resourceCulture);

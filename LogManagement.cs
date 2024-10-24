@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AxFP_CLOCKLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -220,27 +221,31 @@ namespace FPClient
                 str = common.FormString(gInfo.dwVerifyMode, gInfo.dwEnrollNumber);
                 lvi.SubItems.Add(str);                                           // Verify Mode
 
+                string date = $"{gInfo.dwYear:D4}/{gInfo.dwMonth:D2}/{gInfo.dwDay:D2}";
+
                 // Tarihi oluştur ve '/' ile ayrılmış formatta yaz
-                DateTime dt = new DateTime(gInfo.dwYear, gInfo.dwMonth, gInfo.dwDay);
+                //DateTime dt = new DateTime(gInfo.dwYear, gInfo.dwMonth, gInfo.dwDay);
 
 
                 int second = 0;
                 string hourMinute = $"{gInfo.dwHour:D2}:{gInfo.dwMinute:D2}";
 
-
-                lvi.SubItems.Add(dt.ToString("yyyy/MM/dd")); // '/' ile ayrılmış format
+                lvi.SubItems.Add(date);// '/' ile ayrılmış format
                 lvi.SubItems.Add(hourMinute);
 
+                //lvi.SubItems.Add(dt.ToString("yyyy/MM/dd")); 
                 // ListView'e ekle
                 listView1.Items.Add(lvi);
 
                 // Verileri arrayList'e ekle ve StringBuilder ile birleştir
-                ArrayList arrayList = new ArrayList();
-                arrayList.Add("001"); // Machine Number
-                arrayList.Add(lvi.SubItems[2].Text); // Enroll Number
-                arrayList.Add(lvi.SubItems[3].Text); // EMachine Number
-                arrayList.Add(lvi.SubItems[6].Text); // Date
-                arrayList.Add(lvi.SubItems[7].Text); // Time
+                ArrayList arrayList = new ArrayList
+                {
+                    "001", // Machine Number
+                    lvi.SubItems[2].Text, // Enroll Number
+                    lvi.SubItems[3].Text, // EMachine Number
+                    lvi.SubItems[6].Text, // Date
+                    lvi.SubItems[7].Text // Time
+                };
 
                 // ArrayList'i string olarak birleştir
                 string[] array = arrayList.ToArray(typeof(string)) as string[];
@@ -253,12 +258,15 @@ namespace FPClient
 
             // Dosya yolu
             string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+            string filePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\backup.txt";
 
             // Eğer dosya yoksa oluştur, varsa tüm verileri bir seferde ekle
             try
             {
                 // Tüm biriktirilmiş verileri tek seferde dosyaya yaz
                 System.IO.File.AppendAllText(filePath, sb.ToString());
+                System.IO.File.AppendAllText(filePath2, sb.ToString());
+
 
                 // Başarılı olursa kullanıcıya bir mesaj göster
                 //MessageBox.Show("Tüm veriler dosyaya başarıyla eklendi!");
@@ -310,17 +318,19 @@ namespace FPClient
                             string saat = values[4].Trim('"');
                             //float kimlik = float.Parse(values[7].Trim('"'));
 
+                            DateTime date = DateTime.Parse(values[3].Trim('"'));
 
 
 
                             // DBF dosyasına veri eklemek için INSERT INTO SQL komutunu oluştur
                             string insertQuery = "INSERT INTO Duzenleyici " +
-                                "(ID, SAATNUM, KARTNO, FTUS, TARIH, SAAT) " +
-                                "VALUES (?, ?, ?, ?, ?, ?)";
+                                "(ID,TARIHNUM ,SAATNUM, KARTNO, FTUS, TARIH, SAAT) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?)";
                             OleDbCommand command = new OleDbCommand(insertQuery, connection);
 
                             // Parametrelerle veriyi ekle
                             command.Parameters.AddWithValue("@p1", id);
+                            command.Parameters.AddWithValue("@p2", date);
                             command.Parameters.AddWithValue("@p3", saatnum);
                             command.Parameters.AddWithValue("@p4", kartno);
                             command.Parameters.AddWithValue("@p5", ftus);
@@ -333,7 +343,7 @@ namespace FPClient
                             command.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("TXT verileri başarıyla DBF dosyasına aktarıldı.");
+                    //MessageBox.Show("TXT verileri başarıyla DBF dosyasına aktarıldı.");
 
                     File.WriteAllText(filePath, string.Empty);
                     //MessageBox.Show("TXT dosyası başarıyla temizlendi.");
@@ -345,8 +355,10 @@ namespace FPClient
             }
 
 
+            //Cihaz bağlantısını kapat
 
-            pOcxObject.EnableDevice(m_nMachineNum, 1);
+            
+            //pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
 

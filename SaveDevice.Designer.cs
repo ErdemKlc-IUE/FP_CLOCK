@@ -56,7 +56,6 @@ namespace FP_CLOCK
             this.ipTextBox.PromptChar = ' ';
             this.ipTextBox.Size = new System.Drawing.Size(150, 27);
             this.ipTextBox.TabIndex = 1;
-            this.ipTextBox.Text = "1921681224";
             // 
             // portTextBox
             // 
@@ -66,7 +65,6 @@ namespace FP_CLOCK
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(150, 27);
             this.portTextBox.TabIndex = 2;
-            this.portTextBox.Text = "5005";
             // 
             // deviceNameTextBox
             // 
@@ -75,7 +73,6 @@ namespace FP_CLOCK
             this.deviceNameTextBox.Name = "deviceNameTextBox";
             this.deviceNameTextBox.Size = new System.Drawing.Size(150, 27);
             this.deviceNameTextBox.TabIndex = 5;
-            this.deviceNameTextBox.Text = "Erdem";
             // 
             // pwTextBox
             // 
@@ -86,7 +83,6 @@ namespace FP_CLOCK
             this.pwTextBox.PromptChar = ' ';
             this.pwTextBox.Size = new System.Drawing.Size(150, 27);
             this.pwTextBox.TabIndex = 5;
-            this.pwTextBox.Text = "0000";
             this.pwTextBox.UseSystemPasswordChar = true;
             this.pwTextBox.ValidatingType = typeof(int);
             // 
@@ -213,7 +209,7 @@ namespace FP_CLOCK
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(105, 45);
             this.saveButton.TabIndex = 0;
-            this.saveButton.Text = "Kaydet";
+            this.saveButton.Text = "Tamam";
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 

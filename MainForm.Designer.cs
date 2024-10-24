@@ -32,8 +32,6 @@ namespace FPClient
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            //this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
-            //this.cmbInterface = new System.Windows.Forms.ComboBox();
             this.textPassword = new System.Windows.Forms.TextBox();
             this.textPort = new System.Windows.Forms.TextBox();
             this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
@@ -46,36 +44,12 @@ namespace FPClient
             this.btnSetPassTime = new FP_CLOCK.CustomButton();
             this.btnDeviceInfo = new FP_CLOCK.CustomButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.homeButton = new System.Windows.Forms.ToolStripButton();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
-            this.homeButton= new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            //((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
-            //this.toolStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // axFP_CLOCK
-            // 
-            /*this.axFP_CLOCK.Enabled = true;
-            this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
-            this.axFP_CLOCK.Name = "axFP_CLOCK";
-            this.axFP_CLOCK.TabIndex = 0;*/
-            //// 
-            //// cmbInterface
-            //// 
-            //this.cmbInterface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            //this.cmbInterface.FormattingEnabled = true;
-            //this.cmbInterface.Items.AddRange(new object[] {
-            //"COM",
-            //"NET",
-            //"P2S",
-            //"USB"});
-            //this.cmbInterface.Location = new System.Drawing.Point(160, 30);
-            //this.cmbInterface.Margin = new System.Windows.Forms.Padding(2);
-            //this.cmbInterface.Name = "cmbInterface";
-            //this.cmbInterface.Size = new System.Drawing.Size(102, 24);
-            //this.cmbInterface.TabIndex = 1;
-            //this.cmbInterface.SelectedIndexChanged += new System.EventHandler(this.cmbInterface_SelectedIndexChanged);
             // 
             // textPassword
             // 
@@ -119,9 +93,9 @@ namespace FPClient
             this.btnSaveDevice.FlatAppearance.BorderSize = 0;
             this.btnSaveDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveDevice.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveDevice.Location = new System.Drawing.Point(276, 349);
+            this.btnSaveDevice.Location = new System.Drawing.Point(528, 199);
             this.btnSaveDevice.Name = "btnSaveDevice";
-            this.btnSaveDevice.Size = new System.Drawing.Size(217, 50);
+            this.btnSaveDevice.Size = new System.Drawing.Size(238, 148);
             this.btnSaveDevice.TabIndex = 3;
             this.btnSaveDevice.Text = "Cihaz Kayıt";
             this.btnSaveDevice.UseVisualStyleBackColor = false;
@@ -142,7 +116,7 @@ namespace FPClient
             this.btnEnrollMangement.Location = new System.Drawing.Point(7, 199);
             this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
             this.btnEnrollMangement.Name = "btnEnrollMangement";
-            this.btnEnrollMangement.Size = new System.Drawing.Size(217, 50);
+            this.btnEnrollMangement.Size = new System.Drawing.Size(243, 148);
             this.btnEnrollMangement.TabIndex = 3;
             this.btnEnrollMangement.Text = "Kullanıcı Yönetim";
             this.btnEnrollMangement.UseVisualStyleBackColor = true;
@@ -211,10 +185,10 @@ namespace FPClient
             this.btnBellSetting.FlatAppearance.BorderSize = 0;
             this.btnBellSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBellSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnBellSetting.Location = new System.Drawing.Point(276, 274);
+            this.btnBellSetting.Location = new System.Drawing.Point(274, 199);
             this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
             this.btnBellSetting.Name = "btnBellSetting";
-            this.btnBellSetting.Size = new System.Drawing.Size(217, 50);
+            this.btnBellSetting.Size = new System.Drawing.Size(226, 148);
             this.btnBellSetting.TabIndex = 3;
             this.btnBellSetting.Text = "Alarm Ayarları";
             this.btnBellSetting.UseVisualStyleBackColor = true;
@@ -261,34 +235,34 @@ namespace FPClient
             this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.homeButton,
+            this.homeButton,
             this.helpButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(778, 37);
             this.toolStrip1.TabIndex = 9;
             // 
+            // homeButton
+            // 
+            this.homeButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.homeButton.Font = new System.Drawing.Font("Constantia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.homeButton.Image = global::FP_CLOCK.Properties.Resources.House_48x48;
+            this.homeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(115, 34);
+            this.homeButton.Text = "Ana Sayfa";
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
+            // 
             // helpButton
             // 
             this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.helpButton.Font = new System.Drawing.Font("Constantia", 10.2F);
             this.helpButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
             this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(96, 34);
+            this.helpButton.Size = new System.Drawing.Size(98, 34);
             this.helpButton.Text = "Yardım";
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
-            //
-            // homeButton
-            //
-            this.homeButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.homeButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.homeButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
-            this.homeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.homeButton.Name = "helpButton";
-            this.homeButton.Size = new System.Drawing.Size(96, 34);
-            this.homeButton.Text = "Ana Sayfa";
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // pictureBox1
             // 
@@ -308,17 +282,12 @@ namespace FPClient
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(778, 449);
+            this.ClientSize = new System.Drawing.Size(778, 395);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnDeviceInfo);
-            this.Controls.Add(this.btnSetPassTime);
             this.Controls.Add(this.btnBellSetting);
             this.Controls.Add(this.btnEnrollMangement);
-            this.Controls.Add(this.btnLockCtrl);
             this.Controls.Add(this.btnSaveDevice);
-            this.Controls.Add(this.btnSysInfo);
-            this.Controls.Add(this.btnLogManagement);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -327,9 +296,8 @@ namespace FPClient
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            //((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
-            //this.toolStrip1.ResumeLayout(false);
-            //this.toolStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

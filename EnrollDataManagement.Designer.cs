@@ -61,10 +61,9 @@
             this.btnSetEnrollData = new FP_CLOCK.CustomButton();
             this.btnGetEnrollData = new FP_CLOCK.CustomButton();
             this.btnDelEnData = new FP_CLOCK.CustomButton();
-            this.btnUDiskDownLoad = new FP_CLOCK.CustomButton();
-            this.btnUDiskUpload = new FP_CLOCK.CustomButton();
             this.btnEmptyEnData = new FP_CLOCK.CustomButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -390,7 +389,7 @@
             this.groupBox1.Controls.Add(this.btnDelDBData);
             this.groupBox1.Controls.Add(this.btnSetAllEnData);
             this.groupBox1.Controls.Add(this.btnGetAllEnData);
-            this.groupBox1.Location = new System.Drawing.Point(724, 321);
+            this.groupBox1.Location = new System.Drawing.Point(909, 542);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(157, 227);
             this.groupBox1.TabIndex = 9;
@@ -516,40 +515,6 @@
             this.btnDelEnData.UseVisualStyleBackColor = false;
             this.btnDelEnData.Click += new System.EventHandler(this.btnDelEnData_Click);
             // 
-            // btnUDiskDownLoad
-            // 
-            this.btnUDiskDownLoad.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnUDiskDownLoad.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnUDiskDownLoad.BorderRadius = 20;
-            this.btnUDiskDownLoad.BorderSize = 0;
-            this.btnUDiskDownLoad.FlatAppearance.BorderSize = 0;
-            this.btnUDiskDownLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUDiskDownLoad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnUDiskDownLoad.Location = new System.Drawing.Point(913, 492);
-            this.btnUDiskDownLoad.Name = "btnUDiskDownLoad";
-            this.btnUDiskDownLoad.Size = new System.Drawing.Size(135, 51);
-            this.btnUDiskDownLoad.TabIndex = 3;
-            this.btnUDiskDownLoad.Text = "USB Veri Al";
-            this.btnUDiskDownLoad.UseVisualStyleBackColor = false;
-            this.btnUDiskDownLoad.Click += new System.EventHandler(this.btnUDiskDownLoad_Click);
-            // 
-            // btnUDiskUpload
-            // 
-            this.btnUDiskUpload.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnUDiskUpload.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnUDiskUpload.BorderRadius = 20;
-            this.btnUDiskUpload.BorderSize = 0;
-            this.btnUDiskUpload.FlatAppearance.BorderSize = 0;
-            this.btnUDiskUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUDiskUpload.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnUDiskUpload.Location = new System.Drawing.Point(913, 559);
-            this.btnUDiskUpload.Name = "btnUDiskUpload";
-            this.btnUDiskUpload.Size = new System.Drawing.Size(135, 51);
-            this.btnUDiskUpload.TabIndex = 3;
-            this.btnUDiskUpload.Text = "USB Veri Yolla";
-            this.btnUDiskUpload.UseVisualStyleBackColor = false;
-            this.btnUDiskUpload.Click += new System.EventHandler(this.btnUDiskUpload_Click);
-            // 
             // btnEmptyEnData
             // 
             this.btnEmptyEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -559,7 +524,7 @@
             this.btnEmptyEnData.FlatAppearance.BorderSize = 0;
             this.btnEmptyEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmptyEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEmptyEnData.Location = new System.Drawing.Point(913, 627);
+            this.btnEmptyEnData.Location = new System.Drawing.Point(913, 485);
             this.btnEmptyEnData.Name = "btnEmptyEnData";
             this.btnEmptyEnData.Size = new System.Drawing.Size(135, 51);
             this.btnEmptyEnData.TabIndex = 3;
@@ -577,12 +542,21 @@
             this.listBox1.Size = new System.Drawing.Size(665, 420);
             this.listBox1.TabIndex = 10;
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(698, 343);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(193, 140);
+            this.checkedListBox1.TabIndex = 12;
+            // 
             // EnrollDataManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1067, 795);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbPrivilege);
@@ -597,8 +571,6 @@
             this.Controls.Add(this.btnModifyPrivilege);
             this.Controls.Add(this.btnSetUserName);
             this.Controls.Add(this.btnEmptyEnData);
-            this.Controls.Add(this.btnUDiskUpload);
-            this.Controls.Add(this.btnUDiskDownLoad);
             this.Controls.Add(this.btnDelEnData);
             this.Controls.Add(this.btnGetEnrollData);
             this.Controls.Add(this.btnSetEnrollData);
@@ -661,9 +633,10 @@
         private FP_CLOCK.CustomButton btnSetEnrollData;
         private FP_CLOCK.CustomButton btnGetEnrollData;
         private FP_CLOCK.CustomButton btnDelEnData;
-        private FP_CLOCK.CustomButton btnUDiskDownLoad;
-        private FP_CLOCK.CustomButton btnUDiskUpload;
+        //private FP_CLOCK.CustomButton btnUDiskDownLoad;
+        //private FP_CLOCK.CustomButton btnUDiskUpload;
         private FP_CLOCK.CustomButton btnEmptyEnData;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
