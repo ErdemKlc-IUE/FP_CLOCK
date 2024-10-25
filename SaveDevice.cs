@@ -41,41 +41,8 @@ namespace FP_CLOCK
             Owner.Visible = true;
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void okButton_Click(object sender, EventArgs e)
         {
-           /* dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
-
-
-            // Eğer ListView boşsa uyarı ver
-            if (listView1.Items.Count == 0)
-            {
-                MessageBox.Show("There are no items to save.");
-                return;
-            }
-            //Ip ve Port bilgileri aynı olmamalı
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                for (int j = i + 1; j < listView1.Items.Count; j++)
-                {
-                    if (listView1.Items[i].SubItems[2].Text == listView1.Items[j].SubItems[2].Text && listView1.Items[i].SubItems[3].Text == listView1.Items[j].SubItems[3].Text)
-                    {
-                        MessageBox.Show("Aynı IP ve Port bilgileri olan cihazlar olamaz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        
-                        listView1.Clear();
-                        InitializeListView();
-
-                        return;
-                    }
-                }
-            }
-
-            // ListView öğelerini WelcomePage'e gönder
-
-            MessageBox.Show("Bütün cihazlar başarılı bir şekilde kaydedildi.");
-
-            dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.DBF";
-            SaveListViewToDBF(listView1, dbfFilePath);
-*/
             // Bu formu gizle ve WelcomePage'i göster
             WelcomePage welcomePage = new WelcomePage();
             this.Visible = false;
@@ -263,70 +230,6 @@ namespace FP_CLOCK
             LoadDBFDataToListView(listView1, dbfFilePath);
 
 
-        }
-        public void SaveListViewToDBF(ListView listView, string dbfFilePath)
-        {
-           /* try
-            {
-                // Ensure the directory for the DBF file exists
-                string directoryPath = Path.GetDirectoryName(dbfFilePath);
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath); // Create directory if it doesn't exist
-                }
-                // Create connection string for the DBF file
-                string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
-                {
-                    connection.Open();
-                    // Check if the table exists by attempting to read from it
-                    bool tableExists = false;
-                    try
-                    {
-                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
-                        using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, connection))
-                        {
-                            checkCommand.ExecuteNonQuery();
-                            tableExists = true; // If this runs without exception, the table exists
-                        }
-                    }
-                    catch
-                    {
-                        tableExists = false; // If an exception occurs, the table does not exist
-                    }
-                    // If the table doesn't exist, create it
-                    if (!tableExists)
-                    {
-                        string createTableCommandText = "CREATE TABLE " + Path.GetFileNameWithoutExtension(dbfFilePath) +
-                            " (ID CHAR(5), DevName CHAR(10), IPAddr CHAR(15), DPort CHAR(4), Pwd CHAR(4))";
-                        using (OleDbCommand createTableCommand = new OleDbCommand(createTableCommandText, connection))
-                        {
-                            createTableCommand.ExecuteNonQuery();
-                        }
-                    }
-                    // Insert data from the ListView into the DBF file
-                    foreach (ListViewItem item in listView.Items)
-                    {
-                        string id = item.SubItems[0].Text;
-                        string deviceName = item.SubItems[1].Text;
-                        string ip = item.SubItems[2].Text;
-                        string port = item.SubItems[3].Text;
-                        string password = item.SubItems[4].Text;
-                        // Insert the data into the table
-                        string insertCommandText = $"INSERT INTO {Path.GetFileNameWithoutExtension(dbfFilePath)} " +
-                            $"(ID, DevName, IPAddr, DPort, Pwd) VALUES ('{id}','{deviceName}', '{ip}', '{port}', '{password}')";
-                        using (OleDbCommand insertCommand = new OleDbCommand(insertCommandText, connection))
-                        {
-                            insertCommand.ExecuteNonQuery();
-                        }
-                    }
-                    MessageBox.Show("Data saved to .DBF file successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error saving to .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
         }
         public void LoadDBFDataToListView(ListView listView, string dbfFilePath)
         {

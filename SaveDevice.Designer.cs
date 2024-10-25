@@ -211,7 +211,7 @@ namespace FP_CLOCK
             this.saveButton.TabIndex = 0;
             this.saveButton.Text = "Tamam";
             this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // SaveDevice
             // 

@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +24,18 @@ namespace FP_CLOCK
         private int m_nCurSelID = 1;
         private bool m_bDeviceOpened = false;
 
+        private string ıd;
+        // I want setter and getter for ıd
+        
+
         //private int m_nMachineNum;
 
         private ListViewItem previousSelectedItem = null; // Önceki seçili cihazı takip etmek için
         
         SaveDevice saveDevice = new SaveDevice();
         string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+
+
 
 
         public WelcomePage()
@@ -93,13 +101,15 @@ namespace FP_CLOCK
             for (int i = 0; i < listView1.Items.Count; i++)
             {
                 ListViewItem currentItem = listView1.Items[i];
+                ıd = currentItem.SubItems[0].Text;
+                
 
                 // Eğer önceki bir cihaz açık durumda ise, önce onu kapat
                 if (m_bDeviceOpened)
                 {
                     m_bDeviceOpened = false;
                     axFP_CLOCK.CloseCommPort();  // Mevcut bağlantıyı kapat
-                    previousSelectedItem.SubItems[5].Text = "Kapalı"; // Önceki cihazı "Kapalı" olarak işaretle
+                    //previousSelectedItem.SubItems[5].Text = "Kapalı"; // Önceki cihazı "Kapalı" olarak işaretle
                 }
 
                 // Şu anki cihazın bilgilerini al
@@ -115,8 +125,8 @@ namespace FP_CLOCK
                 // Port ve Şifre formatlarının doğru olup olmadığını kontrol et
                 if (!int.TryParse(strDevicePort, out nPort) || !int.TryParse(strPassword, out password))
                 {
-                    MessageBox.Show($"Cihaz {i + 1} için port veya şifre formatı hatalı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    currentItem.SubItems[5].Text = "Fail.";
+                    MessageBox.Show($"Cihaz {ıd} için port veya şifre formatı hatalı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    listView1.Items[i].SubItems[5].Text = "Bağlantı Kurulamadı";
                     continue;  // Bu cihazı atla ve sonraki cihaza geç
                 }
 
@@ -124,8 +134,8 @@ namespace FP_CLOCK
                 bRet = axFP_CLOCK.SetIPAddress(ref strIP, nPort, password);
                 if (!bRet)
                 {
-                    MessageBox.Show($"Cihaz {i + 1} için bağlantı hatası.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    currentItem.SubItems[5].Text = "Fail.";
+                    MessageBox.Show($"Cihaz {ıd} için bağlantı hatası.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    listView1.Items[i].SubItems[5].Text = "Bağlantı Kurulamadı";
                     continue;  // Bu cihazı atla ve sonraki cihaza geç
                 }
 
@@ -137,22 +147,29 @@ namespace FP_CLOCK
                     currentItem.SubItems[5].Text = "Açık";
 
 
+
                     // Opsiyonel: Cihazın seri numarasını al ve listeye ekle
                     string strDeviceSerialNumber = getDeviceSerialNumber();
                     currentItem.SubItems[6].Text = strDeviceSerialNumber;
 
-                    LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK);
+                    LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK,ıd);
                     logManagement.btnReadAllGLogData_Click(sender, e);
+                    //logManagement.Show();
 
 
                     SysInfo sysInfo = new SysInfo(m_nCurSelID, ref axFP_CLOCK);
                     sysInfo.btnSetDeviceTime_Click(sender, e);
                     count++;
+                    currentItem.SubItems[5].Text = "Tamamlandı";
 
                 }
                 else
                 {
-                    MessageBox.Show($"Cihaz {i + 1} bağlanamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Cihaz {ıd} bağlanamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    listView1.Items[i].SubItems[5].Text = "Bağlantı Kurulamadı";
+                    //listView1.Items[i].SubItems[5].Font = new Font(listView1.Font, FontStyle.Bold);
+
+
                 }
 
                 // Yeni cihazı önceki cihaz olarak güncelle
@@ -160,22 +177,23 @@ namespace FP_CLOCK
 
                 // Her cihaz arasında kısa bir bekleme süresi eklemek isterseniz:
                 // System.Threading.Thread.Sleep(500); // 500ms bekleme süresi ekleyebilirsiniz.
+                listView1.Refresh();
             }
+            sendDatabase();
+
 
             // İşlem tamamlandığında, son cihazın bağlantısını kapat
             if (m_bDeviceOpened)
             {
                 m_bDeviceOpened = false;
                 axFP_CLOCK.CloseCommPort();  // Son bağlantıyı kapat
-                //previousSelectedItem.SubItems[5].Text = "Kapalı"; // Son cihazı "Kapalı" yap
+                previousSelectedItem.SubItems[5].Text = "Tamamlandı"; // Son cihazı "Kapalı" yap
             }
             if(count>0)
             {
                 MessageBox.Show("Tüm cihazlar işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
-
-
-
         }
         private void customButton3_Click(object sender, EventArgs e)
         {
@@ -206,7 +224,7 @@ namespace FP_CLOCK
             listView1.Columns.Add("IP Adresi",125, HorizontalAlignment.Left);
             listView1.Columns.Add("Port", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Şifre", 50, HorizontalAlignment.Left);
-            listView1.Columns.Add("Durum", 100, HorizontalAlignment.Left);
+            listView1.Columns.Add("Durum", 125, HorizontalAlignment.Left);
             listView1.Columns.Add("Seri Numarası", 100, HorizontalAlignment.Left);
 
             listView1.Items.Clear();
@@ -231,6 +249,7 @@ namespace FP_CLOCK
 
         }
 
+
         public void ReceiveListViewItems(System.Windows.Forms.ListView.ListViewItemCollection items)
         {
             foreach (ListViewItem item in items)
@@ -249,6 +268,224 @@ namespace FP_CLOCK
             else
             {
                 return "No Device...";
+            }
+        }
+        /* public int GetListViewItemId(int index)
+         {
+             // Check if the ListView has any items
+             if (listView1.Items.Count == 0)
+             {
+                 MessageBox.Show("ListView is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                 return -1; // or any other value indicating an invalid state
+             }
+
+             // Validate the index
+             if (index < 0 || index >= listView1.Items.Count)
+             {
+                 MessageBox.Show("Invalid index.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 return -1; // or any other value indicating an invalid state
+             }
+
+             // Get the item at the specified index
+             ListViewItem item = listView1.Items[index];
+             string idText = item.SubItems[0].Text; // Get the ID from the first subitem
+             int id = Convert.ToInt32(idText); // Convert it to an integer
+             return id; // Return the ID
+         }*/
+
+        public void sendDatabase()
+        {
+            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
+
+
+            // Dosyayı satır satır oku
+            List<string> lines = File.ReadAllLines(filePath).ToList();
+
+            // Tarih ve saate göre sıralamak için liste oluştur
+            var sortedLines = lines.Select(line =>
+            {
+                // Satırı virgülle ayırarak verileri al
+                string[] parts = line.Split(',');
+
+                // parts[3] = Tarih (yyyy/MM/dd)
+                // parts[4] = Saat (HH:mm)
+                DateTime dateTime = DateTime.ParseExact($"{parts[3]} {parts[4]}", "yyyy/MM/dd HH:mm", null);
+
+                // DateTime ve orijinal satırı bir tuple olarak döndür
+                return new { Line = line, DateTime = dateTime };
+            })
+            .OrderBy(entry => entry.DateTime) // Tarih ve saate göre sıralama
+            .Select(entry => entry.Line) // Sadece satırları geri al
+            .ToList();
+
+            // Sıralanmış verileri dosyaya geri yaz
+            File.WriteAllLines(filePath, sortedLines);
+
+            Console.WriteLine("Veriler başarıyla sıralandı ve dosyaya yazıldı.");
+
+            sendBackupDatabase();
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    // Veritabanı bağlantısını aç
+                    connection.Open();
+                    Console.WriteLine("Connection successful!");
+
+
+                    // CSV dosyasını satır satır oku
+                    using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            // Satırdaki verileri ayır (virgül ile ayrılmış)
+                            string[] values = line.Split(',');
+
+                            // CSV'den gelen değerlerin başındaki ve sonundaki tırnak işaretlerini temizleyin
+                            string id = values[0].Trim('"');
+
+                            // Toplam dakika hesaplamak için saat ve dakikayı ayırın
+                            string[] timeParts = values[4].Trim('"').Split(':'); // Saat değerini al
+
+                            // Saat ve dakikayı ayır
+                            int hours = int.Parse(timeParts[0]); // Saat
+                            int minutes = int.Parse(timeParts[1]); // Dakika
+                            //int seconds = int.Parse(timeParts[2]); // Saniye
+
+                            // Toplam dakika hesapla
+                            float saatnum = hours * 60 + minutes; // Toplam dakikayı hesapla
+
+
+
+                            string kartno = values[1].Trim('"');
+                            string ftus = values[2].Trim('"');
+                            string tarih = values[3].Trim('"');
+                            string saat = values[4].Trim('"');
+                            //float kimlik = float.Parse(values[7].Trim('"'));
+
+                            DateTime date = DateTime.Parse(values[3].Trim('"'));
+
+                            // Extract day and multiply by 1440
+                            float dayInMinutes = date.Day * 1440;
+
+                            // Concatenate Kartno with (dayInMinutes + saatnum) as a string, then parse to float
+                            float kimlik = float.Parse(kartno + (dayInMinutes + saatnum).ToString());
+
+                            // DBF dosyasına veri eklemek için INSERT INTO SQL komutunu oluştur
+                            string insertQuery = "INSERT INTO Duzenleyici " +
+                                "(ID,TARIHNUM ,SAATNUM, KARTNO, FTUS, TARIH, SAAT, KIMLIK) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            OleDbCommand command = new OleDbCommand(insertQuery, connection);
+
+                            // Parametrelerle veriyi ekle
+                            command.Parameters.AddWithValue("@p1", id);
+                            command.Parameters.AddWithValue("@p2", date);
+                            command.Parameters.AddWithValue("@p3", saatnum);
+                            command.Parameters.AddWithValue("@p4", kartno);
+                            command.Parameters.AddWithValue("@p5", ftus);
+                            command.Parameters.AddWithValue("@p6", tarih);
+                            command.Parameters.AddWithValue("@p7", saat);
+                            command.Parameters.AddWithValue("@p8", kimlik);
+
+
+                            // Sorguyu çalıştır
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    File.WriteAllText(filePath, string.Empty);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
+            }
+        }
+        public void sendBackupDatabase()
+        {
+            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+            string dbfFilePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\KayıtYedek.dbf";
+            string directoryPath2 = Path.GetDirectoryName(dbfFilePath2);
+            string connectionString2 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath2 + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection connection2 = new OleDbConnection(connectionString2))
+            {
+                try
+                {
+                    connection2.Open(); // Bağlantıyı bir kez açın
+                    Console.WriteLine("Connection successful!");
+
+                    // Tablo var mı kontrol et
+                    bool tableExists = false;
+                    try
+                    {
+                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
+                        using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, connection2))
+                        {
+                            checkCommand.ExecuteNonQuery();
+                            tableExists = true; // Eğer hata almazsa, tablo mevcut
+                        }
+                    }
+                    catch
+                    {
+                        tableExists = false; // Hata alırsa tablo yok
+                    }
+
+                    // Eğer tablo yoksa, tabloyu oluştur
+                    if (!tableExists)
+                    {
+                        string createTableCommandText = "CREATE TABLE " + Path.GetFileNameWithoutExtension(dbfFilePath2) +
+                             " (ID CHAR(10), TARIHNUM DATETIME, SAATNUM FLOAT, KARTNO CHAR(10), FTUS CHAR(5), TARIH CHAR(10), SAAT CHAR(8))";
+                        using (OleDbCommand createTableCommand = new OleDbCommand(createTableCommandText, connection2))
+                        {
+                            createTableCommand.ExecuteNonQuery();
+                        }
+                    }
+
+                    // TXT dosyasını satır satır oku ve veritabanına ekle
+                    using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] values = line.Split(',');
+
+                            // Verileri al ve işleme hazırla
+                            string id = values[0].Trim('"');
+                            string[] timeParts = values[4].Trim('"').Split(':');
+                            int hours = int.Parse(timeParts[0]);
+                            int minutes = int.Parse(timeParts[1]);
+                            float saatnum = hours * 60 + minutes;
+
+                            string kartno = values[1].Trim('"');
+                            string ftus = values[2].Trim('"');
+                            string tarih = values[3].Trim('"');
+                            string saat = values[4].Trim('"');
+                            DateTime date = DateTime.Parse(values[3].Trim('"'));
+
+                            // Yedek tablosuna veri ekle
+                            string insertYedekQuery = "INSERT INTO KayıtYedek (ID, TARIHNUM, SAATNUM, KARTNO, FTUS, TARIH, SAAT) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            using (OleDbCommand yedekCommand = new OleDbCommand(insertYedekQuery, connection2))
+                            {
+                                yedekCommand.Parameters.AddWithValue("@p1", id);
+                                yedekCommand.Parameters.AddWithValue("@p2", date);
+                                yedekCommand.Parameters.AddWithValue("@p3", saatnum);
+                                yedekCommand.Parameters.AddWithValue("@p4", kartno);
+                                yedekCommand.Parameters.AddWithValue("@p5", ftus);
+                                yedekCommand.Parameters.AddWithValue("@p6", tarih);
+                                yedekCommand.Parameters.AddWithValue("@p7", saat);
+
+                                yedekCommand.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
             }
         }
 

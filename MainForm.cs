@@ -83,7 +83,7 @@ namespace FPClient
              }
          }*/
 
-        private void btnLogManagement_Click(object sender, EventArgs e)
+        /*private void btnLogManagement_Click(object sender, EventArgs e)
         {
             Visible = false;
             welcomePage.GetDeviceObject(ref pOcxObject);
@@ -93,7 +93,7 @@ namespace FPClient
 
             //int nCount = this.OwnedForms.Count();   //only one
             this.OwnedForms[0].Visible = true;
-        }
+        }*/
 
         private void btnLockCtrl_Click(object sender, EventArgs e)
         {

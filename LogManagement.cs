@@ -1,4 +1,5 @@
 ﻿using AxFP_CLOCKLib;
+using FP_CLOCK;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,19 +20,22 @@ namespace FPClient
     public partial class LogManagement : Form
     {
         private int m_nMachineNum;
+        private string id;
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
+        WelcomePage welcomePage = new WelcomePage();
 
         public LogManagement()
         {
             InitializeComponent();
         }
 
-        public LogManagement(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
+        public LogManagement(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject , string id)
         {
             InitializeComponent();
 
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
+            this.id = id;
             listView1.GridLines = true;
 
             checkBox1.Checked = true;
@@ -131,7 +135,7 @@ namespace FPClient
             listView1.Columns.Add("", 40, HorizontalAlignment.Left);
             listView1.Columns.Add("TMchNo", 90, HorizontalAlignment.Left);
             listView1.Columns.Add("EnrollNo", 100, HorizontalAlignment.Left);
-            listView1.Columns.Add("EMchNo", 90, HorizontalAlignment.Left);     //
+            listView1.Columns.Add("EMchNo", 90, HorizontalAlignment.Left);     
             listView1.Columns.Add("InOut", 60, HorizontalAlignment.Left);
             listView1.Columns.Add("VeriMode", 130, HorizontalAlignment.Left);
             listView1.Columns.Add("DateTime", 130, HorizontalAlignment.Left);
@@ -161,7 +165,7 @@ namespace FPClient
         public void btnReadAllGLogData_Click(object sender, EventArgs e)
         {
             InitGLogListView();
-
+            
             bool bRet;
             GeneralLogInfo gLogInfo = new GeneralLogInfo();
 
@@ -197,6 +201,7 @@ namespace FPClient
                 }
 
             } while (bRet);
+            
 
             int i = 1;
             string str;
@@ -211,9 +216,11 @@ namespace FPClient
                 lvi.Text = i.ToString();
                 i++;
 
-                lvi.SubItems.Add(gInfo.dwTMachineNumber.ToString());
+                // ı want to convert id to int
+                int x = Convert.ToInt32(id);
+                lvi.SubItems.Add(x.ToString("D3"));
                 lvi.SubItems.Add(gInfo.dwEnrollNumber.ToString("D8"));
-                lvi.SubItems.Add(gInfo.dwEMachineNumber.ToString());
+                lvi.SubItems.Add(x.ToString("D2"));
 
                 int nInOut = gInfo.dwVerifyMode / 8;
                 lvi.SubItems.Add(nInOut.ToString());                             // INOUT
@@ -227,24 +234,39 @@ namespace FPClient
                 //DateTime dt = new DateTime(gInfo.dwYear, gInfo.dwMonth, gInfo.dwDay);
 
 
-                int second = 0;
+                //int second = 0;
                 string hourMinute = $"{gInfo.dwHour:D2}:{gInfo.dwMinute:D2}";
 
                 lvi.SubItems.Add(date);// '/' ile ayrılmış format
                 lvi.SubItems.Add(hourMinute);
 
+                // Toplam_NUM hesaplama
+                /*
+                float kartno = float.Parse(gInfo.dwEnrollNumber.ToString());  // Kartno'yu float olarak alın
+                float tarihSon2 = float.Parse(date.Substring(8, 2));  // Tarih'in son iki karakteri (gün)
+                float saatNum = gInfo.dwHour * 60 + gInfo.dwMinute;  // SaatNum'u dakikaya dönüştür
+
+                float toplamNum = kartno + (tarihSon2 * 1440) + saatNum;
+
+                // Toplam_NUM değerini ListViewItem'a ekleme
+                lvi.SubItems.Add(toplamNum.ToString("F2"));
+                */
+
                 //lvi.SubItems.Add(dt.ToString("yyyy/MM/dd")); 
                 // ListView'e ekle
                 listView1.Items.Add(lvi);
 
+
                 // Verileri arrayList'e ekle ve StringBuilder ile birleştir
                 ArrayList arrayList = new ArrayList
                 {
-                    "001", // Machine Number
+                    lvi.SubItems[1].Text, // Machine Number
                     lvi.SubItems[2].Text, // Enroll Number
                     lvi.SubItems[3].Text, // EMachine Number
                     lvi.SubItems[6].Text, // Date
-                    lvi.SubItems[7].Text // Time
+                    lvi.SubItems[7].Text, // Time
+                    //lvi.SubItems[8].Text // Kimlik
+                                         
                 };
 
                 // ArrayList'i string olarak birleştir
@@ -254,8 +276,6 @@ namespace FPClient
                 // StringBuilder'a ekle
                 sb.AppendLine(strArray);
             }
-
-
             // Dosya yolu
             string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
             string filePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\backup.txt";
@@ -266,7 +286,6 @@ namespace FPClient
                 // Tüm biriktirilmiş verileri tek seferde dosyaya yaz
                 System.IO.File.AppendAllText(filePath, sb.ToString());
                 System.IO.File.AppendAllText(filePath2, sb.ToString());
-
 
                 // Başarılı olursa kullanıcıya bir mesaj göster
                 //MessageBox.Show("Tüm veriler dosyaya başarıyla eklendi!");
@@ -279,87 +298,9 @@ namespace FPClient
 
             i -= 1;
             labelTotal.Text = i.ToString("Total Read 0");
-            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
-
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                try
-                {
-                    // Veritabanı bağlantısını aç
-                    connection.Open();
-                    Console.WriteLine("Connection successful!");
-
-                    // CSV dosyasını satır satır oku
-                    using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
-                    {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            // Satırdaki verileri ayır (virgül ile ayrılmış)
-                            string[] values = line.Split(',');
-
-                            // CSV'den gelen değerlerin başındaki ve sonundaki tırnak işaretlerini temizleyin
-                            string id = values[0].Trim('"');
-
-                            // Toplam dakika hesaplamak için saat ve dakikayı ayırın
-                            string[] timeParts = values[4].Trim('"').Split(':'); // Saat değerini al
-
-                            // Saat ve dakikayı ayır
-                            int hours = int.Parse(timeParts[0]); // Saat
-                            int minutes = int.Parse(timeParts[1]); // Dakika
-                            //int seconds = int.Parse(timeParts[2]); // Saniye
-
-                            // Toplam dakika hesapla
-                            float saatnum = hours * 60 + minutes; // Toplam dakikayı hesapla
-
-                            string kartno = values[1].Trim('"');
-                            string ftus = values[2].Trim('"');
-                            string tarih = values[3].Trim('"');
-                            string saat = values[4].Trim('"');
-                            //float kimlik = float.Parse(values[7].Trim('"'));
-
-                            DateTime date = DateTime.Parse(values[3].Trim('"'));
-
-
-
-                            // DBF dosyasına veri eklemek için INSERT INTO SQL komutunu oluştur
-                            string insertQuery = "INSERT INTO Duzenleyici " +
-                                "(ID,TARIHNUM ,SAATNUM, KARTNO, FTUS, TARIH, SAAT) " +
-                                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-                            OleDbCommand command = new OleDbCommand(insertQuery, connection);
-
-                            // Parametrelerle veriyi ekle
-                            command.Parameters.AddWithValue("@p1", id);
-                            command.Parameters.AddWithValue("@p2", date);
-                            command.Parameters.AddWithValue("@p3", saatnum);
-                            command.Parameters.AddWithValue("@p4", kartno);
-                            command.Parameters.AddWithValue("@p5", ftus);
-                            command.Parameters.AddWithValue("@p6", tarih);
-                            command.Parameters.AddWithValue("@p7", saat);
-                            //command.Parameters.AddWithValue("@p8", kimlik);
-
-
-                            // Sorguyu çalıştır
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                    //MessageBox.Show("TXT verileri başarıyla DBF dosyasına aktarıldı.");
-
-                    File.WriteAllText(filePath, string.Empty);
-                    //MessageBox.Show("TXT dosyası başarıyla temizlendi.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hata: " + ex.Message);
-                }
-            }
-
 
             //Cihaz bağlantısını kapat
-
-            
             //pOcxObject.EnableDevice(m_nMachineNum, 1);
-
         }
 
 
@@ -758,5 +699,7 @@ namespace FPClient
                 "İletişim Bilgileri",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
     }
 }

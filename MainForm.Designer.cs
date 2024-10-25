@@ -138,7 +138,7 @@ namespace FPClient
             this.btnLogManagement.TabIndex = 3;
             this.btnLogManagement.Text = "Log Data Management";
             this.btnLogManagement.UseVisualStyleBackColor = false;
-            this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
+            //this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
             // 
             // btnSysInfo
             // 
