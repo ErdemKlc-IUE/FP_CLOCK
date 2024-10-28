@@ -446,12 +446,12 @@ namespace FP_CLOCK
                     return;
                 }
 
-                // Check if a device with the same IP and port already exists (duplicate check)
-                if (CheckIfDeviceExists(strDeviceIP, strDevicePort))
-                {
-                    MessageBox.Show("A device with the same IP or port number already exists in the database.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Prevent updating the device
-                }
+                //// Check if a device with the same IP and port already exists (duplicate check)
+                //if (CheckIfDeviceExists(strDeviceIP, strDevicePort))
+                //{
+                //    MessageBox.Show("A device with the same IP or port number already exists in the database.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    return; // Prevent updating the device
+                //}
 
                 // Get the ID from the selected item (ID assumed to be the first subitem)
                 string id = selectedItem.SubItems[0].Text;

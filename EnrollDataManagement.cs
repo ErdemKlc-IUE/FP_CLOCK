@@ -11,6 +11,10 @@ using System.Data.OleDb;
 using DAO = Microsoft.Office.Interop.Access.Dao;
 
 using System.Runtime.InteropServices;
+using FP_CLOCK;
+using System.IO;
+using System.Net.Sockets;
+using System.Net;
 
 namespace FPClient
 {
@@ -19,16 +23,19 @@ namespace FPClient
     {
         private int m_nMachineNum;
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
-       
+        string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
 
         public EnrollDataManagement()
         {
             InitializeComponent();
+            InitializeCheckListBox();
         }
 
         public EnrollDataManagement(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
             InitializeComponent();
+            InitializeCheckListBox();
+
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
 
@@ -69,6 +76,69 @@ namespace FPClient
             DAO.Field daoField = daoTable.Fields["EnrollNumber"];*/
 
         }
+        public void InitializeCheckListBox()
+        {
+            AddToCheckListBoxFromDBF();   
+           
+        }
+        public void AddToCheckListBoxFromDBF()
+        {
+            try
+            {
+                // Ensure the directory for the DBF file exists
+                string directoryPath = Path.GetDirectoryName(dbfFilePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath); // Create directory if it doesn't exist
+                }
+
+                // Create connection string for the DBF file
+                string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    connection.Open();
+                    bool tableExists = false;
+                    try
+                    {
+                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
+                        using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, connection))
+                        {
+                            OleDbDataReader reader = checkCommand.ExecuteReader();
+                            if (reader.HasRows)
+                            {
+                                tableExists = true; // The table exists and has rows
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        tableExists = false; // If an exception occurs, the table does not exist
+                    }
+                    if (tableExists)
+                    {
+                        string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
+                        using (OleDbCommand command = new OleDbCommand(selectQuery, connection))
+                        {
+                            OleDbDataReader reader = command.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                string ipAddr = reader["IPADDR"].ToString();
+                                string portNo = reader["DPORT"].ToString();
+                                string password = reader["PWD"].ToString();
+                                checkedListBox1.Items.Add(ipAddr + "," + portNo + "," + password , CheckState.Checked);
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data from .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+ 
 
         private void EnrollDataManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -90,7 +160,6 @@ namespace FPClient
                 return false;
             }
         }
-
 
         private void ShowErrorInfo()
         {
@@ -330,9 +399,6 @@ namespace FPClient
             EnableDevice();
         }
 
-
-
-
         private void btnGetEnrollInfo_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
@@ -560,8 +626,6 @@ namespace FPClient
             {
                 return false;
             }
-
-
         }
         private void btnUDiskUpload_Click(object sender, EventArgs e)
         {
@@ -1161,7 +1225,7 @@ namespace FPClient
 
             if (bRet)
             {
-                label11.Text = "GetEnrollData OK";
+                labelInfo.Text = "GetEnrollData OK";
                 if (dwBackupNum == 10)
                 {
                     listBox1.Items.Add(dwPassword.ToString("password: 0"));
@@ -1183,7 +1247,7 @@ namespace FPClient
                     //for (int i = 0; i < intArrar.Length; i++ )
                     for (int i = 0; i < arrayLength; i++)
                     {
-                        listBox1.Items.Add(intArrar[i].ToString("X8"));
+                        listBox1.Items.Add(intArrar[i].ToString());
                     }
                 }
 
@@ -1194,6 +1258,38 @@ namespace FPClient
             }
 
             EnableDevice();
+        }
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            ConnectToSelectedDevices();
+           
+
+        }
+        public void ConnectToSelectedDevices()
+        {
+            foreach (var item in checkedListBox1.CheckedItems)
+            {
+                // Assuming each item in the checklist box is "IP,Port"
+                string[] ipPort = item.ToString().Split(',');
+
+                // Validate IP and Port format
+                if (ipPort.Length == 3 && IPAddress.TryParse(ipPort[0], out IPAddress ipAddress) && int.TryParse(ipPort[1], out int port) && int.TryParse(ipPort[2], out int password))
+                {
+                    try
+                    {
+                        bool bRet = pOcxObject.SetIPAddress(ref ipPort[0], port, password);
+                        bRet = pOcxObject.OpenCommPort(m_nMachineNum);
+                    }
+                    catch (SocketException ex)
+                    {
+                        MessageBox.Show($"Failed to connect to {ipAddress}:{port}:{password}. Error: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Invalid IP or port format for item: {item}");
+                }
+            }
         }
     }
 }

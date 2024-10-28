@@ -11,6 +11,7 @@ namespace FP_CLOCK
         public AxFP_CLOCKLib.AxFP_CLOCK axFP_CLOCK;
 
 
+
         /// <summary>
         /// 清理所有正在使用的资源。
         /// </summary>
@@ -34,7 +35,6 @@ namespace FP_CLOCK
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomePage));
             this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
-            this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
             this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
@@ -42,43 +42,33 @@ namespace FP_CLOCK
             this.quitButton = new FP_CLOCK.CustomButton();
             this.settingsButton = new FP_CLOCK.CustomButton();
             this.transferButton = new FP_CLOCK.CustomButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.recordsListview = new System.Windows.Forms.ListView();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // axFP_CLOCK
             // 
-            this.axFP_CLOCK.Enabled = true;
-            this.axFP_CLOCK.Location = new System.Drawing.Point(476, 382);
-            this.axFP_CLOCK.Name = "axFP_CLOCK";
-            this.axFP_CLOCK.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axFP_CLOCK.OcxState")));
-            this.axFP_CLOCK.Size = new System.Drawing.Size(100, 50);
-            this.axFP_CLOCK.TabIndex = 11;
             this.axFP_CLOCK.Visible = false;
-            // 
-            // ipAddressControl1
-            // 
-            this.ipAddressControl1.AllowInternalTab = false;
-            this.ipAddressControl1.AutoHeight = true;
-            this.ipAddressControl1.BackColor = System.Drawing.SystemColors.Window;
-            this.ipAddressControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ipAddressControl1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.ipAddressControl1.Location = new System.Drawing.Point(0, 0);
-            this.ipAddressControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ipAddressControl1.MinimumSize = new System.Drawing.Size(99, 22);
-            this.ipAddressControl1.Name = "ipAddressControl1";
-            this.ipAddressControl1.ReadOnly = false;
-            this.ipAddressControl1.Size = new System.Drawing.Size(99, 22);
-            this.ipAddressControl1.TabIndex = 0;
-            this.ipAddressControl1.Text = "...";
+            this.axFP_CLOCK.Enabled = true;
+            this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
+            this.axFP_CLOCK.Name = "axFP_CLOCK";
+            this.axFP_CLOCK.TabIndex = 0;
             // 
             // listView1
             // 
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(215, 167);
+            this.listView1.Location = new System.Drawing.Point(9, 10);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(665, 375);
+            this.listView1.Size = new System.Drawing.Size(634, 340);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -180,6 +170,58 @@ namespace FP_CLOCK
             this.transferButton.UseVisualStyleBackColor = true;
             this.transferButton.Click += new System.EventHandler(this.customButton1_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(205, 148);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(661, 411);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.listView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(653, 382);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Kayıtlı Cihazlar";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.recordsListview);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(653, 382);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Aktarılan Kayıtlar";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // recordsListview
+            // 
+            this.recordsListview.HideSelection = false;
+            this.recordsListview.Location = new System.Drawing.Point(12, 13);
+            this.recordsListview.Name = "recordsListview";
+            this.recordsListview.Size = new System.Drawing.Size(624, 322);
+            this.recordsListview.TabIndex = 7;
+            this.recordsListview.UseCompatibleStateImageBehavior = false;
+            this.recordsListview.View = System.Windows.Forms.View.Details;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 352);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(147, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Aktarılan Toplam Kayıt :";
+            // 
             // WelcomePage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -187,8 +229,8 @@ namespace FP_CLOCK
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(897, 644);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.settingsButton);
@@ -207,6 +249,10 @@ namespace FP_CLOCK
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +266,12 @@ namespace FP_CLOCK
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton helpButton;
-        private IPAddressControlLib.IPAddressControl ipAddressControl1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView recordsListview;
+        private System.Windows.Forms.Label label1;
+        //private IPAddressControlLib.IPAddressControl ipAddressControl1;
 
     }
 }

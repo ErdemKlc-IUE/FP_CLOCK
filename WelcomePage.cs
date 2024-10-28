@@ -34,6 +34,8 @@ namespace FP_CLOCK
         
         SaveDevice saveDevice = new SaveDevice();
         string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+        string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+
 
 
 
@@ -42,6 +44,7 @@ namespace FP_CLOCK
         {
             InitializeComponent();
             DeviceLogListView();
+            RecordListView();
             
 
             //ReceiveListViewItems(listView1.Items);
@@ -157,6 +160,7 @@ namespace FP_CLOCK
                     //logManagement.Show();
 
 
+
                     SysInfo sysInfo = new SysInfo(m_nCurSelID, ref axFP_CLOCK);
                     sysInfo.btnSetDeviceTime_Click(sender, e);
                     count++;
@@ -179,6 +183,7 @@ namespace FP_CLOCK
                 // System.Threading.Thread.Sleep(500); // 500ms bekleme süresi ekleyebilirsiniz.
                 listView1.Refresh();
             }
+            txtToListview();
             sendDatabase();
 
 
@@ -231,6 +236,19 @@ namespace FP_CLOCK
             dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
             saveDevice.LoadDBFDataToListView(listView1, dbfFilePath);
 
+        }
+        private void RecordListView()
+        {
+            recordsListview.GridLines = true;
+            recordsListview.FullRowSelect = true;
+            recordsListview.View = View.Details;
+            recordsListview.Scrollable = true;
+            recordsListview.MultiSelect = false;
+            recordsListview.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Kart No", 100, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("FTUS", 50, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Tarih", 100, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Saat", 100, HorizontalAlignment.Left);
         }
         private void helpButton_Click(object sender, EventArgs e)
         {
@@ -295,7 +313,6 @@ namespace FP_CLOCK
 
         public void sendDatabase()
         {
-            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
 
 
@@ -321,6 +338,8 @@ namespace FP_CLOCK
 
             // Sıralanmış verileri dosyaya geri yaz
             File.WriteAllLines(filePath, sortedLines);
+
+
 
             Console.WriteLine("Veriler başarıyla sıralandı ve dosyaya yazıldı.");
 
@@ -488,6 +507,26 @@ namespace FP_CLOCK
                 }
             }
         }
+        public void txtToListview()
+        {
+            // ı want to add txt file to listview named record listview
+            string[] lines = File.ReadAllLines(filePath);
+            int i = 0;
+            foreach (string line in lines)
+            {
+                string[] items = line.Split(',');
+                ListViewItem item = new ListViewItem(items[0]);
+                item.SubItems.Add(items[1]);
+                item.SubItems.Add(items[2]);
+                item.SubItems.Add(items[3]);
+                item.SubItems.Add(items[4]);
+                recordsListview.Items.Add(item);
+                label1.Text = i.ToString();
+                i++;
+            }
+            label1.Text = i.ToString("Aktarılan Toplam Kayıt : 0");
+        }
+
 
     }
 }
