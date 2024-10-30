@@ -45,7 +45,9 @@ namespace FP_CLOCK
             InitializeComponent();
             DeviceLogListView();
             RecordListView();
-            
+            createEnrollDataDB();
+
+
 
             //ReceiveListViewItems(listView1.Items);
         }
@@ -74,7 +76,49 @@ namespace FP_CLOCK
                             break;
                     }
                 }*/
+        public void createEnrollDataDB()
+        {
+            try
+            {
+                string enrollDBF = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+                string directoryPath = Path.GetDirectoryName(enrollDBF);
 
+                string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    bool tableExists = false;
+                    try
+                    {
+                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(enrollDBF)}";
+                        using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, conn))
+                        {
+                            checkCommand.ExecuteNonQuery();
+                            tableExists = true;
+                        }
+                    }
+                    catch
+                    {
+                        tableExists = false;
+                    }
+                    if (!tableExists)
+                    {
+                        string createTableCommandText = "CREATE TABLE " + Path.GetFileNameWithoutExtension(enrollDBF) +
+                             " (EMachineNumber FLOAT, EnrollNumber FLOAT, FingerNumber FLOAT, Privilige FLOAT," +
+                             " enPassword FLOAT, FPData CHAR(10), EnrollName CHAR(10), AttendenceEnable FLOAT)";
+                        using (OleDbCommand createTableCommand = new OleDbCommand(createTableCommandText, conn))
+                        {
+                            createTableCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
+            }
+        }
         private void WelcomePage_Load(object sesnder, EventArgs e)
         {
             //this.axFP_CLOCK.OnGeneralEvent += new AxFP_CLOCKLib._IFP_CLOCKEvents_OnGeneralEventEventHandler(this.axFP_CLOCK_OnGeneralEvent);
@@ -313,7 +357,7 @@ namespace FP_CLOCK
 
         public void sendDatabase()
         {
-            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\Data;Extended Properties=dBase IV;";
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\ENGOPER\EnGoPer\Data;Extended Properties=dBase IV;";
 
 
             // Dosyayı satır satır oku

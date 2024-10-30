@@ -311,6 +311,50 @@ namespace FP_CLOCK
                 MessageBox.Show("Error loading data from .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        public void LoadDBFDataToListView2(ListView listView2, string dbfFilePath2)
+        {
+            try
+            {
+                string directoryPath = Path.GetDirectoryName(dbfFilePath2);
+                string connectionString = $@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={directoryPath};Extended Properties=dBASE IV;";
+
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    connection.Open();
+                    string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
+
+                    using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection))
+                    using (OleDbDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Check if 'EMachineNumber' exists in the reader
+                            string machineNumber = reader["EMACHINENU"].ToString();  // Verify exact field name
+                            string enrollNumber = reader["ENROLLNUMB"].ToString();
+                            string fingerNumber = reader["FINGERNUMB"].ToString();
+                            string priv = reader["PRIVILIGE"].ToString();
+                            string password = reader["ENPASSWORD"].ToString();
+                            string fpData = reader["FPDATA"].ToString();
+                            string enrollName = reader["ENROLLNAME"].ToString();
+                            string attendence = reader["ATTENDENCE"].ToString();
+
+                            ListViewItem item = new ListViewItem(enrollNumber);
+                            item.SubItems.Add(fingerNumber);
+                            item.SubItems.Add(priv);
+                            item.SubItems.Add(password);
+                            item.SubItems.Add(enrollName);
+                            listView2.Items.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data from .dbf file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void deleteButton_Click(object sender, EventArgs e)
         {
             // Check if an item is selected in the ListView

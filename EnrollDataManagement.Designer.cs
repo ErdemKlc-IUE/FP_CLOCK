@@ -48,7 +48,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.btnSendAllEnrollData = new FP_CLOCK.CustomButton();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.connectButton = new FP_CLOCK.CustomButton();
             this.btnDelDBData = new FP_CLOCK.CustomButton();
             this.btnSetAllEnData = new FP_CLOCK.CustomButton();
             this.btnGetAllEnData = new FP_CLOCK.CustomButton();
@@ -57,14 +58,12 @@
             this.btnSetUserName = new FP_CLOCK.CustomButton();
             this.btnEmptyEnData = new FP_CLOCK.CustomButton();
             this.btnDelEnData = new FP_CLOCK.CustomButton();
-            this.btnGetEnrollData = new FP_CLOCK.CustomButton();
             this.btnSetEnrollData = new FP_CLOCK.CustomButton();
             this.btnGetEnroll = new FP_CLOCK.CustomButton();
             this.btnGetUserName = new FP_CLOCK.CustomButton();
             this.btnSetCompanyString = new FP_CLOCK.CustomButton();
             this.btnRmAllManager = new FP_CLOCK.CustomButton();
             this.btnClearAllData = new FP_CLOCK.CustomButton();
-            this.connectButton = new FP_CLOCK.CustomButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,7 +249,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnSendAllEnrollData);
             this.groupBox1.Controls.Add(this.btnDelDBData);
             this.groupBox1.Controls.Add(this.btnSetAllEnData);
             this.groupBox1.Controls.Add(this.btnGetAllEnData);
@@ -279,22 +277,31 @@
             this.checkedListBox1.Size = new System.Drawing.Size(193, 140);
             this.checkedListBox1.TabIndex = 12;
             // 
-            // btnSendAllEnrollData
+            // listView1
             // 
-            this.btnSendAllEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnSendAllEnrollData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSendAllEnrollData.BorderRadius = 20;
-            this.btnSendAllEnrollData.BorderSize = 0;
-            this.btnSendAllEnrollData.FlatAppearance.BorderSize = 0;
-            this.btnSendAllEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendAllEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSendAllEnrollData.Location = new System.Drawing.Point(19, 128);
-            this.btnSendAllEnrollData.Name = "btnSendAllEnrollData";
-            this.btnSendAllEnrollData.Size = new System.Drawing.Size(123, 44);
-            this.btnSendAllEnrollData.TabIndex = 3;
-            this.btnSendAllEnrollData.Text = "Bütün Verileri Database Yolla";
-            this.btnSendAllEnrollData.UseVisualStyleBackColor = false;
-            this.btnSendAllEnrollData.Click += new System.EventHandler(this.btnSendAllEnrollData_Click);
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(27, 343);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(665, 420);
+            this.listView1.TabIndex = 14;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // connectButton
+            // 
+            this.connectButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.connectButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.connectButton.BorderRadius = 20;
+            this.connectButton.BorderSize = 0;
+            this.connectButton.FlatAppearance.BorderSize = 0;
+            this.connectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.connectButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.connectButton.Location = new System.Drawing.Point(823, 489);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(68, 35);
+            this.connectButton.TabIndex = 13;
+            this.connectButton.Text = "Bağlan";
+            this.connectButton.UseVisualStyleBackColor = false;
+            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
             // btnDelDBData
             // 
@@ -305,7 +312,7 @@
             this.btnDelDBData.FlatAppearance.BorderSize = 0;
             this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelDBData.Location = new System.Drawing.Point(19, 179);
+            this.btnDelDBData.Location = new System.Drawing.Point(19, 127);
             this.btnDelDBData.Name = "btnDelDBData";
             this.btnDelDBData.Size = new System.Drawing.Size(123, 41);
             this.btnDelDBData.TabIndex = 3;
@@ -326,7 +333,7 @@
             this.btnSetAllEnData.Name = "btnSetAllEnData";
             this.btnSetAllEnData.Size = new System.Drawing.Size(123, 45);
             this.btnSetAllEnData.TabIndex = 3;
-            this.btnSetAllEnData.Text = "Bütün Verileri Kaydet";
+            this.btnSetAllEnData.Text = "Databasei Cİhaza yolla";
             this.btnSetAllEnData.UseVisualStyleBackColor = false;
             this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
             // 
@@ -343,7 +350,7 @@
             this.btnGetAllEnData.Name = "btnGetAllEnData";
             this.btnGetAllEnData.Size = new System.Drawing.Size(123, 44);
             this.btnGetAllEnData.TabIndex = 3;
-            this.btnGetAllEnData.Text = "Bütün Verileri Al";
+            this.btnGetAllEnData.Text = "Database kaydet";
             this.btnGetAllEnData.UseVisualStyleBackColor = false;
             this.btnGetAllEnData.Click += new System.EventHandler(this.btnGetAllEnData_Click);
             // 
@@ -411,7 +418,7 @@
             this.btnEmptyEnData.Name = "btnEmptyEnData";
             this.btnEmptyEnData.Size = new System.Drawing.Size(135, 51);
             this.btnEmptyEnData.TabIndex = 3;
-            this.btnEmptyEnData.Text = "Bütün Kullanıcı Verileri Sİl";
+            this.btnEmptyEnData.Text = "Cihazdaki kullanıcıları sil";
             this.btnEmptyEnData.UseVisualStyleBackColor = false;
             this.btnEmptyEnData.Click += new System.EventHandler(this.btnEmptyEnData_Click);
             // 
@@ -432,23 +439,6 @@
             this.btnDelEnData.UseVisualStyleBackColor = false;
             this.btnDelEnData.Click += new System.EventHandler(this.btnDelEnData_Click);
             // 
-            // btnGetEnrollData
-            // 
-            this.btnGetEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnGetEnrollData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGetEnrollData.BorderRadius = 20;
-            this.btnGetEnrollData.BorderSize = 0;
-            this.btnGetEnrollData.FlatAppearance.BorderSize = 0;
-            this.btnGetEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGetEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetEnrollData.Location = new System.Drawing.Point(913, 361);
-            this.btnGetEnrollData.Name = "btnGetEnrollData";
-            this.btnGetEnrollData.Size = new System.Drawing.Size(135, 51);
-            this.btnGetEnrollData.TabIndex = 3;
-            this.btnGetEnrollData.Text = "Cihazdan Al";
-            this.btnGetEnrollData.UseVisualStyleBackColor = false;
-            this.btnGetEnrollData.Click += new System.EventHandler(this.btnGetEnrollData_Click);
-            // 
             // btnSetEnrollData
             // 
             this.btnSetEnrollData.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -458,11 +448,11 @@
             this.btnSetEnrollData.FlatAppearance.BorderSize = 0;
             this.btnSetEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetEnrollData.Location = new System.Drawing.Point(913, 297);
+            this.btnSetEnrollData.Location = new System.Drawing.Point(913, 366);
             this.btnSetEnrollData.Name = "btnSetEnrollData";
             this.btnSetEnrollData.Size = new System.Drawing.Size(135, 51);
             this.btnSetEnrollData.TabIndex = 3;
-            this.btnSetEnrollData.Text = "Cihaza Gönder";
+            this.btnSetEnrollData.Text = "Cihaza kullanıcı Gönder";
             this.btnSetEnrollData.UseVisualStyleBackColor = false;
             this.btnSetEnrollData.Click += new System.EventHandler(this.btnSetEnrollData_Click);
             // 
@@ -551,29 +541,13 @@
             this.btnClearAllData.UseVisualStyleBackColor = false;
             this.btnClearAllData.Click += new System.EventHandler(this.btnClearAllData_Click);
             // 
-            // connectButton
-            // 
-            this.connectButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.connectButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.connectButton.BorderRadius = 20;
-            this.connectButton.BorderSize = 0;
-            this.connectButton.FlatAppearance.BorderSize = 0;
-            this.connectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.connectButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.connectButton.Location = new System.Drawing.Point(823, 489);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(68, 35);
-            this.connectButton.TabIndex = 13;
-            this.connectButton.Text = "Bağlan";
-            this.connectButton.UseVisualStyleBackColor = false;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
-            // 
             // EnrollDataManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1067, 795);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.listBox1);
@@ -591,7 +565,6 @@
             this.Controls.Add(this.btnSetUserName);
             this.Controls.Add(this.btnEmptyEnData);
             this.Controls.Add(this.btnDelEnData);
-            this.Controls.Add(this.btnGetEnrollData);
             this.Controls.Add(this.btnSetEnrollData);
             this.Controls.Add(this.btnGetEnroll);
             this.Controls.Add(this.btnGetUserName);
@@ -645,12 +618,10 @@
         private FP_CLOCK.CustomButton btnModifyPrivilege;
         private FP_CLOCK.CustomButton btnGetEnroll;
         private System.Windows.Forms.GroupBox groupBox1;
-        private FP_CLOCK.CustomButton btnSendAllEnrollData;
         private FP_CLOCK.CustomButton btnDelDBData;
         private FP_CLOCK.CustomButton btnSetAllEnData;
         private FP_CLOCK.CustomButton btnGetAllEnData;
         private FP_CLOCK.CustomButton btnSetEnrollData;
-        private FP_CLOCK.CustomButton btnGetEnrollData;
         private FP_CLOCK.CustomButton btnDelEnData;
         //private FP_CLOCK.CustomButton btnUDiskDownLoad;
         //private FP_CLOCK.CustomButton btnUDiskUpload;
@@ -658,5 +629,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private FP_CLOCK.CustomButton connectButton;
+        private System.Windows.Forms.ListView listView1;
     }
 }
