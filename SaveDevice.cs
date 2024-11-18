@@ -315,36 +315,68 @@ namespace FP_CLOCK
         {
             try
             {
-                string directoryPath = Path.GetDirectoryName(dbfFilePath2);
-                string connectionString = $@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={directoryPath};Extended Properties=dBASE IV;";
+                string directoryPath2 = Path.GetDirectoryName(dbfFilePath2);
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                if (!Directory.Exists(directoryPath2))
+                {
+                    Directory.CreateDirectory(directoryPath2); // Create directory if it doesn't exist
+                }
+
+                string connectionString2 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath2 + ";Extended Properties=dBase IV;";
+
+                using (OleDbConnection connection = new OleDbConnection(connectionString2))
                 {
                     connection.Open();
-                    string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
 
-                    using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection))
-                    using (OleDbDataReader reader = selectCommand.ExecuteReader())
+                    // Check if the table exists by attempting to read from it
+                    bool tableExists = false;
+                    try
                     {
-                        while (reader.Read())
+                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
+                        using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, connection))
                         {
-                            // Check if 'EMachineNumber' exists in the reader
-                            string machineNumber = reader["EMACHINENU"].ToString();  // Verify exact field name
-                            string enrollNumber = reader["ENROLLNUMB"].ToString();
-                            string fingerNumber = reader["FINGERNUMB"].ToString();
-                            string priv = reader["PRIVILIGE"].ToString();
-                            string password = reader["ENPASSWORD"].ToString();
-                            string fpData = reader["FPDATA"].ToString();
-                            string enrollName = reader["ENROLLNAME"].ToString();
-                            string attendence = reader["ATTENDENCE"].ToString();
-
-                            ListViewItem item = new ListViewItem(enrollNumber);
-                            item.SubItems.Add(fingerNumber);
-                            item.SubItems.Add(priv);
-                            item.SubItems.Add(password);
-                            item.SubItems.Add(enrollName);
-                            listView2.Items.Add(item);
+                            OleDbDataReader reader = checkCommand.ExecuteReader();
+                            if (reader.HasRows)
+                            {
+                                tableExists = true; // The table exists and has rows
+                            }
                         }
+                    }
+                    catch
+                    {
+                        tableExists = false; // If an exception occurs, the table does not exist
+                    }
+                    if (tableExists)
+                    {
+                        string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
+                        using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection)) 
+                        { 
+                            using (OleDbDataReader reader = selectCommand.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    // Check if 'EMachineNumber' exists in the reader
+                                    string machineNumber = reader["EMNo"].ToString();  // Verify exact field name
+                                    string enrollNumber = reader["ENumber"].ToString();
+                                    string fingerNumber = reader["FNumber"].ToString();
+                                    string priv = reader["Priv"].ToString();
+                                    string password = reader["EnPw"].ToString();
+                                    string fpData = reader["FpData"].ToString();
+                                    string enrollName = reader["EName"].ToString();
+                                    string attendence = reader["Attend"].ToString();
+                                    ListViewItem item = new ListViewItem(enrollNumber);
+                                    item.SubItems.Add(fingerNumber);
+                                    item.SubItems.Add(priv);
+                                    item.SubItems.Add(enrollName);
+                                    item.SubItems.Add(password);
+                                    listView2.Items.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //MessageBox.Show("The DBF table does not exist or contains no data.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -353,8 +385,6 @@ namespace FP_CLOCK
                 MessageBox.Show("Error loading data from .dbf file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void deleteButton_Click(object sender, EventArgs e)
         {
             // Check if an item is selected in the ListView

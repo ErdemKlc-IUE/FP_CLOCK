@@ -271,6 +271,15 @@ namespace FPClient
         public int dwMinute;
 
     }
+    public struct UserInfo
+    {
+        public int dwEnrollNumber;
+        public int dwMachineNumber;
+        public int dwBackupNumber;
+        public int dwUserPrivilege;
+        public int dwAttendenceEnable;
+        public string strName;
+    }
 
 
 

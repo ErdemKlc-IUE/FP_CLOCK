@@ -78,47 +78,49 @@ namespace FP_CLOCK
                 }*/
         public void createEnrollDataDB()
         {
-            try
+            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string tableName = "EnrollData"; // Explicitly specify the table name
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
-                string enrollDBF = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
-                string directoryPath = Path.GetDirectoryName(enrollDBF);
-
-                string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
-
-                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                try
                 {
                     conn.Open();
                     bool tableExists = false;
                     try
                     {
-                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(enrollDBF)}";
+                        string checkTableExistsQuery = $"SELECT * FROM {tableName}";
                         using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, conn))
                         {
                             checkCommand.ExecuteNonQuery();
-                            tableExists = true;
+                            tableExists = true; // If no exception occurs, the table exists
                         }
                     }
                     catch
                     {
                         tableExists = false;
                     }
+
                     if (!tableExists)
                     {
-                        string createTableCommandText = "CREATE TABLE " + Path.GetFileNameWithoutExtension(enrollDBF) +
-                             " (EMachineNumber FLOAT, EnrollNumber FLOAT, FingerNumber FLOAT, Privilige FLOAT," +
-                             " enPassword FLOAT, FPData CHAR(10), EnrollName CHAR(10), AttendenceEnable FLOAT)";
+                        string createTableCommandText = $"CREATE TABLE {tableName} " +
+                            "(EMNo FLOAT, ENumber FLOAT, FNumber FLOAT, Priv FLOAT, EnPw FLOAT, " +
+                            "FpData MEMO, EName CHAR(30), Attend FLOAT)";
                         using (OleDbCommand createTableCommand = new OleDbCommand(createTableCommandText, conn))
                         {
                             createTableCommand.ExecuteNonQuery();
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hata: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
+
         private void WelcomePage_Load(object sesnder, EventArgs e)
         {
             //this.axFP_CLOCK.OnGeneralEvent += new AxFP_CLOCKLib._IFP_CLOCKEvents_OnGeneralEventEventHandler(this.axFP_CLOCK_OnGeneralEvent);
@@ -132,7 +134,7 @@ namespace FP_CLOCK
             // open html
             System.Diagnostics.Process.Start("https://personeltakib.com/enka-teknoloji/");
         }
-        private void customButton1_Click(object sender, EventArgs e)
+        private void customButton1_Click(object sender, EventArgs e) // Bilgileri Aktar butonu
         {
             // Eğer ListView boşsa uyarı ver ve işlemi durdur
             if (listView1.Items.Count == 0)
@@ -553,6 +555,7 @@ namespace FP_CLOCK
         }
         public void txtToListview()
         {
+            recordsListview.Items.Clear();
             // ı want to add txt file to listview named record listview
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
