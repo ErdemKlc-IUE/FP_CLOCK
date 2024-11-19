@@ -26,8 +26,8 @@ namespace FPClient
     {
         private int m_nMachineNum;
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
-        string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
-        string dbfFilePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+        string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+        string dbfFilePath2 = @"C:\ENGOPER\Data\EnrollData.dbf";
         SaveDevice saveDevice = new SaveDevice();
 
         public EnrollDataManagement()
@@ -392,7 +392,7 @@ namespace FPClient
             bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
             if (bRet)
             {
-                string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+                string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
                 string directoryPath = Path.GetDirectoryName(enrolldbfPath);
                 string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -547,67 +547,75 @@ namespace FPClient
         }
 
         //need check about text box input strings
-        private void btnDelEnData_Click(object sender, EventArgs e)//Kullanıcı Veri Sil
+        private void btnDelEnData_Click(object sender, EventArgs e)
         {
-            int dwEnrollNum = Int32.Parse(tbEnrollNum.Text);
-            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-            int dwBackupNum = cmbBackupNum.SelectedIndex;
-
-            // Cihazdan kullanıcıyı sil
+            // Disable the device to prevent conflicts
             DisableDevice();
 
-            bool bRet = pOcxObject.DeleteEnrollData(
-                m_nMachineNum,
-                dwEnrollNum,
-                dwEnMachineID,
-                dwBackupNum);
-
-            if (bRet)
+            // Loop through all the items in the ListView to find the selected ones
+            foreach (ListViewItem item in listView1.Items)
             {
-                // Kullanıcı cihazdan başarıyla silindiyse veritabanından da sil
-                string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
-                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
-
-                using (OleDbConnection conn = new OleDbConnection(strConnection))
+                // Check if the checkbox is selected for this item
+                if (item.Checked)
                 {
-                    try
+                    // Extract the necessary data from the ListView item
+                    int dwEnrollNum = Int32.Parse(item.SubItems[0].Text); // Assuming the first column is EnrollNum
+                    int dwEnMachineID = Int32.Parse("1"); // Assuming the second column is EnMachineID
+                    int dwBackupNum = Int32.Parse(item.SubItems[1].Text); // Assuming the third column is BackupNum
+                    
+                    // Call the method to delete the user from the device
+                    bool bRet = pOcxObject.DeleteEnrollData(m_nMachineNum, dwEnrollNum, dwEnMachineID, dwBackupNum);
+
+                    if (bRet)
                     {
-                        conn.Open();
-                        string deleteQuery = "DELETE FROM EnrollData WHERE ENumber = ?";
+                        // If the user is deleted from the device, delete from the database as well
+                        string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+                        string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                        string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
-                        using (OleDbCommand cmd = new OleDbCommand(deleteQuery, conn))
+                        using (OleDbConnection conn = new OleDbConnection(strConnection))
                         {
-                            cmd.Parameters.AddWithValue("?", dwEnrollNum);
-                            int rowsAffected = cmd.ExecuteNonQuery();
+                            try
+                            {
+                                conn.Open();
+                                string deleteQuery = "DELETE FROM EnrollData WHERE ENumber = ?";
 
-                            if (rowsAffected > 0)
-                            {
-                                labelInfo.Text = "DeleteEnrollData OK. Record deleted from database.";
+                                using (OleDbCommand cmd = new OleDbCommand(deleteQuery, conn))
+                                {
+                                    cmd.Parameters.AddWithValue("?", dwEnrollNum);
+                                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                                    if (rowsAffected > 0)
+                                    {
+                                        labelInfo.Text = "DeleteEnrollData OK. Record deleted from database.";
+                                    }
+                                    else
+                                    {
+                                        labelInfo.Text = "DeleteEnrollData OK. No matching record in database.";
+                                    }
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                labelInfo.Text = "DeleteEnrollData OK. No matching record in database.";
+                                MessageBox.Show("Database Error: " + ex.Message);
                             }
                         }
+
+                        // Optionally, remove the item from the ListView
+                        listView1.Items.Remove(item);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show("Database Error: " + ex.Message);
+                        // If deletion from the device fails, show an error
+                        ShowErrorInfo();
                     }
                 }
-                listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-            }
-            else
-            {
-                ShowErrorInfo();
             }
 
+            // Re-enable the device after the operation
             EnableDevice();
-
-
         }
+
         private void readDevice()
         {
            /* listView1.Items.Clear();
@@ -1002,7 +1010,7 @@ namespace FPClient
         {
             DisableDevice();
             OleDbConnection conn;
-            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
             conn = new OleDbConnection(strConnection);
@@ -1214,114 +1222,117 @@ namespace FPClient
             conn.Close();
 
             EnableDevice();
-        } 
+        }
 
         private void btnSetAllEnData_Click(object sender, EventArgs e)   // Database Cihaza Yolla
-
         {
+            ConnectToSelectedDevices2();
             bool bRet;
-
             int dwEMachineNumber;
             int dwEnrollNumber;
             int dwFingerNumber;
             int dwPrivilege;
             int dwPassword;
             int[] dwFPData = new int[1420 / 4];
-            object obj = 0;
+            object obj = null;
 
             OleDbConnection myAccessConn;
-            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
-            myAccessConn = new OleDbConnection(strConnection);
-            myAccessConn.Open();
 
-            if (myAccessConn.State != ConnectionState.Open)
+            try
             {
-                //MessageBox.Show("Access数据库的连接成功!", "Access数据库的连接");
-                MessageBox.Show("Access数据库的连接失败!", "Access数据库的连接");
-                return;
-            }
-            else
-            {
-            }
+                myAccessConn = new OleDbConnection(strConnection);
+                myAccessConn.Open();
 
-            string strAccessSelect = "SELECT * FROM EnrollData";
-            OleDbCommand myAccessCommand = new OleDbCommand(strAccessSelect, myAccessConn);
-            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
-            DataSet myDataSet = new DataSet();
-
-            myDataAdapter.Fill(myDataSet, "EnrollData");
-
-            DataRowCollection dra = myDataSet.Tables["EnrollData"].Rows;
-
-            if (dra.Count == 0)
-            {
-                labelInfo.Text = "btnUDiskDownLoad_Click, DataBase is empty.";
-
-                myAccessConn.Close();
-                return;
-            }
-            //DataRow dRow = dra[1];
-
-            foreach (DataRow dr in dra)
-            {
-                dwEMachineNumber = Int32.Parse(dr["EMNo"].ToString());
-                dwEnrollNumber = Int32.Parse(dr["ENumber"].ToString());
-                dwFingerNumber = Int32.Parse(dr["FNumber"].ToString());
-                dwPrivilege = Int32.Parse(dr["Priv"].ToString());
-                dwPassword = Int32.Parse(dr["EnPw"].ToString());
-
-                if (dwFingerNumber < 10)
+                if (myAccessConn.State != ConnectionState.Open)
                 {
-                    
-                    obj = new System.Runtime.InteropServices.VariantWrapper(dr["FPData"]);
-                }
-                else
-                {
-                    obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
+                    MessageBox.Show("Access database connection failed!", "Connection Error");
+                    return;
                 }
 
-                bRet = pOcxObject.SetEnrollData(
-                    m_nMachineNum,
-                    dwEnrollNumber,
-                    dwEMachineNumber,
-                    dwFingerNumber,
-                    dwPrivilege,
-                    ref obj,
-                    dwPassword);
-                if (!bRet)
+                string strAccessSelect = "SELECT * FROM EnrollData";
+                OleDbCommand myAccessCommand = new OleDbCommand(strAccessSelect, myAccessConn);
+                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
+                DataSet myDataSet = new DataSet();
+
+                myDataAdapter.Fill(myDataSet, "EnrollData");
+
+                DataRowCollection dra = myDataSet.Tables["EnrollData"].Rows;
+
+                if (dra.Count == 0)
                 {
-                    ShowErrorInfo();
-                    DialogResult dlgr;
-                    dlgr = MessageBox.Show("Continue?", "SetEnrollData", MessageBoxButtons.YesNo);
-                    if (dlgr == DialogResult.Yes)
+                    btnClearAllData_Click(sender, e);
+                    labelInfo.Text = "Database is empty.";
+                    return;
+                }
+
+                foreach (DataRow dr in dra)
+                {
+                   foreach(ListViewItem item in listView1.Items)
                     {
-                        bRet = true;
-                    }
-                    else
-                    {
-                        EnableDevice();
-                        labelInfo.Text = "fail on SetEnrollData";
+                        if (item.Checked)
+                        {
+                            try
+                            {
+                                dwEMachineNumber = Convert.ToInt32(dr["EMNo"]);
+                                dwEnrollNumber = Convert.ToInt32(dr["ENumber"]);
+                                dwFingerNumber = Convert.ToInt32(dr["FNumber"]);
+                                dwPrivilege = Convert.ToInt32(dr["PRIV"]);
+                                dwPassword = Convert.ToInt32(dr["EnPw"]);
 
-                        myAccessConn.Close();
-                        return;
+                                if (dwFingerNumber < 10)
+                                {
+                                    obj = new System.Runtime.InteropServices.VariantWrapper(dr["FPData"]);
+                                }
+                                else
+                                {
+                                    obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
+                                }
+
+                                // Sending data to device
+                                bRet = pOcxObject.SetEnrollData(
+                                    m_nMachineNum,
+                                    dwEnrollNumber,
+                                    dwEMachineNumber,
+                                    dwFingerNumber,
+                                    dwPrivilege,
+                                    ref obj,
+                                    dwPassword);
+
+                                if (!bRet)
+                                {
+                                    ShowErrorInfo();
+                                    DialogResult dlgr = MessageBox.Show("Failed to set data for enroll number " + dwEnrollNumber + ". Continue?", "SetEnrollData", MessageBoxButtons.YesNo);
+                                    if (dlgr == DialogResult.No)
+                                    {
+                                        EnableDevice();
+                                        labelInfo.Text = "Failed to set enroll data for " + dwEnrollNumber;
+                                        return;
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error processing row: " + ex.Message);
+                            }
+                        }
                     }
                 }
 
-                
-               
+                labelInfo.Text = "SetEnrollData Success...";
             }
-
-            myAccessConn.Close();
-
-            labelInfo.Text = "SetEnrollData Success...";
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database connection error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-       /* private void btnSendAllEnrollData_Click(object sender, EventArgs e)
-        {
-            //no implementation
-        }*/
+
+        /* private void btnSendAllEnrollData_Click(object sender, EventArgs e)
+         {
+             //no implementation
+         }*/
 
         private void btnDelDBData_Click(object sender, EventArgs e)
         {
@@ -1506,7 +1517,7 @@ namespace FPClient
         }
         public void ConnectToSelectedDevices()
         {
-            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            string enrolldbfPath = @"C:\ENGOPER\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -1517,6 +1528,80 @@ namespace FPClient
                     con.Open();
 
                     foreach (var item in checkedListBox1.CheckedItems)
+                    {
+                        // Assuming each item in the checklist box is "EName"
+                        string selectedName = item.ToString();
+
+                        // Fetch device details from the database
+                        string query = "SELECT IPAddr, DPort, Pwd FROM example WHERE DevName = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("?", selectedName);
+                            using (OleDbDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    string ip = reader.GetString(0);
+                                    string port = reader.GetString(1);
+                                    string password = reader.GetString(2);
+                                    // ı need to convert string to int
+                                    int portInt = Convert.ToInt32(port);
+                                    int passwordInt = Convert.ToInt32(password);
+
+                                    // Attempt to connect to the device
+                                    if (IPAddress.TryParse(ip, out IPAddress ipAddress))
+                                    {
+                                        try
+                                        {
+                                            bool bRet = pOcxObject.SetIPAddress(ref ip, portInt, passwordInt);
+                                            bRet = pOcxObject.OpenCommPort(m_nMachineNum);
+
+                                            if (bRet)
+                                            {
+                                                labelInfo.Text = $"Connected to {selectedName} ({ip}:{port}).";
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show($"Failed to connect to {selectedName} ({ip}:{port}).", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show($"Connection failed for {selectedName} ({ip}:{port}). Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Invalid IP format for {selectedName}: {ip}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"No matching record found for {selectedName} in the database.", "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public void ConnectToSelectedDevices2()
+        {
+            string enrolldbfPath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection con = new OleDbConnection(strConnection))
+            {
+                try
+                {
+                    con.Open();
+
+                    foreach (var item in sendedDeviceList.CheckedItems)
                     {
                         // Assuming each item in the checklist box is "EName"
                         string selectedName = item.ToString();

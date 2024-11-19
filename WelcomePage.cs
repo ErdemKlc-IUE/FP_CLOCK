@@ -33,8 +33,8 @@ namespace FP_CLOCK
         private ListViewItem previousSelectedItem = null; // Önceki seçili cihazı takip etmek için
         
         SaveDevice saveDevice = new SaveDevice();
-        string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
-        string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
+        string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+        string filePath = @"C:\ENGOPER\Data\data.txt";
 
 
 
@@ -78,7 +78,7 @@ namespace FP_CLOCK
                 }*/
         public void createEnrollDataDB()
         {
-            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
+            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string tableName = "EnrollData"; // Explicitly specify the table name
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
@@ -279,7 +279,7 @@ namespace FP_CLOCK
             listView1.Columns.Add("Seri Numarası", 100, HorizontalAlignment.Left);
 
             listView1.Items.Clear();
-            dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
             saveDevice.LoadDBFDataToListView(listView1, dbfFilePath);
 
         }
@@ -359,7 +359,7 @@ namespace FP_CLOCK
 
         public void sendDatabase()
         {
-            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\ENGOPER\EnGoPer\Data;Extended Properties=dBase IV;";
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\ENGOPER\Data;Extended Properties=dBase IV;";
 
 
             // Dosyayı satır satır oku
@@ -470,8 +470,8 @@ namespace FP_CLOCK
         }
         public void sendBackupDatabase()
         {
-            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
-            string dbfFilePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\KayıtYedek.dbf";
+            string filePath = @"C:\ENGOPER\Data\data.txt";
+            string dbfFilePath2 = @"C:\ENGOPER\Data\KayıtYedek.dbf";
             string directoryPath2 = Path.GetDirectoryName(dbfFilePath2);
             string connectionString2 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath2 + ";Extended Properties=dBase IV;";
 

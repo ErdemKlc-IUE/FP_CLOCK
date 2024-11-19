@@ -277,8 +277,8 @@ namespace FPClient
                 sb.AppendLine(strArray);
             }
             // Dosya yolu
-            string filePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\data.txt";
-            string filePath2 = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\backup.txt";
+            string filePath = @"C:\ENGOPER\Data\data.txt";
+            string filePath2 = @"C:\ENGOPER\Data\backup.txt";
 
             // Eğer dosya yoksa oluştur, varsa tüm verileri bir seferde ekle
             try

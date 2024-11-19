@@ -19,7 +19,7 @@ namespace FP_CLOCK
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
         private ListViewItem selectedItem = null; // To hold the currently selected item for editing
 
-        string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+        string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
 
         public SaveDevice()
         {
@@ -70,7 +70,7 @@ namespace FP_CLOCK
             try
             {
                 // Ensure the correct DBF file path
-                string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+                string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
                 string directoryPath = Path.GetDirectoryName(dbfFilePath);
 
                 // Create connection string for the DBF file
@@ -132,7 +132,7 @@ namespace FP_CLOCK
         // Method to check if a device with the same port exists in the database
         private bool CheckIfDeviceExists(string ip, string port)
         {
-            string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(dbfFilePath);
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -155,7 +155,7 @@ namespace FP_CLOCK
             try
             {
                 // Ensure the correct DBF file path
-                string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+                string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
                 string directoryPath = Path.GetDirectoryName(dbfFilePath);
 
                 // Create connection string for the DBF file
@@ -226,7 +226,7 @@ namespace FP_CLOCK
             listView1.Columns.Add("Port", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Şifre", 50, HorizontalAlignment.Left);
 
-            dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
             LoadDBFDataToListView(listView1, dbfFilePath);
 
 
@@ -417,7 +417,7 @@ namespace FP_CLOCK
             try
             {
                 // Ensure the correct DBF file path
-                string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+                string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
                 string directoryPath = Path.GetDirectoryName(dbfFilePath);
 
                 // Create connection string for the DBF file
@@ -457,7 +457,7 @@ namespace FP_CLOCK
             try
             {
                 // Ensure the correct DBF file path
-                string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+                string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
                 string directoryPath = Path.GetDirectoryName(dbfFilePath);
 
                 // Create connection string for the DBF file
@@ -534,7 +534,7 @@ namespace FP_CLOCK
                 UpdateDatabase(strDeviceName, strDeviceIP, strDevicePort, strDevicePassword, id);
 
                 // Reload the ListView to show updated data
-                LoadDBFDataToListView(listView1, @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf");
+                LoadDBFDataToListView(listView1, @"C:\ENGOPER\Data\Cihazlar.dbf");
 
                 // Clear the textboxes after editing
                 deviceNameTextBox.Clear();
@@ -555,7 +555,7 @@ namespace FP_CLOCK
             try
             {
                 // Ensure the correct DBF file path
-                string dbfFilePath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+                string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
                 string directoryPath = Path.GetDirectoryName(dbfFilePath);
 
                 // Create connection string for the DBF file
