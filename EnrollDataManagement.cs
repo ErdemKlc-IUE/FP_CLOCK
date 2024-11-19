@@ -1533,7 +1533,7 @@ namespace FPClient
                         string selectedName = item.ToString();
 
                         // Fetch device details from the database
-                        string query = "SELECT IPAddr, DPort, Pwd FROM example WHERE DevName = ?";
+                        string query = "SELECT IPAddr, DPort, Pwd FROM Cihazlar WHERE DevName = ?";
                         using (OleDbCommand cmd = new OleDbCommand(query, con))
                         {
                             cmd.Parameters.AddWithValue("?", selectedName);
@@ -1607,7 +1607,7 @@ namespace FPClient
                         string selectedName = item.ToString();
 
                         // Fetch device details from the database
-                        string query = "SELECT IPAddr, DPort, Pwd FROM example WHERE DevName = ?";
+                        string query = "SELECT IPAddr, DPort, Pwd FROM Cihazlar WHERE DevName = ?";
                         using (OleDbCommand cmd = new OleDbCommand(query, con))
                         {
                             cmd.Parameters.AddWithValue("?", selectedName);
