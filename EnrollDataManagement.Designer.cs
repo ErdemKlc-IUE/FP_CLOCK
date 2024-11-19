@@ -47,23 +47,24 @@
             this.tbEnrollName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnDelDBData = new FP_CLOCK.CustomButton();
-            this.btnSetAllEnData = new FP_CLOCK.CustomButton();
-            this.btnGetAllEnData = new FP_CLOCK.CustomButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.sendedDeviceList = new System.Windows.Forms.CheckedListBox();
+            this.btnSetAllEnData = new FP_CLOCK.CustomButton();
             this.connectButton = new FP_CLOCK.CustomButton();
             this.btnDelCompanyString = new FP_CLOCK.CustomButton();
             this.btnModifyPrivilege = new FP_CLOCK.CustomButton();
-            this.btnSetUserName = new FP_CLOCK.CustomButton();
             this.btnEmptyEnData = new FP_CLOCK.CustomButton();
             this.btnDelEnData = new FP_CLOCK.CustomButton();
             this.btnSetEnrollData = new FP_CLOCK.CustomButton();
-            this.btnGetEnroll = new FP_CLOCK.CustomButton();
-            this.btnGetUserName = new FP_CLOCK.CustomButton();
             this.btnSetCompanyString = new FP_CLOCK.CustomButton();
             this.btnRmAllManager = new FP_CLOCK.CustomButton();
             this.btnClearAllData = new FP_CLOCK.CustomButton();
+            this.btnGetAllEnData = new FP_CLOCK.CustomButton();
+            this.btnSetUserName = new FP_CLOCK.CustomButton();
+            this.btnGetEnroll = new FP_CLOCK.CustomButton();
+            this.btnGetUserName = new FP_CLOCK.CustomButton();
+            this.selectAllBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,11 +251,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnDelDBData);
-            this.groupBox1.Controls.Add(this.btnSetAllEnData);
-            //this.groupBox1.Controls.Add(this.btnGetAllEnData);
-            this.groupBox1.Location = new System.Drawing.Point(909, 542);
+            this.groupBox1.Location = new System.Drawing.Point(913, 588);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(157, 227);
+            this.groupBox1.Size = new System.Drawing.Size(157, 94);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DB operation";
@@ -268,57 +267,13 @@
             this.btnDelDBData.FlatAppearance.BorderSize = 0;
             this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelDBData.Location = new System.Drawing.Point(19, 157);
+            this.btnDelDBData.Location = new System.Drawing.Point(6, 21);
             this.btnDelDBData.Name = "btnDelDBData";
             this.btnDelDBData.Size = new System.Drawing.Size(123, 61);
             this.btnDelDBData.TabIndex = 3;
             this.btnDelDBData.Text = "Database Temizle";
             this.btnDelDBData.UseVisualStyleBackColor = false;
             this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
-            // 
-            // btnSetAllEnData
-            // 
-            this.btnSetAllEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnSetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSetAllEnData.BorderRadius = 20;
-            this.btnSetAllEnData.BorderSize = 0;
-            this.btnSetAllEnData.FlatAppearance.BorderSize = 0;
-            this.btnSetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetAllEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetAllEnData.Location = new System.Drawing.Point(19, 91);
-            this.btnSetAllEnData.Name = "btnSetAllEnData";
-            this.btnSetAllEnData.Size = new System.Drawing.Size(123, 61);
-            this.btnSetAllEnData.TabIndex = 3;
-            this.btnSetAllEnData.Text = "Databasei Cİhaza yolla";
-            this.btnSetAllEnData.UseVisualStyleBackColor = false;
-            this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
-            // 
-            // btnGetAllEnData
-            // 
-            /*this.btnGetAllEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnGetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGetAllEnData.BorderRadius = 20;
-            this.btnGetAllEnData.BorderSize = 0;
-            this.btnGetAllEnData.FlatAppearance.BorderSize = 0;
-            this.btnGetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGetAllEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetAllEnData.Location = new System.Drawing.Point(19, 25);
-            this.btnGetAllEnData.Name = "btnGetAllEnData";
-            this.btnGetAllEnData.Size = new System.Drawing.Size(123, 61);
-            this.btnGetAllEnData.TabIndex = 3;
-            this.btnGetAllEnData.Text = "Database kaydet";
-            this.btnGetAllEnData.UseVisualStyleBackColor = false;
-            this.btnGetAllEnData.Click += new System.EventHandler(this.btnGetAllEnData_Click);*/
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(27, 343);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(665, 420);
-            this.listBox1.TabIndex = 10;
             // 
             // checkedListBox1
             // 
@@ -330,12 +285,39 @@
             // 
             // listView1
             // 
+            this.listView1.CheckBoxes = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(27, 343);
+            this.listView1.Location = new System.Drawing.Point(12, 343);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(665, 420);
+            this.listView1.Size = new System.Drawing.Size(680, 420);
             this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // sendedDeviceList
+            // 
+            this.sendedDeviceList.FormattingEnabled = true;
+            this.sendedDeviceList.Location = new System.Drawing.Point(698, 542);
+            this.sendedDeviceList.Name = "sendedDeviceList";
+            this.sendedDeviceList.Size = new System.Drawing.Size(193, 140);
+            this.sendedDeviceList.TabIndex = 15;
+            // 
+            // btnSetAllEnData
+            // 
+            this.btnSetAllEnData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetAllEnData.BorderRadius = 20;
+            this.btnSetAllEnData.BorderSize = 0;
+            this.btnSetAllEnData.FlatAppearance.BorderSize = 0;
+            this.btnSetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetAllEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetAllEnData.Location = new System.Drawing.Point(768, 688);
+            this.btnSetAllEnData.Name = "btnSetAllEnData";
+            this.btnSetAllEnData.Size = new System.Drawing.Size(123, 61);
+            this.btnSetAllEnData.TabIndex = 3;
+            this.btnSetAllEnData.Text = "Databasei Cİhaza yolla";
+            this.btnSetAllEnData.UseVisualStyleBackColor = false;
+            this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
             // 
             // connectButton
             // 
@@ -380,30 +362,13 @@
             this.btnModifyPrivilege.FlatAppearance.BorderSize = 0;
             this.btnModifyPrivilege.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModifyPrivilege.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnModifyPrivilege.Location = new System.Drawing.Point(909, 221);
+            this.btnModifyPrivilege.Location = new System.Drawing.Point(698, 177);
             this.btnModifyPrivilege.Name = "btnModifyPrivilege";
             this.btnModifyPrivilege.Size = new System.Drawing.Size(139, 43);
             this.btnModifyPrivilege.TabIndex = 3;
             this.btnModifyPrivilege.Text = "İzin Güncelle";
             this.btnModifyPrivilege.UseVisualStyleBackColor = false;
             this.btnModifyPrivilege.Click += new System.EventHandler(this.btnModifyPrivilege_Click);
-            // 
-            // btnSetUserName
-            // 
-            /*this.btnSetUserName.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnSetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSetUserName.BorderRadius = 20;
-            this.btnSetUserName.BorderSize = 0;
-            this.btnSetUserName.FlatAppearance.BorderSize = 0;
-            this.btnSetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetUserName.Location = new System.Drawing.Point(875, 180);
-            this.btnSetUserName.Name = "btnSetUserName";
-            this.btnSetUserName.Size = new System.Drawing.Size(156, 24);
-            this.btnSetUserName.TabIndex = 3;
-            this.btnSetUserName.Text = "Kullanıcı İsmi Kaydet";
-            this.btnSetUserName.UseVisualStyleBackColor = false;
-            this.btnSetUserName.Click += new System.EventHandler(this.btnSetUserName_Click);*/
             // 
             // btnEmptyEnData
             // 
@@ -414,7 +379,7 @@
             this.btnEmptyEnData.FlatAppearance.BorderSize = 0;
             this.btnEmptyEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmptyEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEmptyEnData.Location = new System.Drawing.Point(913, 485);
+            this.btnEmptyEnData.Location = new System.Drawing.Point(889, 235);
             this.btnEmptyEnData.Name = "btnEmptyEnData";
             this.btnEmptyEnData.Size = new System.Drawing.Size(135, 51);
             this.btnEmptyEnData.TabIndex = 3;
@@ -431,7 +396,7 @@
             this.btnDelEnData.FlatAppearance.BorderSize = 0;
             this.btnDelEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelEnData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelEnData.Location = new System.Drawing.Point(913, 423);
+            this.btnDelEnData.Location = new System.Drawing.Point(889, 173);
             this.btnDelEnData.Name = "btnDelEnData";
             this.btnDelEnData.Size = new System.Drawing.Size(135, 51);
             this.btnDelEnData.TabIndex = 3;
@@ -448,47 +413,13 @@
             this.btnSetEnrollData.FlatAppearance.BorderSize = 0;
             this.btnSetEnrollData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetEnrollData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetEnrollData.Location = new System.Drawing.Point(913, 366);
+            this.btnSetEnrollData.Location = new System.Drawing.Point(698, 235);
             this.btnSetEnrollData.Name = "btnSetEnrollData";
             this.btnSetEnrollData.Size = new System.Drawing.Size(135, 51);
             this.btnSetEnrollData.TabIndex = 3;
-            this.btnSetEnrollData.Text = "Cihaza kullanıcı Gönder";
+            this.btnSetEnrollData.Text = "Kaydet";
             this.btnSetEnrollData.UseVisualStyleBackColor = false;
             this.btnSetEnrollData.Click += new System.EventHandler(this.btnSetEnrollData_Click);
-            // 
-            // btnGetEnroll
-            // 
-            /*this.btnGetEnroll.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnGetEnroll.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGetEnroll.BorderRadius = 20;
-            this.btnGetEnroll.BorderSize = 0;
-            this.btnGetEnroll.FlatAppearance.BorderSize = 0;
-            this.btnGetEnroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGetEnroll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetEnroll.Location = new System.Drawing.Point(743, 221);
-            this.btnGetEnroll.Name = "btnGetEnroll";
-            this.btnGetEnroll.Size = new System.Drawing.Size(148, 43);
-            this.btnGetEnroll.TabIndex = 3;
-            this.btnGetEnroll.Text = "Cihazdan Kayıt Bilgi Al";
-            this.btnGetEnroll.UseVisualStyleBackColor = false;
-            this.btnGetEnroll.Click += new System.EventHandler(this.btnGetEnrollInfo_Click);*/
-            // 
-            // btnGetUserName
-            // 
-           /* this.btnGetUserName.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnGetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGetUserName.BorderRadius = 20;
-            this.btnGetUserName.BorderSize = 0;
-            this.btnGetUserName.FlatAppearance.BorderSize = 0;
-            this.btnGetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGetUserName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetUserName.Location = new System.Drawing.Point(724, 180);
-            this.btnGetUserName.Name = "btnGetUserName";
-            this.btnGetUserName.Size = new System.Drawing.Size(123, 24);
-            this.btnGetUserName.TabIndex = 3;
-            this.btnGetUserName.Text = "Kullanıcı İsmi Al";
-            this.btnGetUserName.UseVisualStyleBackColor = false;
-            this.btnGetUserName.Click += new System.EventHandler(this.btnGetUserName_Click);*/
             // 
             // btnSetCompanyString
             // 
@@ -541,16 +472,84 @@
             this.btnClearAllData.UseVisualStyleBackColor = false;
             this.btnClearAllData.Click += new System.EventHandler(this.btnClearAllData_Click);
             // 
+            // btnGetAllEnData
+            // 
+            this.btnGetAllEnData.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnGetAllEnData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetAllEnData.BorderRadius = 40;
+            this.btnGetAllEnData.BorderSize = 0;
+            this.btnGetAllEnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetAllEnData.ForeColor = System.Drawing.Color.White;
+            this.btnGetAllEnData.Location = new System.Drawing.Point(0, 0);
+            this.btnGetAllEnData.Name = "btnGetAllEnData";
+            this.btnGetAllEnData.Size = new System.Drawing.Size(150, 40);
+            this.btnGetAllEnData.TabIndex = 0;
+            this.btnGetAllEnData.UseVisualStyleBackColor = false;
+            // 
+            // btnSetUserName
+            // 
+            this.btnSetUserName.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnSetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSetUserName.BorderRadius = 40;
+            this.btnSetUserName.BorderSize = 0;
+            this.btnSetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetUserName.ForeColor = System.Drawing.Color.White;
+            this.btnSetUserName.Location = new System.Drawing.Point(0, 0);
+            this.btnSetUserName.Name = "btnSetUserName";
+            this.btnSetUserName.Size = new System.Drawing.Size(150, 40);
+            this.btnSetUserName.TabIndex = 0;
+            this.btnSetUserName.UseVisualStyleBackColor = false;
+            // 
+            // btnGetEnroll
+            // 
+            this.btnGetEnroll.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnGetEnroll.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetEnroll.BorderRadius = 40;
+            this.btnGetEnroll.BorderSize = 0;
+            this.btnGetEnroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetEnroll.ForeColor = System.Drawing.Color.White;
+            this.btnGetEnroll.Location = new System.Drawing.Point(0, 0);
+            this.btnGetEnroll.Name = "btnGetEnroll";
+            this.btnGetEnroll.Size = new System.Drawing.Size(150, 40);
+            this.btnGetEnroll.TabIndex = 0;
+            this.btnGetEnroll.UseVisualStyleBackColor = false;
+            // 
+            // btnGetUserName
+            // 
+            this.btnGetUserName.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnGetUserName.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGetUserName.BorderRadius = 40;
+            this.btnGetUserName.BorderSize = 0;
+            this.btnGetUserName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetUserName.ForeColor = System.Drawing.Color.White;
+            this.btnGetUserName.Location = new System.Drawing.Point(0, 0);
+            this.btnGetUserName.Name = "btnGetUserName";
+            this.btnGetUserName.Size = new System.Drawing.Size(150, 40);
+            this.btnGetUserName.TabIndex = 0;
+            this.btnGetUserName.UseVisualStyleBackColor = false;
+            // 
+            // selectAllBox
+            // 
+            this.selectAllBox.AutoSize = true;
+            this.selectAllBox.Location = new System.Drawing.Point(13, 317);
+            this.selectAllBox.Name = "selectAllBox";
+            this.selectAllBox.Size = new System.Drawing.Size(104, 20);
+            this.selectAllBox.TabIndex = 16;
+            this.selectAllBox.Text = "Tümünü Seç";
+            this.selectAllBox.UseVisualStyleBackColor = true;
+            // 
             // EnrollDataManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1067, 795);
+            this.Controls.Add(this.selectAllBox);
+            this.Controls.Add(this.sendedDeviceList);
+            this.Controls.Add(this.btnSetAllEnData);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbPrivilege);
             this.Controls.Add(this.cmbEMachineNum);
@@ -562,12 +561,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnDelCompanyString);
             this.Controls.Add(this.btnModifyPrivilege);
-            //this.Controls.Add(this.btnSetUserName);
             this.Controls.Add(this.btnEmptyEnData);
             this.Controls.Add(this.btnDelEnData);
             this.Controls.Add(this.btnSetEnrollData);
-            //this.Controls.Add(this.btnGetEnroll);
-            //this.Controls.Add(this.btnGetUserName);
             this.Controls.Add(this.btnSetCompanyString);
             this.Controls.Add(this.tbcompanyString);
             this.Controls.Add(this.label11);
@@ -626,9 +622,10 @@
         //private FP_CLOCK.CustomButton btnUDiskDownLoad;
         //private FP_CLOCK.CustomButton btnUDiskUpload;
         private FP_CLOCK.CustomButton btnEmptyEnData;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private FP_CLOCK.CustomButton connectButton;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.CheckedListBox sendedDeviceList;
+        private System.Windows.Forms.CheckBox selectAllBox;
     }
 }

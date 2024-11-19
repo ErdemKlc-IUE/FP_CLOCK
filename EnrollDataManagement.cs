@@ -132,7 +132,8 @@ namespace FPClient
                                 string ipAddr = reader["IPADDR"].ToString();
                                 string portNo = reader["DPORT"].ToString();
                                 string password = reader["PWD"].ToString();
-                                checkedListBox1.Items.Add(ipAddr + "," + portNo + "," + password , CheckState.Checked);
+                                string deviceName = reader["DEVNAME"].ToString();
+                                checkedListBox1.Items.Add(deviceName , CheckState.Checked);
                             }
                         }
                     }
@@ -979,8 +980,6 @@ namespace FPClient
 
         private void btnGetAllEnData_Click(object sender, EventArgs e)    // Database Kaydet
         {
-            listBox1.Items.Clear();
-
             DisableDevice();
             OleDbConnection conn;
             string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\EnrollData.dbf";
@@ -1191,8 +1190,6 @@ namespace FPClient
             
             //TODO
             //btnSetUserName_Click(sender, e);
-
-
 
             conn.Close();
 
@@ -1489,31 +1486,91 @@ namespace FPClient
         }
         public void ConnectToSelectedDevices()
         {
-            foreach (var item in checkedListBox1.CheckedItems)
-            {
-                // Assuming each item in the checklist box is "IP,Port"
-                string[] ipPort = item.ToString().Split(',');
+            string enrolldbfPath = @"C:\FP_CLOCK 2\FP_CLOCK\FP_CLOCK\dBase\example.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
-                // Validate IP and Port format
-                if (ipPort.Length == 3 && IPAddress.TryParse(ipPort[0], out IPAddress ipAddress) && int.TryParse(ipPort[1], out int port) && int.TryParse(ipPort[2], out int password))
+            using (OleDbConnection con = new OleDbConnection(strConnection))
+            {
+                try
                 {
-                    try
+                    con.Open();
+
+                    foreach (var item in checkedListBox1.CheckedItems)
                     {
-                        bool bRet = pOcxObject.SetIPAddress(ref ipPort[0], port, password);
-                        bRet = pOcxObject.OpenCommPort(m_nMachineNum);
-                        labelInfo.Text = "Connected to device successfully!";
-                    }
-                    catch (SocketException ex)
-                    {
-                        MessageBox.Show($"Failed to connect to {ipAddress}:{port}:{password}. Error: {ex.Message}");
+                        // Assuming each item in the checklist box is "EName"
+                        string selectedName = item.ToString();
+
+                        // Fetch device details from the database
+                        string query = "SELECT IPAddr, DPort, Pwd FROM example WHERE DevName = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("?", selectedName);
+                            using (OleDbDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    string ip = reader.GetString(0);
+                                    string port = reader.GetString(1);
+                                    string password = reader.GetString(2);
+                                    // ı need to convert string to int
+                                    int portInt = Convert.ToInt32(port);
+                                    int passwordInt = Convert.ToInt32(password);
+
+                                    // Attempt to connect to the device
+                                    if (IPAddress.TryParse(ip, out IPAddress ipAddress))
+                                    {
+                                        try
+                                        {
+                                            bool bRet = pOcxObject.SetIPAddress(ref ip, portInt, passwordInt);
+                                            bRet = pOcxObject.OpenCommPort(m_nMachineNum);
+
+                                            if (bRet)
+                                            {
+                                                labelInfo.Text = $"Connected to {selectedName} ({ip}:{port}).";
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show($"Failed to connect to {selectedName} ({ip}:{port}).", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show($"Connection failed for {selectedName} ({ip}:{port}). Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Invalid IP format for {selectedName}: {ip}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"No matching record found for {selectedName} in the database.", "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Invalid IP or port format for item: {item}");
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-       
+
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem item = listView1.SelectedItems[0];
+                tbEnrollNum.Text = item.SubItems[0].Text;
+                cmbBackupNum.SelectedIndex = Convert.ToInt32(item.SubItems[1].Text);
+                cmbPrivilege.SelectedIndex = Convert.ToInt32(item.SubItems[2].Text);
+                tbEnrollName.Text = item.SubItems[3].Text;
+                tbCardNum.Text = item.SubItems[4].Text;
+            }
+        }
     }
 }
