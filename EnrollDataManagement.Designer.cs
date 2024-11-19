@@ -46,12 +46,13 @@
             this.cmbPrivilege = new System.Windows.Forms.ComboBox();
             this.tbEnrollName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDelDBData = new FP_CLOCK.CustomButton();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.sendedDeviceList = new System.Windows.Forms.CheckedListBox();
+            this.selectAllBox = new System.Windows.Forms.CheckBox();
             this.btnSetAllEnData = new FP_CLOCK.CustomButton();
             this.connectButton = new FP_CLOCK.CustomButton();
+            this.btnDelDBData = new FP_CLOCK.CustomButton();
             this.btnDelCompanyString = new FP_CLOCK.CustomButton();
             this.btnModifyPrivilege = new FP_CLOCK.CustomButton();
             this.btnEmptyEnData = new FP_CLOCK.CustomButton();
@@ -64,7 +65,6 @@
             this.btnSetUserName = new FP_CLOCK.CustomButton();
             this.btnGetEnroll = new FP_CLOCK.CustomButton();
             this.btnGetUserName = new FP_CLOCK.CustomButton();
-            this.selectAllBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -258,23 +258,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DB operation";
             // 
-            // btnDelDBData
-            // 
-            this.btnDelDBData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnDelDBData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDelDBData.BorderRadius = 20;
-            this.btnDelDBData.BorderSize = 0;
-            this.btnDelDBData.FlatAppearance.BorderSize = 0;
-            this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelDBData.Location = new System.Drawing.Point(6, 21);
-            this.btnDelDBData.Name = "btnDelDBData";
-            this.btnDelDBData.Size = new System.Drawing.Size(123, 61);
-            this.btnDelDBData.TabIndex = 3;
-            this.btnDelDBData.Text = "Database Temizle";
-            this.btnDelDBData.UseVisualStyleBackColor = false;
-            this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
-            // 
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
@@ -301,6 +284,17 @@
             this.sendedDeviceList.Name = "sendedDeviceList";
             this.sendedDeviceList.Size = new System.Drawing.Size(193, 140);
             this.sendedDeviceList.TabIndex = 15;
+            // 
+            // selectAllBox
+            // 
+            this.selectAllBox.AutoSize = true;
+            this.selectAllBox.Location = new System.Drawing.Point(13, 317);
+            this.selectAllBox.Name = "selectAllBox";
+            this.selectAllBox.Size = new System.Drawing.Size(104, 20);
+            this.selectAllBox.TabIndex = 16;
+            this.selectAllBox.Text = "Tümünü Seç";
+            this.selectAllBox.UseVisualStyleBackColor = true;
+            this.selectAllBox.CheckedChanged += new System.EventHandler(this.selectAllBox_CheckedChanged);
             // 
             // btnSetAllEnData
             // 
@@ -335,6 +329,23 @@
             this.connectButton.Text = "Bağlan";
             this.connectButton.UseVisualStyleBackColor = false;
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            // 
+            // btnDelDBData
+            // 
+            this.btnDelDBData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDelDBData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDelDBData.BorderRadius = 20;
+            this.btnDelDBData.BorderSize = 0;
+            this.btnDelDBData.FlatAppearance.BorderSize = 0;
+            this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDelDBData.Location = new System.Drawing.Point(6, 21);
+            this.btnDelDBData.Name = "btnDelDBData";
+            this.btnDelDBData.Size = new System.Drawing.Size(123, 61);
+            this.btnDelDBData.TabIndex = 3;
+            this.btnDelDBData.Text = "Database Temizle";
+            this.btnDelDBData.UseVisualStyleBackColor = false;
+            this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
             // 
             // btnDelCompanyString
             // 
@@ -527,16 +538,6 @@
             this.btnGetUserName.Size = new System.Drawing.Size(150, 40);
             this.btnGetUserName.TabIndex = 0;
             this.btnGetUserName.UseVisualStyleBackColor = false;
-            // 
-            // selectAllBox
-            // 
-            this.selectAllBox.AutoSize = true;
-            this.selectAllBox.Location = new System.Drawing.Point(13, 317);
-            this.selectAllBox.Name = "selectAllBox";
-            this.selectAllBox.Size = new System.Drawing.Size(104, 20);
-            this.selectAllBox.TabIndex = 16;
-            this.selectAllBox.Text = "Tümünü Seç";
-            this.selectAllBox.UseVisualStyleBackColor = true;
             // 
             // EnrollDataManagement
             // 

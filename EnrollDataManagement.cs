@@ -123,22 +123,42 @@ namespace FPClient
                     }
                     if (tableExists)
                     {
-                        string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
-                        using (OleDbCommand command = new OleDbCommand(selectQuery, connection))
+                        string selectQuery1 = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)} WHERE ID = ?";
+                        string selectQuery2 = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)} WHERE ID <> ?";
+
+                        using (OleDbCommand command = new OleDbCommand(selectQuery1, connection))
                         {
-                            OleDbDataReader reader = command.ExecuteReader();
-                            while (reader.Read())
+                            // Populate checkedListBox1 with ID = 1
+                            command.Parameters.AddWithValue("?", 1);
+                            using (OleDbDataReader reader = command.ExecuteReader())
                             {
-                                string ipAddr = reader["IPADDR"].ToString();
-                                string portNo = reader["DPORT"].ToString();
-                                string password = reader["PWD"].ToString();
-                                string deviceName = reader["DEVNAME"].ToString();
-                                checkedListBox1.Items.Add(deviceName , CheckState.Checked);
+                                while (reader.Read())
+                                {
+                                    string deviceName = reader["DEVNAME"].ToString();
+                                    checkedListBox1.Items.Add(deviceName, CheckState.Checked);
+                                }
+                            }
+                        }
+
+                        using (OleDbCommand command = new OleDbCommand(selectQuery2, connection))
+                        {
+                            // Populate sendedDeviceList with ID <> 1
+                            command.Parameters.AddWithValue("?", 1);
+                            using (OleDbDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    string deviceName = reader["DEVNAME"].ToString();
+                                    if (!string.IsNullOrEmpty(deviceName)) // Ensure deviceName is valid
+                                    {
+                                        sendedDeviceList.Items.Add(deviceName); // Add to sendedDeviceList
+                                    }
+                                }
                             }
                         }
                     }
-                }
 
+                }
             }
             catch (Exception ex)
             {
@@ -1572,5 +1592,16 @@ namespace FPClient
                 tbCardNum.Text = item.SubItems[4].Text;
             }
         }
+
+        private void selectAllBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Loop through all items in the ListView
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                // Set the Checked property based on the CheckBox state
+                listView1.Items[i].Checked = selectAllBox.Checked;
+            }
+        }
+
     }
 }
