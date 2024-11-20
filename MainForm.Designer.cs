@@ -138,7 +138,6 @@ namespace FPClient
             this.btnLogManagement.TabIndex = 3;
             this.btnLogManagement.Text = "Log Data Management";
             this.btnLogManagement.UseVisualStyleBackColor = false;
-            //this.btnLogManagement.Click += new System.EventHandler(this.btnLogManagement_Click);
             // 
             // btnSysInfo
             // 
@@ -306,9 +305,6 @@ namespace FPClient
 
         #endregion
 
-        //private FP_CLOCK.CustomButton btnOpenDev;
-
-        //private System.Windows.Forms.ComboBox cmbInterface;
         private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.TextBox textPort;
         private IPAddressControlLib.IPAddressControl ipAddressControl1;

@@ -271,7 +271,6 @@ namespace FP_CLOCK
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ListView recordsListview;
         private System.Windows.Forms.Label label1;
-        //private IPAddressControlLib.IPAddressControl ipAddressControl1;
 
     }
 }

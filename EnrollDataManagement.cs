@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using DAO = Microsoft.Office.Interop.Access.Dao;
-
 using System.Runtime.InteropServices;
 using FP_CLOCK;
 using System.IO;
@@ -21,7 +20,6 @@ using System.Data.SqlClient;
 
 namespace FPClient
 {
-   
     public partial class EnrollDataManagement : Form
     {
         private int m_nMachineNum;
@@ -35,7 +33,6 @@ namespace FPClient
             InitializeComponent();
             InitializeCheckListBox();
         }
-
         public EnrollDataManagement(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
             InitializeComponent();
@@ -44,48 +41,33 @@ namespace FPClient
 
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
+            var backupOptions = new List<KeyValuePair<string, int>>()
+            {
+                new KeyValuePair<string, int>("Pin", 10),
+                new KeyValuePair<string, int>("Kart", 11),
+
+            };
+            // Set the DataSource for the ComboBox
+            this.cmbBackupNum.DataSource = backupOptions;
+            this.cmbBackupNum.DisplayMember = "Key"; // Text to show to the user
+            this.cmbBackupNum.ValueMember = "Value"; // Value to use in the application
+
+            var backupOptions2 = new List<KeyValuePair<string, int>>()
+            {
+                new KeyValuePair<string, int>("Kullancı", 0),
+                new KeyValuePair<string, int>("Admin", 3),
+            };
+            this.cmbPrivilege.DataSource = backupOptions2;
+            this.cmbPrivilege.DisplayMember = "Key";
+            this.cmbPrivilege.ValueMember = "Value";
 
             cmbBackupNum.SelectedIndex = 0;
             cmbEMachineNum.SelectedIndex = 0;
             cmbPrivilege.SelectedIndex = 0;
-
-            /* OleDbConnection conn;
-
-             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
-             conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb");
-             conn.Open();
-             string sql = "SELECT * FROM tblEnroll";
-
-             OleDbCommand command = new OleDbCommand(sql, conn);
-
-             OleDbDataReader reader = command.ExecuteReader();
-
-             reader.Read();
-
-             reader.Close();
-             conn.Close();
-
-             // You can count the records this way if needed
-             OleDbCommand countCommand = new OleDbCommand("SELECT COUNT(*) FROM tblEnroll", conn);
-             int recordCount = (int)countCommand.ExecuteScalar();
-
-             MessageBox.Show($"Record count: {recordCount}");
-
-             DAO.DBEngine DBE;
-             DAO.Database DB;
-             string DBPath = ".\\EnrollData.mdb";
-             DBE = new DAO.DBEngine();
-             DB = DBE.OpenDatabase(DBPath, false, false, "");
-             MessageBox.Show(DB.Relations.Count.ToString());
-             MessageBox.Show(DB.Recordsets.Count.ToString());
-             DAO.TableDef daoTable = DB.TableDefs["tblEnroll"];
-             DAO.Field daoField = daoTable.Fields["EnrollNumber"];*/
-
         }
         public void InitializeCheckListBox()
         {
-            AddToCheckListBoxFromDBF();   
-           
+            AddToCheckListBoxFromDBF();             
         }
         public void AddToCheckListBoxFromDBF()
         {
@@ -136,6 +118,8 @@ namespace FPClient
                                 {
                                     string deviceName = reader["DEVNAME"].ToString();
                                     checkedListBox1.Items.Add(deviceName, CheckState.Checked);
+                                    // the user cannot change this item's check state
+                                    checkedListBox1.SetItemCheckState(checkedListBox1.Items.Count - 1, CheckState.Indeterminate);
                                 }
                             }
                         }
@@ -165,7 +149,6 @@ namespace FPClient
                 MessageBox.Show("Error loading data from .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         public void InitializeListview()
         {
             listView1.View = View.Details;
@@ -179,40 +162,36 @@ namespace FPClient
             listView1.Columns.Add("EnrollName", 100);
             listView1.Columns.Add("CardNumber", 100);
 
-
             //Add items in the listview
             listView1.Items.Clear();
             saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
         }
-
         private void EnrollDataManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Owner.Visible = true;
         }
-
         private bool DisableDevice()
         {
-            labelInfo.Text = "Working...";
+            //labelInfo.Text = "Çalışıyor...";
             bool bRet = pOcxObject.EnableDevice(m_nMachineNum, 0);
+            
             if (bRet)
             {
-                labelInfo.Text = "Disable Device Success!";
+                //labelInfo.Text = "Bağlantı Başarılı!";
                 return true;
             }
             else
             {
-                labelInfo.Text = "No Device...";
+                labelInfo.Text = "Cihaz Bulunamadı!";
                 return false;
             }
         }
-
         private void ShowErrorInfo()
         {
             int nErrorValue = 0;
             pOcxObject.GetLastError(ref nErrorValue);
             labelInfo.Text = common.FormErrorStr(nErrorValue);
         }
-
         private void btnClearAllData_Click(object sender, EventArgs e)
         {
            DialogResult dr = MessageBox.Show("Clear all data on the machine?!!",
@@ -239,7 +218,6 @@ namespace FPClient
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
-
         private void btnRmAllManager_Click(object sender, EventArgs e)
         {
             bool bRet;
@@ -258,10 +236,6 @@ namespace FPClient
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
-
-        //
-        // take care of exceptions
-        //
         private void btnSetCompanyString_Click(object sender, EventArgs e)
         {
             DisableDevice();
@@ -282,21 +256,13 @@ namespace FPClient
             bool bRet;
             
             Object ob = new System.Runtime.InteropServices.VariantWrapper(str);
-            
-            //
-            //
+
             //SetCompanyName
             bRet = pOcxObject.SetCompanyName(m_nMachineNum,
               1,
               ref ob 
               );
 
-            // or
-/*
-            bRet = pOcxObject.SetCompanyNameWithString(m_nMachineNum,
-                1,
-                ref str
-                );*/
             if (bRet)
             {
                 labelInfo.Text = "Set Company Name OK"; 
@@ -309,7 +275,6 @@ namespace FPClient
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
-
         private void btnDelCompanyString_Click(object sender, EventArgs e)
         {
             DisableDevice();
@@ -330,14 +295,7 @@ namespace FPClient
 
                 common.DebugOut( ev.ToString());
             }
-            
-
-
         }
-
-        //
-        //参数要检查
-        //
         private void btnGetUserName_Click(object sender, EventArgs e)
         {
             //clear
@@ -373,12 +331,10 @@ namespace FPClient
             EnableDevice();
             
         }
-
         private void EnableDevice()
         {
             pOcxObject.EnableDevice(m_nMachineNum, 1);
         }
-
         private void btnSetUserName_Click(object sender, EventArgs e)
         {
             DisableDevice();
@@ -442,16 +398,16 @@ namespace FPClient
 
             EnableDevice();
         }
-
-
         private void btnModifyPrivilege_Click(object sender, EventArgs e)
         {
             DisableDevice();
             int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
             int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
-            int dwBackupNum = cmbBackupNum.SelectedIndex;
 
-            int dwPrivilege = cmbPrivilege.SelectedIndex;
+            int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
+
+            // Extract the Value (integer) from the KeyValuePair in cmbPrivilege
+            int dwPrivilege = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
             bool bRet;
 
             bRet = pOcxObject.ModifyPrivilege(m_nMachineNum,
@@ -461,7 +417,42 @@ namespace FPClient
                 dwPrivilege);
             if (bRet)
             {
-                labelInfo.Text = "ModifyPrivilege Success...";
+                string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+                using (OleDbConnection conn = new OleDbConnection(strConnection))
+                {
+                    try
+                    {
+                        conn.Open();
+                        string updateQuery = "UPDATE EnrollData SET PRIV = ? WHERE ENumber = ? AND FNumber = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@PRIV", dwPrivilege);
+                            cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+                            cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+                            if (rowsAffected == 0)
+                            {
+                                MessageBox.Show("Error: The specified EnrollNumber and FingerNumber combination does not exist in the database.",
+                                    "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                labelInfo.Text = "EnrollNumber and FingerNumber not found in database.";
+                            }
+                            else
+                            {
+                                labelInfo.Text = "Success: Privilege updated in the database.";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Database Error: " + ex.Message);
+                    }
+                }
+
+                listView1.Items.Clear();
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
             }
             else
             {
@@ -470,7 +461,6 @@ namespace FPClient
 
             EnableDevice();
         }
-
         private void btnGetEnrollInfo_Click(object sender, EventArgs e) // Cihazdan Bilgi Al
         {
             listView1.Items.Clear();
@@ -542,15 +532,20 @@ namespace FPClient
             {
                 labelInfo.Text = "No user data retrieved.";
             }
-            //readDevice();
             EnableDevice();
         }
-
         //need check about text box input strings
-        private void btnDelEnData_Click(object sender, EventArgs e)
+        private void btnDelEnData_Click(object sender, EventArgs e)//Kullanıcı Veri Sil
         {
             // Disable the device to prevent conflicts
             DisableDevice();
+
+            DialogResult dr;
+            dr = MessageBox.Show("Devam edilsin mi?", "Kullanıcı veri sil? ", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if (dr == DialogResult.No)
+            {
+                return;
+            }
 
             // Loop through all the items in the ListView to find the selected ones
             foreach (ListViewItem item in listView1.Items)
@@ -587,17 +582,17 @@ namespace FPClient
 
                                     if (rowsAffected > 0)
                                     {
-                                        labelInfo.Text = "DeleteEnrollData OK. Record deleted from database.";
+                                        labelInfo.Text = "Kullanıcı kayıt silindi.";
                                     }
                                     else
                                     {
-                                        labelInfo.Text = "DeleteEnrollData OK. No matching record in database.";
+                                        labelInfo.Text = "Eşleşen kayıt bulunamadı.";
                                     }
                                 }
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Database Error: " + ex.Message);
+                                MessageBox.Show("Veritabanı Hatası: " + ex.Message);
                             }
                         }
 
@@ -615,388 +610,22 @@ namespace FPClient
             // Re-enable the device after the operation
             EnableDevice();
         }
-
-        private void readDevice()
-        {
-           /* listView1.Items.Clear();
-
-            bool bRet;
-
-            // Step 2: Start reading all user IDs from the device
-            bRet = pOcxObject.ReadAllUserID(m_nMachineNum);
-            if (!bRet)
-            {
-                ShowErrorInfo();
-                EnableDevice();
-                return;
-            }
-
-            labelInfo.Text = "Reading user data...";
-
-            // Initialize variables
-            int nIndex = 0;
-            List<UserInfo> userInfoList = new List<UserInfo>();
-
-            // Step 3: Loop to retrieve and store data
-            do
-            {
-                UserInfo userInfo = new UserInfo(); // Create a new instance for each iteration
-
-                bRet = pOcxObject.GetAllUserID(
-                    m_nMachineNum,
-                    ref userInfo.dwEnrollNumber,
-                    ref userInfo.dwMachineNumber,
-                    ref userInfo.dwBackupNumber,
-                    ref userInfo.dwUserPrivilege,
-                    ref userInfo.dwAttendenceEnable
-                );
-
-                if (bRet)
-                {
-                    userInfoList.Add(userInfo);
-                    nIndex++;
-                }
-
-            } while (bRet);
-
-            // Step 4: Populate the ListView with the data
-            foreach (UserInfo user in userInfoList)
-            {
-                ListViewItem item = new ListViewItem(user.dwEnrollNumber.ToString());
-                item.SubItems.Add(user.dwBackupNumber.ToString());
-                item.SubItems.Add(user.dwUserPrivilege.ToString());
-                listView1.Items.Add(item);
-            }
-
-            // Step 5: Confirm completion
-            if (nIndex > 0)
-            {
-                labelInfo.Text = $"Successfully retrieved {nIndex} users.";
-            }
-            else
-            {
-                labelInfo.Text = "No user data retrieved.";
-            }*/
-        }
-
-        /* private void btnUDiskDownLoad_Click(object sender, EventArgs e)
-         {
-             string localFilePath = "";
-             if (!GetFileFullPath_SaveFile(ref localFilePath))
-             {
-                 return;
-             }           
-
-             pOcxObject.UsbEnrollDataStart();
-
-             bool bRet;
-
-             int dwEMachineNumber;
-             int dwEnrollNumber;
-             int dwFingerNumber;
-             int dwPrivilege;
-             int dwPassword;
-             int[] dwFPData = new int[1420 / 4];
-             object objFPData = 0;
-             object objStrName = 0;
-             string str;
-
-             OleDbConnection myAccessConn;
-             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
-             myAccessConn = new OleDbConnection(strConnection);
-             myAccessConn.Open();
-
-             if (myAccessConn.State != ConnectionState.Open)
-             {                
-                 MessageBox.Show("Access数据库的连接失败!", "Access数据库的连接");
-                 return;
-             }
-             else
-             {
-             }
-
-             string strAccessSelect = "SELECT * FROM tblEnroll";
-             OleDbCommand myAccessCommand = new OleDbCommand(strAccessSelect, myAccessConn);
-             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
-             DataSet myDataSet = new DataSet();
-
-             myDataAdapter.Fill(myDataSet, "Categories");
-
-             DataRowCollection dra = myDataSet.Tables["Categories"].Rows;
-
-             if (dra.Count  == 0)
-             {
-                 labelInfo.Text = "btnUDiskDownLoad_Click, DataBase is empty.";
-
-                 myAccessConn.Close();
-                 return;
-             }
-
-             //DataRow dRow = dra[1];
-
-             foreach (DataRow dr in dra)
-             {
-                 dwEMachineNumber = Int32.Parse(dr["EMachineNumber"].ToString());
-                 dwEnrollNumber = Int32.Parse(dr["EnrollNumber"].ToString());
-                 dwFingerNumber = Int32.Parse(dr["FingerNumber"].ToString());
-                 dwPrivilege = Int32.Parse(dr["Privilige"].ToString());
-                 dwPassword = Int32.Parse(dr["enPassword"].ToString());
-                 str = dr["EnrollName"].ToString();
-
-                 objStrName = new System.Runtime.InteropServices.VariantWrapper( str );
-
-                 if (dwFingerNumber < 10)
-                 {
-
-                     objFPData = new System.Runtime.InteropServices.VariantWrapper(dr["FPData"]);
-                 }
-                 else
-                 {
-                     objFPData = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
-                 }
-
-                 bRet = pOcxObject.SetUsbEnrollData(                    
-                     dwEnrollNumber,                    
-                     dwFingerNumber,
-                     dwPrivilege,
-                     ref objFPData,
-                     dwPassword,
-                     ref objStrName
-                     );
-                 if (!bRet)
-                 {
-                     ShowErrorInfo();
-
-                     myAccessConn.Close();
-
-                     return;
-
-                 }
-
-             }//foreach
-
-             bRet = pOcxObject.EnrollDataSaveTOFile(localFilePath);
-             if (!bRet)
-             {
-                 ShowErrorInfo();
-             }
-
-             labelInfo.Text = "SBWriteAllEnrollDatatoFile OK";
-
-             myAccessConn.Close();
-
-         }
- */
-        /*private bool GetFileFullPath_SaveFile(ref string localFilePath)
-        {
-            string fileNameExt, newFileName, FilePath;
-
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = " data files(*.dat)|*.dat|All files(*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = DateTime.Now.ToString("yyyyMMdd") + ".dat";
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                //获得文件路径
-                localFilePath = saveFileDialog1.FileName.ToString();
-                //获取文件名，不带路径
-                fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\") + 1);
-                //获取文件路径，不带文件名
-                FilePath = localFilePath.Substring(0, localFilePath.LastIndexOf("\\"));
-                //给文件名前加上时间
-                newFileName = DateTime.Now.ToString("yyyyMMdd") + fileNameExt;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
-        /*private void btnUDiskUpload_Click(object sender, EventArgs e)
-        {
-            string localFilePath = "";           
-
-            if (!GetFileFullPath_OpenFile(ref localFilePath))
-            {
-                return;
-            }
-
-            labelInfo.Text = "Working ...";
-
-            pOcxObject.UsbEnrollDataStart();
-
-            bool bRet;
-            bRet = pOcxObject.EnrollDataReadFromFile(localFilePath);
-            if (!bRet)
-            {
-                ShowErrorInfo();
-
-            }
-
-            labelInfo.Text = "Working on GetUsbEnrollData ...";
-            bool bExitFlag = false;
-
-            OleDbConnection conn;
-            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
-            conn = new OleDbConnection(strConnection);
-            conn.Open();
-
-            if (conn.State != ConnectionState.Open)
-            {                
-                MessageBox.Show("Access数据库的连接失败!", "Access数据库的连接");
-                return;
-            }
-            else
-            {
-            }
-
-            int dwEnrollNumber = 0;
-            int dwBackupNumber = 0;
-            int dwMachinePrivilege = 0;
-            int dwPassWord = 0;
-             int[] dwFPData = new int[1420/4];
-            object obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
-            string strName = "";
-            object objName = new System.Runtime.InteropServices.VariantWrapper(strName);
-
-            do 
-            {
-                int[] dwData = new int[1420 / 4];
-                obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
-
-                strName = "";
-                objName = new System.Runtime.InteropServices.VariantWrapper(strName);
-
-                bRet = pOcxObject.GetUsbEnrollData(
-                ref dwEnrollNumber,
-                ref dwBackupNumber,
-                ref dwMachinePrivilege,
-                ref obj,
-                ref dwPassWord,
-                ref objName
-                );
-
-                if (!bRet)
-                {
-                    int dwError = 0;
-                    pOcxObject.GetLastError(ref dwError);
-                    if (dwError == 6)
-                    {
-                        bExitFlag = true;
-                    }
-
-                    break;
-                }
-
-                dwData = (int[])obj;
-
-                byte[] _indexData = new byte[1420];
-                //分配内存
-                IntPtr _ptrIndex = Marshal.AllocHGlobal(_indexData.Length);
-                //int[]  转成 byte[]
-                Marshal.Copy(dwData, 0, _ptrIndex, 1420 / 4);  //be careful
-                Marshal.Copy(_ptrIndex, _indexData, 0, 1420);
-                Marshal.FreeHGlobal(_ptrIndex);
-
-                string sql;
-
-                OleDbParameter[] parameters = new OleDbParameter[ 6 ];
-                parameters[0] = new OleDbParameter("@EMachineNumber", OleDbType.Integer);
-                parameters[0].Value = 1;                
-
-                parameters[1] = new OleDbParameter("@EnrollNumber", OleDbType.Integer);
-                parameters[1].Value = dwEnrollNumber;
-
-                parameters[2] = new OleDbParameter("@FingerNumber", OleDbType.Integer);
-                parameters[2].Value = dwBackupNumber;
-
-                parameters[3] = new OleDbParameter("@Privilige", OleDbType.Integer);
-                parameters[3].Value = dwMachinePrivilege;
-
-                parameters[4] = new OleDbParameter("@EnrollName", OleDbType.BSTR);
-                parameters[4].Value = objName;
-
-                if (dwBackupNumber == 10 ||
-                     dwBackupNumber == 11)
-                {
-                    parameters[5] = new OleDbParameter("@enPassword", OleDbType.Integer);
-                    parameters[5].Value = dwPassWord;
-
-                    sql = "insert into tblEnroll(EMachineNumber,EnrollNumber,FingerNumber,Privilige,EnrollName,enPassword)" +
-                    "values(@EMachineNumber,@EnrollNumber,@FingerNumber,@Privilige,?,@enPassword)";  //values(?,?,?,?,?)
-
-                }
-                else
-                {
-                    parameters[5] = new OleDbParameter("@FPData", OleDbType.Binary);
-                    parameters[5].Value = _indexData;   //accept byte[]
-
-                    sql = "insert into tblEnroll(EMachineNumber,EnrollNumber,FingerNumber,Privilige,EnrollName,FPData)" +
-                        "values(@EMachineNumber,@EnrollNumber,@FingerNumber,@Privilige,?,@FPData)";
-
-                }
-
-                OleDbCommand cmd = new OleDbCommand(sql, conn);
-                try
-                {
-                    conn.Open();
-                    if (parameters != null) cmd.Parameters.AddRange(parameters);
-                    cmd.ExecuteNonQuery();
-
-                }
-                catch (Exception ec)
-                {
-                    throw ec;
-                }
-
-               
-            } while (bRet);
-
-           if (bExitFlag == true)
-           {
-               labelInfo.Text = "UdiskUpload OK";
-           }
-           else
-           {
-               ShowErrorInfo();
-           }
-
-           conn.Close(); 
-            
-        }
-*/
-        /* private bool GetFileFullPath_OpenFile(ref string strFilePath)
-        {
-            //string strFilePath;
-
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = System.Environment.CurrentDirectory;
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                strFilePath = openFileDialog1.FileName;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
-        private void btnEmptyEnData_Click(object sender, EventArgs e)
+        private void btnEmptyEnData_Click(object sender, EventArgs e)//Cihazı Temizle
         {
             DisableDevice();
 
+            DialogResult dr;
+            dr = MessageBox.Show("Devam edilsin mi?", "Cihaz verileri sil? ", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if (dr == DialogResult.No)
+            {
+                return;
+            }
             bool bRet = pOcxObject.EmptyEnrollData(m_nMachineNum);
             if (bRet)
             {
-                labelInfo.Text = "EmptyEnrollData Success...";
+                labelInfo.Text = "Cihaz temizlendi.";
+                //TODO : cihaz temizlenince, database de temizlenecek?????
+                btnDelDBData_Click(sender, e);
             } 
             else
             {
@@ -1005,7 +634,6 @@ namespace FPClient
 
             EnableDevice();
         }
-
         private void btnGetAllEnData_Click(object sender, EventArgs e)    // Database Kaydet
         {
             DisableDevice();
@@ -1018,7 +646,6 @@ namespace FPClient
 
             if (conn.State != ConnectionState.Open)
             {
-                //MessageBox.Show("Access数据库的连接成功!", "Access数据库的连接");
                 MessageBox.Show("Access数据库的连接失败!", "Access数据库的连接");
                 return;
             }
@@ -1040,11 +667,7 @@ namespace FPClient
             int dwPrivilegeNum = 0;
             int dwEnable = 0;
             int dwPassWord = 0;
-
-//             int[] dwData = new int[1420 / 4];
-//             object obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
-
-           
+      
             do 
             {
 
@@ -1063,9 +686,7 @@ namespace FPClient
                 //read finished
                 if (bRet == false)
                 {
-                    //EnableDevice();
                     bBreakFail = true;
-                    //labelInfo.Text = "fail on GetAllUserID";
                     break;
                 }
 
@@ -1101,7 +722,6 @@ namespace FPClient
                 byte[] _indexData = new byte[1420];
                 //分配内存
                 IntPtr _ptrIndex = Marshal.AllocHGlobal(_indexData.Length);
-                //int[]  转成 byte[]
                 Marshal.Copy(dwData, 0, _ptrIndex, 1420/4);  //be careful
                 Marshal.Copy(_ptrIndex, _indexData, 0, 1420);
                 Marshal.FreeHGlobal(_ptrIndex);
@@ -1164,10 +784,7 @@ namespace FPClient
                             }
 
                         }
-                        //else
-                        //    MessageBox.Show("Bu kayıt veritabanında mevcut...");
                     }
-
                 }
                 else
                 {
@@ -1210,147 +827,132 @@ namespace FPClient
                             }
 
                         }
-                        //else
-                        //    MessageBox.Show("Bu kayıt veritabanında mevcut...");
                     }
                 }
             } while (bRet);
-            
-            //TODO
-            //btnSetUserName_Click(sender, e);
 
             conn.Close();
 
             EnableDevice();
         }
-
         private void btnSetAllEnData_Click(object sender, EventArgs e)   // Database Cihaza Yolla
         {
             ConnectToSelectedDevices2();
-            bool bRet;
-            int dwEMachineNumber;
-            int dwEnrollNumber;
-            int dwFingerNumber;
-            int dwPrivilege;
-            int dwPassword;
-            int[] dwFPData = new int[1420 / 4];
-            object obj = null;
 
-            OleDbConnection myAccessConn;
             string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
             try
             {
-                myAccessConn = new OleDbConnection(strConnection);
-                myAccessConn.Open();
-
-                if (myAccessConn.State != ConnectionState.Open)
+                using (OleDbConnection conn = new OleDbConnection(strConnection))
                 {
-                    MessageBox.Show("Access database connection failed!", "Connection Error");
-                    return;
-                }
+                    conn.Open();
 
-                string strAccessSelect = "SELECT * FROM EnrollData";
-                OleDbCommand myAccessCommand = new OleDbCommand(strAccessSelect, myAccessConn);
-                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
-                DataSet myDataSet = new DataSet();
-
-                myDataAdapter.Fill(myDataSet, "EnrollData");
-
-                DataRowCollection dra = myDataSet.Tables["EnrollData"].Rows;
-
-                if (dra.Count == 0)
-                {
-                    btnClearAllData_Click(sender, e);
-                    labelInfo.Text = "Database is empty.";
-                    return;
-                }
-
-                foreach (DataRow dr in dra)
-                {
-                   foreach(ListViewItem item in listView1.Items)
+                    if (conn.State != ConnectionState.Open)
                     {
-                        if (item.Checked)
+                        MessageBox.Show("Database connection failed!", "Connection Error");
+                        return;
+                    }
+
+                    string query = "SELECT * FROM EnrollData";
+                    using (OleDbCommand command = new OleDbCommand(query, conn))
+                    using (OleDbDataReader reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
                         {
-                            try
+                            labelInfo.Text = "Database is empty.";
+                            return;
+                        }
+
+                        bool hasCheckedItems = false; // Seçili item var mı kontrolü için flag
+                        while (reader.Read())
+                        {
+                            foreach (ListViewItem item in listView1.Items)
                             {
-                                dwEMachineNumber = Convert.ToInt32(dr["EMNo"]);
-                                dwEnrollNumber = Convert.ToInt32(dr["ENumber"]);
-                                dwFingerNumber = Convert.ToInt32(dr["FNumber"]);
-                                dwPrivilege = Convert.ToInt32(dr["PRIV"]);
-                                dwPassword = Convert.ToInt32(dr["EnPw"]);
+                                if (!item.Checked) continue; // Sadece seçili olanları işleme al
 
-                                if (dwFingerNumber < 10)
+                                hasCheckedItems = true; // En az bir seçili item var
+                                try
                                 {
-                                    obj = new System.Runtime.InteropServices.VariantWrapper(dr["FPData"]);
-                                }
-                                else
-                                {
-                                    obj = new System.Runtime.InteropServices.VariantWrapper(dwFPData);
-                                }
+                                    int dwEMachineNumber = Convert.ToInt32(reader["EMNo"]);
+                                    int dwEnrollNumber = Convert.ToInt32(reader["ENumber"]);
+                                    int dwFingerNumber = Convert.ToInt32(reader["FNumber"]);
+                                    int dwPrivilege = Convert.ToInt32(reader["PRIV"]);
+                                    int dwPassword = Convert.ToInt32(reader["EnPw"]);
 
-                                // Sending data to device
-                                bRet = pOcxObject.SetEnrollData(
-                                    m_nMachineNum,
-                                    dwEnrollNumber,
-                                    dwEMachineNumber,
-                                    dwFingerNumber,
-                                    dwPrivilege,
-                                    ref obj,
-                                    dwPassword);
-
-                                if (!bRet)
-                                {
-                                    ShowErrorInfo();
-                                    DialogResult dlgr = MessageBox.Show("Failed to set data for enroll number " + dwEnrollNumber + ". Continue?", "SetEnrollData", MessageBoxButtons.YesNo);
-                                    if (dlgr == DialogResult.No)
+                                    object obj;
+                                    if (dwFingerNumber < 10)
                                     {
-                                        EnableDevice();
-                                        labelInfo.Text = "Failed to set enroll data for " + dwEnrollNumber;
-                                        return;
+                                        string fpDataString = reader["FpData"].ToString();
+                                        byte[] fpDataBytes = Convert.FromBase64String(fpDataString);
+                                        obj = new System.Runtime.InteropServices.VariantWrapper(fpDataBytes);
+                                    }
+                                    else
+                                    {
+                                        obj = new System.Runtime.InteropServices.VariantWrapper(new int[1420 / 4]);
+                                    }
+
+                                    // Send data to the device
+                                    bool bRet = pOcxObject.SetEnrollData(
+                                        m_nMachineNum,
+                                        dwEnrollNumber,
+                                        dwEMachineNumber,
+                                        dwFingerNumber,
+                                        dwPrivilege,
+                                        ref obj,
+                                        dwPassword);
+
+                                    if (!bRet)
+                                    {
+                                        ShowErrorInfo();
+                                        if (MessageBox.Show($"Failed to set data for {dwEnrollNumber}. Continue?", "Error", MessageBoxButtons.YesNo) == DialogResult.No)
+                                        {
+                                            labelInfo.Text = $"Failed to set enroll data for {dwEnrollNumber}";
+                                            return;
+                                        }
                                     }
                                 }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show($"Error processing row: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error processing row: " + ex.Message);
-                            }
+                        }
+
+                        // Eğer hiç seçili öğe yoksa uyarı göster
+                        if (!hasCheckedItems)
+                        {
+                            MessageBox.Show("Please select at least one record to send to the device.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
 
-                labelInfo.Text = "SetEnrollData Success...";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Database connection error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Database connection error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
-
-        /* private void btnSendAllEnrollData_Click(object sender, EventArgs e)
-         {
-             //no implementation
-         }*/
-
-        private void btnDelDBData_Click(object sender, EventArgs e)
+        private void btnDelDBData_Click(object sender, EventArgs e)//Database Temizle
         {
             DialogResult dr;
-            dr = MessageBox.Show("Continue?", "Delete All data in database? ", MessageBoxButtons.YesNo,  MessageBoxIcon.Asterisk);
+            dr = MessageBox.Show("Devam?", "Veritabanı temizlenecek? ", MessageBoxButtons.YesNo,  MessageBoxIcon.Asterisk);
             if (dr == DialogResult.No)
             {
                 return;
             }
 
             OleDbConnection conn;
-            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=.\EnrollData.mdb";
+            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
             conn = new OleDbConnection(strConnection);
             conn.Open();
 
             if (conn.State != ConnectionState.Open)
             {
-                //MessageBox.Show("Access数据库的连接成功!", "Access数据库的连接");
                 MessageBox.Show("Access数据库的连接失败!", "Access数据库的连接");
                 return;
             }
@@ -1358,13 +960,12 @@ namespace FPClient
             {
             }
 
-            OleDbParameter[] parameters = null/*new OleDbParameter[5]*/;
+            OleDbParameter[] parameters = null;
 
-            string sql = "delete * from tblEnroll";
+            string sql = "delete * from EnrollData";
             OleDbCommand cmd = new OleDbCommand(sql, conn);
             try
             {
-                conn.Open();
                 if (parameters != null) cmd.Parameters.AddRange(parameters);
                 cmd.ExecuteNonQuery();
 
@@ -1375,7 +976,6 @@ namespace FPClient
             }
 
         }
-
         private void btnSetEnrollData_Click(object sender, EventArgs e) //Cihaza Kullanıcı Gönder
         {
             DisableDevice();
@@ -1395,14 +995,14 @@ namespace FPClient
                 dwCardNum = Int32.Parse(tbCardNum.Text);
             }
 
-            if (dwBackupNum == 11)
+            if (dwBackupNum == 11 || dwBackupNum==10)
             {
                 if (dwCardNum != 0)
                 {
                     dwPassword = dwCardNum;
                 }
             }
-            if (dwBackupNum <11)
+            if (dwBackupNum <10)
             {
                 return;
             }
@@ -1434,7 +1034,6 @@ namespace FPClient
 
             EnableDevice();
         }
-
         /*private void btnGetEnrollData_Click(object sender, EventArgs e) // Kart Numarası Getir
         {
             listBox1.Items.Clear();
@@ -1506,14 +1105,21 @@ namespace FPClient
         private void connectButton_Click(object sender, EventArgs e)
         {
             ConnectToSelectedDevices();
-            
-            //readDevice();
-            //TODO
-            btnGetEnrollInfo_Click(sender, e);
+            if (!DisableDevice())
+            {
+                MessageBox.Show("Failed to disable device.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            btnGetAllEnData_Click(sender, e);
-            listView1.Items.Clear();
-            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+            }
+            else
+            {
+                
+
+                btnGetEnrollInfo_Click(sender, e);
+
+                btnGetAllEnData_Click(sender, e);
+                listView1.Items.Clear();
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+            }
         }
         public void ConnectToSelectedDevices()
         {
@@ -1544,7 +1150,7 @@ namespace FPClient
                                     string ip = reader.GetString(0);
                                     string port = reader.GetString(1);
                                     string password = reader.GetString(2);
-                                    // ı need to convert string to int
+
                                     int portInt = Convert.ToInt32(port);
                                     int passwordInt = Convert.ToInt32(password);
 
@@ -1558,26 +1164,28 @@ namespace FPClient
 
                                             if (bRet)
                                             {
-                                                labelInfo.Text = $"Connected to {selectedName} ({ip}:{port}).";
+                                                labelInfo.Text = $"Bağlandı! {selectedName} ({ip}:{port}).";
+                                                MessageBox.Show($"Bağlandı! {selectedName} ({ip}:{port}).", "Bağlantı Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                             }
                                             else
                                             {
-                                                MessageBox.Show($"Failed to connect to {selectedName} ({ip}:{port}).", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                MessageBox.Show($"Cihaza Bağlanılamadı! {selectedName} ({ip}:{port}).", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                return;
                                             }
                                         }
                                         catch (Exception ex)
                                         {
-                                            MessageBox.Show($"Connection failed for {selectedName} ({ip}:{port}). Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show($"Cihaza Bağlanmadı! {selectedName} ({ip}:{port}). Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show($"Invalid IP format for {selectedName}: {ip}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show($"Geçersiz IP formatı {selectedName}: {ip}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show($"No matching record found for {selectedName} in the database.", "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show($"Veritabanında eşleşen kayıt yok : {selectedName} .", "Kayıt Bulunamadı!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -1585,7 +1193,7 @@ namespace FPClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1618,7 +1226,7 @@ namespace FPClient
                                     string ip = reader.GetString(0);
                                     string port = reader.GetString(1);
                                     string password = reader.GetString(2);
-                                    // ı need to convert string to int
+
                                     int portInt = Convert.ToInt32(port);
                                     int passwordInt = Convert.ToInt32(password);
 
@@ -1632,26 +1240,28 @@ namespace FPClient
 
                                             if (bRet)
                                             {
-                                                labelInfo.Text = $"Connected to {selectedName} ({ip}:{port}).";
+                                                labelInfo.Text = $"Bağlandı! {selectedName} ({ip}:{port}).";
+                                                MessageBox.Show($"Bağlandı! {selectedName} ({ip}:{port}).", "Bağlantı Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                                             }
                                             else
                                             {
-                                                MessageBox.Show($"Failed to connect to {selectedName} ({ip}:{port}).", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                MessageBox.Show($"Cihaza Bağlanılamadı! {selectedName} ({ip}:{port}).", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
                                         }
                                         catch (Exception ex)
                                         {
-                                            MessageBox.Show($"Connection failed for {selectedName} ({ip}:{port}). Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show($"Bağlantı Yapılmadı {selectedName} ({ip}:{port}). Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show($"Invalid IP format for {selectedName}: {ip}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show($"Geçersiz IP format {selectedName}: {ip}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show($"No matching record found for {selectedName} in the database.", "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show($"Veritabanında eşleşen kayıt yok :{selectedName} ", "Kayıt Bulunamadı!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -1659,24 +1269,39 @@ namespace FPClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem item = listView1.SelectedItems[0];
+
+                // Update Enroll Number
                 tbEnrollNum.Text = item.SubItems[0].Text;
-                cmbBackupNum.SelectedIndex = Convert.ToInt32(item.SubItems[1].Text);
-                cmbPrivilege.SelectedIndex = Convert.ToInt32(item.SubItems[2].Text);
+
+                // Update BackupNum ComboBox
+                int backupValue = Convert.ToInt32(item.SubItems[1].Text);
+                var backupIndex = ((List<KeyValuePair<string, int>>)cmbBackupNum.DataSource)
+                    .FindIndex(x => x.Value == backupValue);
+                cmbBackupNum.SelectedIndex = backupIndex >= 0 ? backupIndex : -1;
+
+                // Update Privilege ComboBox
+                int privilegeValue = Convert.ToInt32(item.SubItems[2].Text);
+                var privilegeIndex = ((List<KeyValuePair<string, int>>)cmbPrivilege.DataSource)
+                    .FindIndex(x => x.Value == privilegeValue);
+                cmbPrivilege.SelectedIndex = privilegeIndex >= 0 ? privilegeIndex : -1;
+
+                // Update Enroll Name
                 tbEnrollName.Text = item.SubItems[3].Text;
+
+                // Update Card Number
                 tbCardNum.Text = item.SubItems[4].Text;
             }
         }
+
 
         private void selectAllBox_CheckedChanged(object sender, EventArgs e)
         {

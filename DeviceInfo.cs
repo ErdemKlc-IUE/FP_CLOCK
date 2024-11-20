@@ -83,17 +83,5 @@ namespace FPClient
             pOcxObject.GetLastError(ref nErrorValue);
             labelInfo.Text = common.FormErrorStr(nErrorValue);
         }
-
-                
-        private void btnGetBackupNumber_Click(object sender, EventArgs e)
-        {
-            //NOT IMPLEMENTED
-        }
-
-        private void btnGetProductCode_Click(object sender, EventArgs e)
-        {
-            //NOT IMPLEMENTED
-
-        }
     }
 }

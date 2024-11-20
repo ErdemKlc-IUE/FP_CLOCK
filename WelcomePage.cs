@@ -25,20 +25,12 @@ namespace FP_CLOCK
         private bool m_bDeviceOpened = false;
 
         private string ıd;
-        // I want setter and getter for ıd
-        
-
-        //private int m_nMachineNum;
 
         private ListViewItem previousSelectedItem = null; // Önceki seçili cihazı takip etmek için
         
         SaveDevice saveDevice = new SaveDevice();
         string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
         string filePath = @"C:\ENGOPER\Data\data.txt";
-
-
-
-
 
         public WelcomePage()
         {
@@ -120,7 +112,6 @@ namespace FP_CLOCK
                 }
             }
         }
-
         private void WelcomePage_Load(object sesnder, EventArgs e)
         {
             //this.axFP_CLOCK.OnGeneralEvent += new AxFP_CLOCKLib._IFP_CLOCKEvents_OnGeneralEventEventHandler(this.axFP_CLOCK_OnGeneralEvent);
@@ -158,7 +149,6 @@ namespace FP_CLOCK
                 {
                     m_bDeviceOpened = false;
                     axFP_CLOCK.CloseCommPort();  // Mevcut bağlantıyı kapat
-                    //previousSelectedItem.SubItems[5].Text = "Kapalı"; // Önceki cihazı "Kapalı" olarak işaretle
                 }
 
                 // Şu anki cihazın bilgilerini al
@@ -195,38 +185,24 @@ namespace FP_CLOCK
                     m_bDeviceOpened = true;
                     currentItem.SubItems[5].Text = "Açık";
 
-
-
                     // Opsiyonel: Cihazın seri numarasını al ve listeye ekle
                     string strDeviceSerialNumber = getDeviceSerialNumber();
                     currentItem.SubItems[6].Text = strDeviceSerialNumber;
 
                     LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK,ıd);
                     logManagement.btnReadAllGLogData_Click(sender, e);
-                    //logManagement.Show();
-
-
 
                     SysInfo sysInfo = new SysInfo(m_nCurSelID, ref axFP_CLOCK);
                     sysInfo.btnSetDeviceTime_Click(sender, e);
                     count++;
                     currentItem.SubItems[5].Text = "Tamamlandı";
-
                 }
                 else
                 {
                     MessageBox.Show($"Cihaz {ıd} bağlanamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     listView1.Items[i].SubItems[5].Text = "Bağlantı Kurulamadı";
-                    //listView1.Items[i].SubItems[5].Font = new Font(listView1.Font, FontStyle.Bold);
-
-
                 }
-
-                // Yeni cihazı önceki cihaz olarak güncelle
                 previousSelectedItem = currentItem;
-
-                // Her cihaz arasında kısa bir bekleme süresi eklemek isterseniz:
-                // System.Threading.Thread.Sleep(500); // 500ms bekleme süresi ekleyebilirsiniz.
                 listView1.Refresh();
             }
             txtToListview();
@@ -252,7 +228,6 @@ namespace FP_CLOCK
             this.Close();
             Application.Exit();
         }
-
         private void customButton2_Click(object sender, EventArgs e)
         {
             Visible = false;
@@ -261,7 +236,6 @@ namespace FP_CLOCK
             this.OwnedForms[0].Visible = true;
 
         }
-
         private void DeviceLogListView()
         {
    
@@ -305,15 +279,12 @@ namespace FP_CLOCK
                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
-
         public void GetDeviceObject(ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
 
             ptrObject = axFP_CLOCK;
 
         }
-
-
         public void ReceiveListViewItems(System.Windows.Forms.ListView.ListViewItemCollection items)
         {
             foreach (ListViewItem item in items)
@@ -356,7 +327,6 @@ namespace FP_CLOCK
              int id = Convert.ToInt32(idText); // Convert it to an integer
              return id; // Return the ID
          }*/
-
         public void sendDatabase()
         {
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\ENGOPER\Data;Extended Properties=dBase IV;";
@@ -371,8 +341,6 @@ namespace FP_CLOCK
                 // Satırı virgülle ayırarak verileri al
                 string[] parts = line.Split(',');
 
-                // parts[3] = Tarih (yyyy/MM/dd)
-                // parts[4] = Saat (HH:mm)
                 DateTime dateTime = DateTime.ParseExact($"{parts[3]} {parts[4]}", "yyyy/MM/dd HH:mm", null);
 
                 // DateTime ve orijinal satırı bir tuple olarak döndür
@@ -384,8 +352,6 @@ namespace FP_CLOCK
 
             // Sıralanmış verileri dosyaya geri yaz
             File.WriteAllLines(filePath, sortedLines);
-
-
 
             Console.WriteLine("Veriler başarıyla sıralandı ve dosyaya yazıldı.");
 
@@ -418,18 +384,14 @@ namespace FP_CLOCK
                             // Saat ve dakikayı ayır
                             int hours = int.Parse(timeParts[0]); // Saat
                             int minutes = int.Parse(timeParts[1]); // Dakika
-                            //int seconds = int.Parse(timeParts[2]); // Saniye
 
                             // Toplam dakika hesapla
                             float saatnum = hours * 60 + minutes; // Toplam dakikayı hesapla
-
-
 
                             string kartno = values[1].Trim('"');
                             string ftus = values[2].Trim('"');
                             string tarih = values[3].Trim('"');
                             string saat = values[4].Trim('"');
-                            //float kimlik = float.Parse(values[7].Trim('"'));
 
                             DateTime date = DateTime.Parse(values[3].Trim('"'));
 
@@ -454,7 +416,6 @@ namespace FP_CLOCK
                             command.Parameters.AddWithValue("@p6", tarih);
                             command.Parameters.AddWithValue("@p7", saat);
                             command.Parameters.AddWithValue("@p8", kimlik);
-
 
                             // Sorguyu çalıştır
                             command.ExecuteNonQuery();

@@ -46,13 +46,13 @@
             this.cmbPrivilege = new System.Windows.Forms.ComboBox();
             this.tbEnrollName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDelDBData = new FP_CLOCK.CustomButton();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.sendedDeviceList = new System.Windows.Forms.CheckedListBox();
             this.selectAllBox = new System.Windows.Forms.CheckBox();
             this.btnSetAllEnData = new FP_CLOCK.CustomButton();
             this.connectButton = new FP_CLOCK.CustomButton();
-            this.btnDelDBData = new FP_CLOCK.CustomButton();
             this.btnDelCompanyString = new FP_CLOCK.CustomButton();
             this.btnModifyPrivilege = new FP_CLOCK.CustomButton();
             this.btnEmptyEnData = new FP_CLOCK.CustomButton();
@@ -176,15 +176,7 @@
             this.cmbEMachineNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEMachineNum.FormattingEnabled = true;
             this.cmbEMachineNum.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
+            "1"});
             this.cmbEMachineNum.Location = new System.Drawing.Point(165, 219);
             this.cmbEMachineNum.Name = "cmbEMachineNum";
             this.cmbEMachineNum.Size = new System.Drawing.Size(100, 24);
@@ -204,9 +196,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(417, 221);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(81, 16);
+            this.label9.Size = new System.Drawing.Size(92, 16);
             this.label9.TabIndex = 2;
-            this.label9.Text = "Kullanıcı İzin:";
+            this.label9.Text = "Kullanıcı Yetki:";
             // 
             // label11
             // 
@@ -257,6 +249,23 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DB operation";
+            // 
+            // btnDelDBData
+            // 
+            this.btnDelDBData.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnDelDBData.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDelDBData.BorderRadius = 20;
+            this.btnDelDBData.BorderSize = 0;
+            this.btnDelDBData.FlatAppearance.BorderSize = 0;
+            this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDelDBData.Location = new System.Drawing.Point(6, 21);
+            this.btnDelDBData.Name = "btnDelDBData";
+            this.btnDelDBData.Size = new System.Drawing.Size(123, 61);
+            this.btnDelDBData.TabIndex = 3;
+            this.btnDelDBData.Text = "Database Temizle";
+            this.btnDelDBData.UseVisualStyleBackColor = false;
+            this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
             // 
             // checkedListBox1
             // 
@@ -309,7 +318,7 @@
             this.btnSetAllEnData.Name = "btnSetAllEnData";
             this.btnSetAllEnData.Size = new System.Drawing.Size(123, 61);
             this.btnSetAllEnData.TabIndex = 3;
-            this.btnSetAllEnData.Text = "Databasei Cİhaza yolla";
+            this.btnSetAllEnData.Text = "Cihaza Yolla";
             this.btnSetAllEnData.UseVisualStyleBackColor = false;
             this.btnSetAllEnData.Click += new System.EventHandler(this.btnSetAllEnData_Click);
             // 
@@ -329,23 +338,6 @@
             this.connectButton.Text = "Bağlan";
             this.connectButton.UseVisualStyleBackColor = false;
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
-            // 
-            // btnDelDBData
-            // 
-            this.btnDelDBData.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnDelDBData.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDelDBData.BorderRadius = 20;
-            this.btnDelDBData.BorderSize = 0;
-            this.btnDelDBData.FlatAppearance.BorderSize = 0;
-            this.btnDelDBData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelDBData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDelDBData.Location = new System.Drawing.Point(6, 21);
-            this.btnDelDBData.Name = "btnDelDBData";
-            this.btnDelDBData.Size = new System.Drawing.Size(123, 61);
-            this.btnDelDBData.TabIndex = 3;
-            this.btnDelDBData.Text = "Database Temizle";
-            this.btnDelDBData.UseVisualStyleBackColor = false;
-            this.btnDelDBData.Click += new System.EventHandler(this.btnDelDBData_Click);
             // 
             // btnDelCompanyString
             // 
@@ -377,7 +369,7 @@
             this.btnModifyPrivilege.Name = "btnModifyPrivilege";
             this.btnModifyPrivilege.Size = new System.Drawing.Size(139, 43);
             this.btnModifyPrivilege.TabIndex = 3;
-            this.btnModifyPrivilege.Text = "İzin Güncelle";
+            this.btnModifyPrivilege.Text = "Yetki Güncelle";
             this.btnModifyPrivilege.UseVisualStyleBackColor = false;
             this.btnModifyPrivilege.Click += new System.EventHandler(this.btnModifyPrivilege_Click);
             // 
@@ -620,8 +612,6 @@
         private FP_CLOCK.CustomButton btnGetAllEnData;
         private FP_CLOCK.CustomButton btnSetEnrollData;
         private FP_CLOCK.CustomButton btnDelEnData;
-        //private FP_CLOCK.CustomButton btnUDiskDownLoad;
-        //private FP_CLOCK.CustomButton btnUDiskUpload;
         private FP_CLOCK.CustomButton btnEmptyEnData;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private FP_CLOCK.CustomButton connectButton;

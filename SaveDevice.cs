@@ -24,7 +24,6 @@ namespace FP_CLOCK
         public SaveDevice()
         {
             InitializeComponent();
-            //InitializeListView();
         }
         public SaveDevice(int nMachineNum, ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
@@ -33,14 +32,11 @@ namespace FP_CLOCK
             this.m_nMachineNum = nMachineNum;
             listView1.GridLines = true;
             InitializeListView();
-
-
         }
         private void SaveDeviceForm_Closing(object sender, FormClosingEventArgs e)
         {
             Owner.Visible = true;
         }
-
         private void okButton_Click(object sender, EventArgs e)
         {
             // Bu formu gizle ve WelcomePage'i göster
@@ -48,7 +44,6 @@ namespace FP_CLOCK
             this.Visible = false;
             welcomePage.Show();
         }
-
         private void addButton_Click(object sender, EventArgs e)
         {
             // Save the device to the listview
@@ -300,10 +295,6 @@ namespace FP_CLOCK
                             }
                         }
                     }
-                    else
-                    {
-                        //MessageBox.Show("The DBF table does not exist or contains no data.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
                 }
             }
             catch (Exception ex)
@@ -355,7 +346,6 @@ namespace FP_CLOCK
                             {
                                 while (reader.Read())
                                 {
-                                    // Check if 'EMachineNumber' exists in the reader
                                     string machineNumber = reader["EMNo"].ToString();  // Verify exact field name
                                     string enrollNumber = reader["ENumber"].ToString();
                                     string fingerNumber = reader["FNumber"].ToString();
@@ -373,10 +363,6 @@ namespace FP_CLOCK
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        //MessageBox.Show("The DBF table does not exist or contains no data.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -409,7 +395,6 @@ namespace FP_CLOCK
                 LoadDBFDataToListView(listView1, dbfFilePath);
             }
         }
-
         // Method to delete the corresponding item from the DBF file
         private void DeleteFromDBF(string ip, string port)
         {
@@ -450,7 +435,6 @@ namespace FP_CLOCK
                 MessageBox.Show("Error deleting from the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         // Method to reassign IDs after deletion to maintain sequence
         private void ReassignIDs()
         {
@@ -498,7 +482,6 @@ namespace FP_CLOCK
                 MessageBox.Show("Error reassigning IDs in the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void editButton_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
@@ -520,13 +503,6 @@ namespace FP_CLOCK
                     return;
                 }
 
-                //// Check if a device with the same IP and port already exists (duplicate check)
-                //if (CheckIfDeviceExists(strDeviceIP, strDevicePort))
-                //{
-                //    MessageBox.Show("A device with the same IP or port number already exists in the database.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //    return; // Prevent updating the device
-                //}
-
                 // Get the ID from the selected item (ID assumed to be the first subitem)
                 string id = selectedItem.SubItems[0].Text;
 
@@ -547,7 +523,6 @@ namespace FP_CLOCK
                 MessageBox.Show("Please select an item to edit.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         // Method to update the database with new values
         private void UpdateDatabase(string deviceName, string ip, string port, string password, string id)
         {
@@ -594,8 +569,6 @@ namespace FP_CLOCK
                 MessageBox.Show("Error updating the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //when double click on the listview item, the item should be editable
@@ -609,7 +582,6 @@ namespace FP_CLOCK
                 portTextBox.Text = selectedItem.SubItems[3].Text;
                 pwTextBox.Text = selectedItem.SubItems[4].Text;
             }
-        }
-        
+        }        
     }
 }

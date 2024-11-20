@@ -129,7 +129,6 @@ namespace FPClient
             this.btnGetBackupNumber.TabIndex = 3;
             this.btnGetBackupNumber.Text = "Yedek Numarası Al";
             this.btnGetBackupNumber.UseVisualStyleBackColor = false;
-            this.btnGetBackupNumber.Click += new System.EventHandler(this.btnGetBackupNumber_Click);
             // 
             // btnGetProductCode
             // 
@@ -146,7 +145,6 @@ namespace FPClient
             this.btnGetProductCode.TabIndex = 3;
             this.btnGetProductCode.Text = "Ürün Kodu Al";
             this.btnGetProductCode.UseVisualStyleBackColor = false;
-            this.btnGetProductCode.Click += new System.EventHandler(this.btnGetProductCode_Click);
             // 
             // btnGetSerialNumber
             // 
