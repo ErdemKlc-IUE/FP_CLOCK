@@ -34,7 +34,6 @@ namespace FP_CLOCK
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomePage));
-            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
             this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
@@ -45,23 +44,14 @@ namespace FP_CLOCK
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.recordsListview = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
+            this.recordsListview = new System.Windows.Forms.ListView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // axFP_CLOCK
-            // 
-            this.axFP_CLOCK.Visible = false;
-            this.axFP_CLOCK.Enabled = true;
-            this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
-            this.axFP_CLOCK.Name = "axFP_CLOCK";
-            this.axFP_CLOCK.TabIndex = 0;
             // 
             // listView1
             // 
@@ -215,12 +205,12 @@ namespace FP_CLOCK
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 352);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Aktarılan Toplam Kayıt :";
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(12, 228);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(299, 341);
+            this.listView2.TabIndex = 9;
+            this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // WelcomePage
             // 
@@ -235,7 +225,6 @@ namespace FP_CLOCK
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.transferButton);
-            this.Controls.Add(this.axFP_CLOCK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(919, 695);
@@ -245,7 +234,6 @@ namespace FP_CLOCK
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WelcomePage_FormClosing);
             this.Load += new System.EventHandler(this.WelcomePage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
