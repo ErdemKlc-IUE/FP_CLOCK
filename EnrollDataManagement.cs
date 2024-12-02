@@ -24,8 +24,8 @@ namespace FPClient
     {
         private int m_nMachineNum;
         private AxFP_CLOCKLib.AxFP_CLOCK pOcxObject;
-        string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
-        string dbfFilePath2 = @"C:\ENGOPER\Data\EnrollData.dbf";
+        string dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
+        string dbfFilePath2 = @"C:\EnGoPer\Data\EnrollData.dbf";
         SaveDevice saveDevice = new SaveDevice();
 
         public EnrollDataManagement()
@@ -38,6 +38,7 @@ namespace FPClient
             InitializeComponent();
             InitializeCheckListBox();
             InitializeListview();
+
 
             this.m_nMachineNum = nMachineNum;
             this.pOcxObject = ptrObject;
@@ -55,7 +56,7 @@ namespace FPClient
             var backupOptions2 = new List<KeyValuePair<string, int>>()
             {
                 new KeyValuePair<string, int>("Kullancı", 0),
-                new KeyValuePair<string, int>("Admin", 3),
+                new KeyValuePair<string, int>("Admin", 1),
             };
             this.cmbPrivilege.DataSource = backupOptions2;
             this.cmbPrivilege.DisplayMember = "Key";
@@ -218,23 +219,56 @@ namespace FPClient
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
-        private void btnRmAllManager_Click(object sender, EventArgs e)
+        private void btnRmAllManager_Click(object sender, EventArgs e) // Tüm yöneticileri sil
         {
             bool bRet;
 
+            // Disable the device before removing all managers
             DisableDevice();
+
+            // Call the method to remove all managers
             bRet = pOcxObject.BenumbAllManager(m_nMachineNum);
+
             if (bRet)
             {
-                labelInfo.Text = "Success...";
-            } 
+                // If the managers are removed from the device, update the database
+                string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                using (OleDbConnection conn = new OleDbConnection(strConnection))
+                {
+                    try
+                    {
+                        conn.Open();
+                        // Query to update all privilege values not equal to 0
+                        string query = "UPDATE EnrollData SET PRIV = 0 WHERE PRIV <> 0";
+
+                        using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                        {
+                            int rowsAffected = cmd.ExecuteNonQuery(); // Execute the update query
+                            labelInfo.Text = $"Tüm yönetici izinleri kaldırıldı. {rowsAffected} kayıt güncellendi.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log or display the error
+                        MessageBox.Show("Veritabanı güncellemesi hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                // Refresh any related UI or database if necessary
+                listView1.Items.Clear();
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+            }
             else
             {
+                // Show error information if the operation failed
                 ShowErrorInfo();
             }
 
-            pOcxObject.EnableDevice(m_nMachineNum, 1);
-
+            // Enable the device after the operation
+            EnableDevice();
         }
         private void btnSetCompanyString_Click(object sender, EventArgs e)
         {
@@ -265,7 +299,7 @@ namespace FPClient
 
             if (bRet)
             {
-                labelInfo.Text = "Set Company Name OK"; 
+                labelInfo.Text = "Cihaz şirket ismi gönderildi."; 
             } 
             else
             {
@@ -348,7 +382,7 @@ namespace FPClient
             bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
             if (bRet)
             {
-                string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+                string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
                 string directoryPath = Path.GetDirectoryName(enrolldbfPath);
                 string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -400,66 +434,87 @@ namespace FPClient
         }
         private void btnModifyPrivilege_Click(object sender, EventArgs e)
         {
-            DisableDevice();
-            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-            int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
-
-            int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
-
-            // Extract the Value (integer) from the KeyValuePair in cmbPrivilege
-            int dwPrivilege = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
-            bool bRet;
-
-            bRet = pOcxObject.ModifyPrivilege(m_nMachineNum,
-                dwEnrollNum, 
-                dwEnMachineID,
-                dwBackupNum, 
-                dwPrivilege);
-            if (bRet)
+            try
             {
-                string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
-                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
-                using (OleDbConnection conn = new OleDbConnection(strConnection))
-                {
-                    try
-                    {
-                        conn.Open();
-                        string updateQuery = "UPDATE EnrollData SET PRIV = ? WHERE ENumber = ? AND FNumber = ?";
-                        using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@PRIV", dwPrivilege);
-                            cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
-                            cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+                DisableDevice();
 
-                            int rowsAffected = cmd.ExecuteNonQuery();
-                            if (rowsAffected == 0)
-                            {
-                                MessageBox.Show("Error: The specified EnrollNumber and FingerNumber combination does not exist in the database.",
-                                    "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                labelInfo.Text = "EnrollNumber and FingerNumber not found in database.";
-                            }
-                            else
-                            {
-                                labelInfo.Text = "Success: Privilege updated in the database.";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Database Error: " + ex.Message);
-                    }
+                // Ensure a valid item is selected in the ComboBoxes
+                if (cmbEMachineNum.SelectedIndex == -1 ||
+                    cmbBackupNum.SelectedItem == null ||
+                    cmbPrivilege.SelectedItem == null)
+                {
+                    MessageBox.Show("Lütfen geçerli bir kayıt tipi seçiniz.", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-            }
-            else
-            {
-                ShowErrorInfo();
-            }
+                int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
+                int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
 
-            EnableDevice();
+                // Extract values from the ComboBoxes
+                int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
+                int dwPrivilege = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
+
+                bool bRet = pOcxObject.ModifyPrivilege(m_nMachineNum, dwEnrollNum, dwEnMachineID, dwBackupNum, dwPrivilege);
+
+                if (bRet)
+                {
+                    string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                    string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                    string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                    using (OleDbConnection conn = new OleDbConnection(strConnection))
+                    {
+                        try
+                        {
+                            conn.Open();
+                            string updateQuery = "UPDATE EnrollData SET PRIV = ? WHERE ENumber = ? AND FNumber = ?";
+                            using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@PRIV", dwPrivilege);
+                                cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+                                cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+
+                                int rowsAffected = cmd.ExecuteNonQuery();
+                                if (rowsAffected == 0)
+                                {
+                                    MessageBox.Show("Girilen veriler veritabanında bulunamadı.",
+                                        "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    labelInfo.Text = "Veri bulunamadı";
+                                }
+                                else
+                                {
+                                    labelInfo.Text = "Başarılı: İzin güncellendi";
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    // Refresh UI
+                    listView1.Items.Clear();
+                    saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+                }
+                else
+                {
+                    ShowErrorInfo();
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Geçersiz kayıt numarası. Lütfen geçerli bir numara giriniz.", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Beklenmedik bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Ensure the device is re-enabled even if an exception occurs
+                EnableDevice();
+            }
         }
         private void btnGetEnrollInfo_Click(object sender, EventArgs e) // Cihazdan Bilgi Al
         {
@@ -468,7 +523,7 @@ namespace FPClient
             // Step 1: Disable device before starting to read data
             if (!DisableDevice())
             {
-                MessageBox.Show("Failed to disable device.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cihaz bağlantı hatası", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             listView1.Items.Clear();
@@ -484,7 +539,7 @@ namespace FPClient
                 return;
             }
 
-            labelInfo.Text = "Reading user data...";
+            labelInfo.Text = "Kullanıcı verisi okunuyor...";
 
             // Initialize variables
             int nIndex = 0;
@@ -526,11 +581,11 @@ namespace FPClient
             // Step 5: Confirm completion
             if (nIndex > 0)
             {
-                labelInfo.Text = $"Successfully retrieved {nIndex} users.";
+                labelInfo.Text = $"Kullanıcı kaydı başarıyla çekildi : {nIndex} .";
             }
             else
             {
-                labelInfo.Text = "No user data retrieved.";
+                labelInfo.Text = "Kullanıcı verisi yok!";
             }
             EnableDevice();
         }
@@ -564,7 +619,7 @@ namespace FPClient
                     if (bRet)
                     {
                         // If the user is deleted from the device, delete from the database as well
-                        string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+                        string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
                         string directoryPath = Path.GetDirectoryName(enrolldbfPath);
                         string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -625,7 +680,7 @@ namespace FPClient
             {
                 labelInfo.Text = "Cihaz temizlendi.";
                 //TODO : cihaz temizlenince, database de temizlenecek?????
-                btnDelDBData_Click(sender, e);
+                //btnDelDBData_Click(sender, e);
             } 
             else
             {
@@ -638,7 +693,7 @@ namespace FPClient
         {
             DisableDevice();
             OleDbConnection conn;
-            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
             conn = new OleDbConnection(strConnection);
@@ -839,7 +894,7 @@ namespace FPClient
         {
             ConnectToSelectedDevices2();
 
-            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -945,7 +1000,7 @@ namespace FPClient
             }
 
             OleDbConnection conn;
-            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
             conn = new OleDbConnection(strConnection);
@@ -980,9 +1035,11 @@ namespace FPClient
         {
             DisableDevice();
 
-            int dwBackupNum = cmbBackupNum.SelectedIndex;
-            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-            int dwPrivilegeNum = cmbPrivilege.SelectedIndex;
+            // Extract selected values from ComboBoxes using ValueMember
+            int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
+            int dwPrivilegeNum = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
+
+            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1; // Assuming this ComboBox doesn't need changes
             int dwEnrollNumber = Convert.ToInt32(tbEnrollNum.Text);
 
             int[] dwData = new int[1420 / 4];
@@ -990,36 +1047,37 @@ namespace FPClient
             int dwPassword = 0;
             int dwCardNum = 0;
 
-            if ( tbCardNum.TextLength > 0 )
+            // Parse CardNum if present
+            if (tbCardNum.TextLength > 0)
             {
-                dwCardNum = Int32.Parse(tbCardNum.Text);
+                dwCardNum = int.TryParse(tbCardNum.Text, out int parsedValue) ? parsedValue : 0;
             }
 
-            if (dwBackupNum == 11 || dwBackupNum==10)
+            // Set password if the BackupNum corresponds to specific cases
+            if (dwBackupNum == 10 || dwBackupNum == 11) // "Pin" or "Kart"
             {
                 if (dwCardNum != 0)
                 {
                     dwPassword = dwCardNum;
                 }
             }
-            if (dwBackupNum <10)
-            {
-                return;
-            }
 
             bool bRet;
-            DisableDevice();
 
-            bRet = pOcxObject.SetEnrollData(m_nMachineNum,
+            // Call the external method with the updated parameters
+            bRet = pOcxObject.SetEnrollData(
+                m_nMachineNum,
                 dwEnrollNumber,
                 dwEnMachineID,
                 dwBackupNum,
                 dwPrivilegeNum,
                 ref obj,
-                dwPassword);
+                dwPassword
+            );
 
             if (bRet)
             {
+                // Refresh the data and update UI
                 btnGetAllEnData_Click(sender, e);
                 btnSetUserName_Click(sender, e);
                 listView1.Items.Clear();
@@ -1031,9 +1089,9 @@ namespace FPClient
                 ShowErrorInfo();
             }
 
-
             EnableDevice();
         }
+
         /*private void btnGetEnrollData_Click(object sender, EventArgs e) // Kart Numarası Getir
         {
             listBox1.Items.Clear();
@@ -1112,8 +1170,6 @@ namespace FPClient
             }
             else
             {
-                
-
                 btnGetEnrollInfo_Click(sender, e);
 
                 btnGetAllEnData_Click(sender, e);
@@ -1123,7 +1179,7 @@ namespace FPClient
         }
         public void ConnectToSelectedDevices()
         {
-            string enrolldbfPath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -1199,7 +1255,7 @@ namespace FPClient
         }
         public void ConnectToSelectedDevices2()
         {
-            string enrolldbfPath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
@@ -1301,8 +1357,6 @@ namespace FPClient
                 tbCardNum.Text = item.SubItems[4].Text;
             }
         }
-
-
         private void selectAllBox_CheckedChanged(object sender, EventArgs e)
         {
             // Loop through all items in the ListView

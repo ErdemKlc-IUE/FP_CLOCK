@@ -43,12 +43,7 @@ namespace FPClient
             this.btnBellSetting = new FP_CLOCK.CustomButton();
             this.btnSetPassTime = new FP_CLOCK.CustomButton();
             this.btnDeviceInfo = new FP_CLOCK.CustomButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.homeButton = new System.Windows.Forms.ToolStripButton();
-            this.helpButton = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.enrollDataManagement = new FPClient.EnrollDataManagement();
             this.SuspendLayout();
             // 
             // textPassword
@@ -90,10 +85,16 @@ namespace FPClient
             this.btnSaveDevice.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnSaveDevice.BorderRadius = 20;
             this.btnSaveDevice.BorderSize = 0;
+            this.btnSaveDevice.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSaveDevice.FlatAppearance.BorderSize = 0;
             this.btnSaveDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSaveDevice.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveDevice.Location = new System.Drawing.Point(528, 199);
+            this.btnSaveDevice.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnSaveDevice.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSaveDevice.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnSaveDevice.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnSaveDevice.Location = new System.Drawing.Point(784, 299);
             this.btnSaveDevice.Name = "btnSaveDevice";
             this.btnSaveDevice.Size = new System.Drawing.Size(238, 148);
             this.btnSaveDevice.TabIndex = 3;
@@ -106,17 +107,24 @@ namespace FPClient
             this.btnEnrollMangement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnrollMangement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnEnrollMangement.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnEnrollMangement.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnEnrollMangement.BorderRadius = 20;
             this.btnEnrollMangement.BorderSize = 0;
+            this.btnEnrollMangement.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnrollMangement.FlatAppearance.BorderSize = 0;
             this.btnEnrollMangement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnrollMangement.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnEnrollMangement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEnrollMangement.Location = new System.Drawing.Point(7, 199);
+            this.btnEnrollMangement.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnEnrollMangement.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnEnrollMangement.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnEnrollMangement.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnEnrollMangement.Location = new System.Drawing.Point(62, 163);
             this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
             this.btnEnrollMangement.Name = "btnEnrollMangement";
-            this.btnEnrollMangement.Size = new System.Drawing.Size(243, 148);
+            this.btnEnrollMangement.Size = new System.Drawing.Size(295, 368);
             this.btnEnrollMangement.TabIndex = 3;
             this.btnEnrollMangement.Text = "Kullanıcı Yönetim";
             this.btnEnrollMangement.UseVisualStyleBackColor = true;
@@ -128,9 +136,14 @@ namespace FPClient
             this.btnLogManagement.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnLogManagement.BorderRadius = 20;
             this.btnLogManagement.BorderSize = 0;
+            this.btnLogManagement.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogManagement.FlatAppearance.BorderSize = 0;
             this.btnLogManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogManagement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnLogManagement.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnLogManagement.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnLogManagement.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnLogManagement.HoverStartColor = System.Drawing.Color.AliceBlue;
             this.btnLogManagement.Location = new System.Drawing.Point(276, 199);
             this.btnLogManagement.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogManagement.Name = "btnLogManagement";
@@ -145,9 +158,14 @@ namespace FPClient
             this.btnSysInfo.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnSysInfo.BorderRadius = 20;
             this.btnSysInfo.BorderSize = 0;
+            this.btnSysInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSysInfo.FlatAppearance.BorderSize = 0;
             this.btnSysInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSysInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSysInfo.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnSysInfo.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSysInfo.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnSysInfo.HoverStartColor = System.Drawing.Color.AliceBlue;
             this.btnSysInfo.Location = new System.Drawing.Point(545, 199);
             this.btnSysInfo.Margin = new System.Windows.Forms.Padding(2);
             this.btnSysInfo.Name = "btnSysInfo";
@@ -163,9 +181,14 @@ namespace FPClient
             this.btnLockCtrl.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnLockCtrl.BorderRadius = 20;
             this.btnLockCtrl.BorderSize = 0;
+            this.btnLockCtrl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLockCtrl.FlatAppearance.BorderSize = 0;
             this.btnLockCtrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLockCtrl.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnLockCtrl.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnLockCtrl.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnLockCtrl.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnLockCtrl.HoverStartColor = System.Drawing.Color.AliceBlue;
             this.btnLockCtrl.Location = new System.Drawing.Point(7, 274);
             this.btnLockCtrl.Margin = new System.Windows.Forms.Padding(2);
             this.btnLockCtrl.Name = "btnLockCtrl";
@@ -181,10 +204,16 @@ namespace FPClient
             this.btnBellSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnBellSetting.BorderRadius = 20;
             this.btnBellSetting.BorderSize = 0;
+            this.btnBellSetting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBellSetting.FlatAppearance.BorderSize = 0;
             this.btnBellSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBellSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnBellSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnBellSetting.Location = new System.Drawing.Point(274, 199);
+            this.btnBellSetting.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnBellSetting.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnBellSetting.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnBellSetting.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnBellSetting.Location = new System.Drawing.Point(449, 309);
             this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
             this.btnBellSetting.Name = "btnBellSetting";
             this.btnBellSetting.Size = new System.Drawing.Size(226, 148);
@@ -199,9 +228,14 @@ namespace FPClient
             this.btnSetPassTime.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnSetPassTime.BorderRadius = 20;
             this.btnSetPassTime.BorderSize = 0;
+            this.btnSetPassTime.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSetPassTime.FlatAppearance.BorderSize = 0;
             this.btnSetPassTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetPassTime.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSetPassTime.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnSetPassTime.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSetPassTime.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnSetPassTime.HoverStartColor = System.Drawing.Color.AliceBlue;
             this.btnSetPassTime.Location = new System.Drawing.Point(545, 274);
             this.btnSetPassTime.Margin = new System.Windows.Forms.Padding(2);
             this.btnSetPassTime.Name = "btnSetPassTime";
@@ -217,9 +251,14 @@ namespace FPClient
             this.btnDeviceInfo.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnDeviceInfo.BorderRadius = 20;
             this.btnDeviceInfo.BorderSize = 0;
+            this.btnDeviceInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeviceInfo.FlatAppearance.BorderSize = 0;
             this.btnDeviceInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeviceInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDeviceInfo.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnDeviceInfo.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnDeviceInfo.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnDeviceInfo.HoverStartColor = System.Drawing.Color.AliceBlue;
             this.btnDeviceInfo.Location = new System.Drawing.Point(7, 349);
             this.btnDeviceInfo.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeviceInfo.Name = "btnDeviceInfo";
@@ -229,61 +268,23 @@ namespace FPClient
             this.btnDeviceInfo.UseVisualStyleBackColor = true;
             this.btnDeviceInfo.Click += new System.EventHandler(this.btnDeviceInfo_Click);
             // 
-            // toolStrip1
+            // enrollDataManagement
             // 
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.homeButton,
-            this.helpButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(778, 37);
-            this.toolStrip1.TabIndex = 9;
-            // 
-            // homeButton
-            // 
-            this.homeButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.homeButton.Font = new System.Drawing.Font("Constantia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.homeButton.Image = global::FP_CLOCK.Properties.Resources.House_48x48;
-            this.homeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.homeButton.Name = "homeButton";
-            this.homeButton.Size = new System.Drawing.Size(115, 34);
-            this.homeButton.Text = "Ana Sayfa";
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
-            // 
-            // helpButton
-            // 
-            this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.helpButton.Font = new System.Drawing.Font("Constantia", 10.2F);
-            this.helpButton.Image = global::FP_CLOCK.Properties.Resources.Information_48x48;
-            this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(98, 34);
-            this.helpButton.Text = "Yardım";
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictureBox1.BackgroundImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.InitialImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo1;
-            this.pictureBox1.Location = new System.Drawing.Point(7, 44);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(771, 90);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.WaitOnLoad = true;
+            this.enrollDataManagement.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.enrollDataManagement.ClientSize = new System.Drawing.Size(1065, 732);
+            this.enrollDataManagement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.enrollDataManagement.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.enrollDataManagement.Location = new System.Drawing.Point(0, 0);
+            this.enrollDataManagement.Name = "enrollDataManagement";
+            this.enrollDataManagement.Text = "Kullanıcı Yönetim";
+            this.enrollDataManagement.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(778, 395);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(1113, 827);
             this.Controls.Add(this.btnBellSetting);
             this.Controls.Add(this.btnEnrollMangement);
             this.Controls.Add(this.btnSaveDevice);
@@ -295,11 +296,7 @@ namespace FPClient
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -308,7 +305,6 @@ namespace FPClient
         private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.TextBox textPort;
         private IPAddressControlLib.IPAddressControl ipAddressControl1;
-        private ToolStripButton homeButton;
         private FP_CLOCK.CustomButton btnSaveDevice;
         private FP_CLOCK.CustomButton btnEnrollMangement;
         private FP_CLOCK.CustomButton btnLogManagement;
@@ -317,9 +313,7 @@ namespace FPClient
         private FP_CLOCK.CustomButton btnBellSetting;
         private FP_CLOCK.CustomButton btnSetPassTime;
         private FP_CLOCK.CustomButton btnDeviceInfo;
-        private ToolStrip toolStrip1;
-        private ToolStripButton helpButton;
-        private PictureBox pictureBox1;
+        private EnrollDataManagement enrollDataManagement;
     }
 }
 

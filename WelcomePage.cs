@@ -29,8 +29,8 @@ namespace FP_CLOCK
         private ListViewItem previousSelectedItem = null; // Önceki seçili cihazı takip etmek için
         
         SaveDevice saveDevice = new SaveDevice();
-        string dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
-        string filePath = @"C:\ENGOPER\Data\data.txt";
+        string dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
+        string filePath = @"C:\EnGoPer\Data\data.txt";
 
         public WelcomePage()
         {
@@ -70,7 +70,7 @@ namespace FP_CLOCK
                 }*/
         public void createEnrollDataDB()
         {
-            string enrolldbfPath = @"C:\ENGOPER\Data\EnrollData.dbf";
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string tableName = "EnrollData"; // Explicitly specify the table name
             string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
@@ -253,7 +253,7 @@ namespace FP_CLOCK
             listView1.Columns.Add("Seri Numarası", 100, HorizontalAlignment.Left);
 
             listView1.Items.Clear();
-            dbfFilePath = @"C:\ENGOPER\Data\Cihazlar.dbf";
+            dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
             saveDevice.LoadDBFDataToListView(listView1, dbfFilePath);
 
         }
@@ -292,7 +292,7 @@ namespace FP_CLOCK
                 listView1.Items.Add((ListViewItem)item.Clone());  // Clone kullanımı ile her item benzersiz olur
             }
         }
-        private string getDeviceSerialNumber()
+        public string getDeviceSerialNumber()
         {
             string str = "";
             bool bRet = axFP_CLOCK.GetSerialNumber(m_nCurSelID, ref str);
@@ -329,7 +329,7 @@ namespace FP_CLOCK
          }*/
         public void sendDatabase()
         {
-            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\ENGOPER\Data;Extended Properties=dBase IV;";
+            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\EnGoPer\Data;Extended Properties=dBase IV;";
 
 
             // Dosyayı satır satır oku
@@ -431,8 +431,8 @@ namespace FP_CLOCK
         }
         public void sendBackupDatabase()
         {
-            string filePath = @"C:\ENGOPER\Data\data.txt";
-            string dbfFilePath2 = @"C:\ENGOPER\Data\KayıtYedek.dbf";
+            string filePath = @"C:\EnGoPer\Data\data.txt";
+            string dbfFilePath2 = @"C:\EnGoPer\Data\KayıtYedek.dbf";
             string directoryPath2 = Path.GetDirectoryName(dbfFilePath2);
             string connectionString2 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath2 + ";Extended Properties=dBase IV;";
 
@@ -441,7 +441,7 @@ namespace FP_CLOCK
                 try
                 {
                     connection2.Open(); // Bağlantıyı bir kez açın
-                    Console.WriteLine("Connection successful!");
+                    Console.WriteLine("Bağlantı Başarılı!");
 
                     // Tablo var mı kontrol et
                     bool tableExists = false;

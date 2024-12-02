@@ -134,6 +134,9 @@
     <Compile Include="CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomButton2.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DeviceInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +195,9 @@
     </Compile>
     <EmbeddedResource Include="bellTimeSetting.resx">
       <DependentUpon>bellTimeSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomButton.resx">
+      <DependentUpon>CustomButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceInfo.resx">
       <DependentUpon>DeviceInfo.cs</DependentUpon>
@@ -262,6 +268,7 @@
     <Content Include="Resources\gcuf_copy.jpg" />
     <None Include="Resources\Information-48x48.png" />
     <None Include="Resources\House-48x48.png" />
+    <None Include="Resources\Options-Settings-48x48.png" />
     <Content Include="Resources\password.png" />
     <Content Include="Resources\penal.jpg" />
     <Content Include="Resources\personal.png" />

@@ -89,20 +89,6 @@ namespace FPClient
             this.AddOwnedForm(new SaveDevice(m_nCurSelID, ref pOcxObject));
             this.OwnedForms[0].Visible = true;
         }
-        private void helpButton_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("\r\nAdres:\r\nPerpa Ticaret Merkezi A.Blok Kat:8 No:768 Şişli / İSTANBUL\r\n\n" +
-               "Telefon:\r(0212) 320 10 60 - 61\r\n\n" +
-               "E-Mail:\r\ninfo@enkateknoloji.com",
-               "İletişim Bilgileri",
-               MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        }
-        private void homeButton_Click(object sender, EventArgs e)
-        {
-            Visible = false;
-            this.Owner.Visible = true;
-        }
 
     }
 }

@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.labelInfo = new System.Windows.Forms.Label();
-            this.btnReadSetting = new System.Windows.Forms.Button();
-            this.btnWriteSetting = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textHour1 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -77,6 +74,9 @@
             this.label20 = new System.Windows.Forms.Label();
             this.textBellCount = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.btnReadSetting = new FP_CLOCK.CustomButton();
+            this.btnWriteSetting = new FP_CLOCK.CustomButton();
+            this.button3 = new FP_CLOCK.CustomButton();
             this.SuspendLayout();
             // 
             // labelInfo
@@ -87,36 +87,6 @@
             this.labelInfo.Size = new System.Drawing.Size(651, 33);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnReadSetting
-            // 
-            this.btnReadSetting.Location = new System.Drawing.Point(75, 488);
-            this.btnReadSetting.Name = "btnReadSetting";
-            this.btnReadSetting.Size = new System.Drawing.Size(128, 39);
-            this.btnReadSetting.TabIndex = 1;
-            this.btnReadSetting.Text = "Cihazdan Al";
-            this.btnReadSetting.UseVisualStyleBackColor = true;
-            this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
-            // 
-            // btnWriteSetting
-            // 
-            this.btnWriteSetting.Location = new System.Drawing.Point(253, 488);
-            this.btnWriteSetting.Name = "btnWriteSetting";
-            this.btnWriteSetting.Size = new System.Drawing.Size(147, 39);
-            this.btnWriteSetting.TabIndex = 1;
-            this.btnWriteSetting.Text = "Cihaza Yolla";
-            this.btnWriteSetting.UseVisualStyleBackColor = true;
-            this.btnWriteSetting.Click += new System.EventHandler(this.btnWriteSetting_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(469, 488);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 39);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Tamam";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // label2
             // 
@@ -489,12 +459,78 @@
             this.label21.TabIndex = 2;
             this.label21.Text = "Alarm Sayısı:";
             // 
+            // btnReadSetting
+            // 
+            this.btnReadSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReadSetting.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnReadSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnReadSetting.BorderRadius = 20;
+            this.btnReadSetting.BorderSize = 0;
+            this.btnReadSetting.FlatAppearance.BorderSize = 0;
+            this.btnReadSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReadSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnReadSetting.Location = new System.Drawing.Point(75, 488);
+            this.btnReadSetting.Name = "btnReadSetting";
+            this.btnReadSetting.Size = new System.Drawing.Size(128, 39);
+            this.btnReadSetting.TabIndex = 1;
+            this.btnReadSetting.Text = "Cihazdan Al";
+            this.btnReadSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnReadSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.btnReadSetting.UseVisualStyleBackColor = true;
+            this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
+
+            // 
+            // btnWriteSetting
+            // 
+            this.btnWriteSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnWriteSetting.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnWriteSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnWriteSetting.BorderRadius = 20;
+            this.btnWriteSetting.BorderSize = 0;
+            this.btnWriteSetting.FlatAppearance.BorderSize = 0;
+            this.btnWriteSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWriteSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnWriteSetting.Location = new System.Drawing.Point(253, 488);
+            this.btnWriteSetting.Name = "btnWriteSetting";
+            this.btnWriteSetting.Size = new System.Drawing.Size(147, 39);
+            this.btnWriteSetting.TabIndex = 1;
+            this.btnWriteSetting.Text = "Cihaza Yolla";
+            this.btnWriteSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnWriteSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.btnWriteSetting.UseVisualStyleBackColor = true;
+            this.btnWriteSetting.Click += new System.EventHandler(this.btnWriteSetting_Click);
+
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button3.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.button3.BorderRadius = 20;
+            this.button3.BorderSize = 0;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button3.Location = new System.Drawing.Point(469, 488);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(93, 39);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Tamam";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.btnOK_Click);
+
+            // 
             // bellTimeSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(712, 539);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnWriteSetting);
+            this.Controls.Add(this.btnReadSetting);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label18);
@@ -540,9 +576,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.btnWriteSetting);
-            this.Controls.Add(this.btnReadSetting);
             this.Controls.Add(this.labelInfo);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Name = "bellTimeSetting";
@@ -556,9 +589,6 @@
         #endregion
 
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.Button btnReadSetting;
-        private System.Windows.Forms.Button btnWriteSetting;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textHour1;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -604,5 +634,8 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBellCount;
         private System.Windows.Forms.Label label21;
+        private FP_CLOCK.CustomButton btnReadSetting;
+        private FP_CLOCK.CustomButton btnWriteSetting;
+        private FP_CLOCK.CustomButton button3;
     }
 }
