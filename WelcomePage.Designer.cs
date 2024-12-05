@@ -34,26 +34,24 @@ namespace FP_CLOCK
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomePage));
-            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
-            this.listView1 = new System.Windows.Forms.ListView();
-            //this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.axFP_CLOCK = new AxFP_CLOCKLib.AxFP_CLOCK();
             this.quitButton = new FP_CLOCK.CustomButton2();
-            this.settingsButton = new FP_CLOCK.CustomButton();
-            this.transferButton = new FP_CLOCK.CustomButton();
+            //this.settingsButton1 = new FP_CLOCK.CustomButton();
+            //this.transferButton1 = new FP_CLOCK.CustomButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.recordsListview = new System.Windows.Forms.ListView();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
-            //this.toolStrip1.SuspendLayout();
+            this.transferButton = new FP_CLOCK.CustomButton2();
+            this.settingsButton = new FP_CLOCK.CustomButton2();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,28 +62,6 @@ namespace FP_CLOCK
             this.axFP_CLOCK.Location = new System.Drawing.Point(0, 0);
             this.axFP_CLOCK.Name = "axFP_CLOCK";
             this.axFP_CLOCK.TabIndex = 0;
-            // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(9, 10);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(554, 363);
-            this.listView1.TabIndex = 6;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // toolStrip1
-            // 
-            //this.toolStrip1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            //this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
-            //this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            //this.helpButton});
-            //this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            //this.toolStrip1.Name = "toolStrip1";
-            //this.toolStrip1.Size = new System.Drawing.Size(897, 37);
-            //this.toolStrip1.TabIndex = 7;
-            // 
             // helpButton
             // 
             this.helpButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -99,13 +75,14 @@ namespace FP_CLOCK
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pictureBox1.BackgroundImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.BackColor = System.Drawing.Color.Lavender;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox1.Image = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo1;
             this.pictureBox1.InitialImage = global::FP_CLOCK.Properties.Resources.enka_teknoloji_logo1;
-            this.pictureBox1.Location = new System.Drawing.Point(317, 52);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(489, 107);
+            this.pictureBox1.Size = new System.Drawing.Size(573, 86);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.WaitOnLoad = true;
@@ -114,10 +91,10 @@ namespace FP_CLOCK
             // quitButton
             // 
             this.quitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.quitButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.quitButton.BackColor = System.Drawing.Color.Transparent;
             this.quitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.quitButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.quitButton.BorderRadius = 40;
+            this.quitButton.BorderRadius = 10;
             this.quitButton.BorderSize = 0;
             this.quitButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.quitButton.FlatAppearance.BorderSize = 0;
@@ -125,97 +102,84 @@ namespace FP_CLOCK
             this.quitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.quitButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.quitButton.Image = global::FP_CLOCK.Properties.Resources.logout;
-            this.quitButton.Location = new System.Drawing.Point(812, 52);
+            this.quitButton.Location = new System.Drawing.Point(492, 563);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(82, 107);
+            this.quitButton.Size = new System.Drawing.Size(81, 57);
             this.quitButton.TabIndex = 2;
-            this.quitButton.Text = "Kapat";
             this.quitButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.customButton3_Click);
             // 
-            // settingsButton
+            // settingsButton1
             // 
-            this.settingsButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.settingsButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.settingsButton.BorderRadius = 40;
-            this.settingsButton.BorderSize = 0;
-            this.settingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.settingsButton.FlatAppearance.BorderSize = 0;
-            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.settingsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.settingsButton.GradientEndColor = System.Drawing.Color.Silver;
-            this.settingsButton.GradientStartColor = System.Drawing.Color.LightSlateGray;
-            this.settingsButton.HoverEndColor = System.Drawing.Color.LightGray;
-            this.settingsButton.HoverStartColor = System.Drawing.Color.Gray;
-            this.settingsButton.Image = global::FP_CLOCK.Properties.Resources.technic6;
-            this.settingsButton.Location = new System.Drawing.Point(12, 109);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(299, 50);
-            this.settingsButton.TabIndex = 1;
-            this.settingsButton.Text = "\r\nAyarlar";
-            this.settingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.settingsButton.UseVisualStyleBackColor = true;
-            this.settingsButton.Click += new System.EventHandler(this.customButton2_Click);
+            //this.settingsButton1.BackColor = System.Drawing.SystemColors.Control;
+            //this.settingsButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            //this.settingsButton1.BorderRadius = 10;
+            //this.settingsButton1.BorderSize = 0;
+            //this.settingsButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            //this.settingsButton1.FlatAppearance.BorderSize = 0;
+            //this.settingsButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            //this.settingsButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            //this.settingsButton1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            //this.settingsButton1.GradientEndColor = System.Drawing.SystemColors.GradientActiveCaption;
+            //this.settingsButton1.GradientStartColor = System.Drawing.Color.CornflowerBlue;
+            //this.settingsButton1.HoverEndColor = System.Drawing.Color.LightGray;
+            //this.settingsButton1.HoverStartColor = System.Drawing.Color.Gray;
+            //this.settingsButton1.Image = global::FP_CLOCK.Properties.Resources.technic6;
+            //this.settingsButton1.Location = new System.Drawing.Point(397, 528);
+            //this.settingsButton1.Name = "settingsButton1";
+            //this.settingsButton1.Size = new System.Drawing.Size(150, 75);
+            //this.settingsButton1.TabIndex = 1;
+            //this.settingsButton1.Text = "\r\nAyarlar";
+            //this.settingsButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            //this.settingsButton1.UseVisualStyleBackColor = false;
+            //this.settingsButton1.Click += new System.EventHandler(this.customButton2_Click);
             // 
-            // transferButton
+            // transferButton1
             // 
-            this.transferButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.transferButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.transferButton.BorderRadius = 40;
-            this.transferButton.BorderSize = 0;
-            this.transferButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.transferButton.FlatAppearance.BorderSize = 0;
-            this.transferButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.transferButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.transferButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.transferButton.GradientEndColor = System.Drawing.Color.Silver;
-            this.transferButton.GradientStartColor = System.Drawing.Color.LightSlateGray;
-            this.transferButton.HoverEndColor = System.Drawing.Color.LightGray;
-            this.transferButton.HoverStartColor = System.Drawing.Color.Gray;
-            this.transferButton.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
-            this.transferButton.Location = new System.Drawing.Point(12, 52);
-            this.transferButton.Name = "transferButton";
-            this.transferButton.Size = new System.Drawing.Size(299, 50);
-            this.transferButton.TabIndex = 0;
-            this.transferButton.Text = "\r\nBilgileri Aktar";
-            this.transferButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.transferButton.UseVisualStyleBackColor = true;
-            this.transferButton.Click += new System.EventHandler(this.customButton1_Click);
+            //this.transferButton1.BackColor = System.Drawing.SystemColors.Control;
+            //this.transferButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            //this.transferButton1.BorderRadius = 10;
+            //this.transferButton1.BorderSize = 0;
+            //this.transferButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            //this.transferButton1.FlatAppearance.BorderSize = 0;
+            //this.transferButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            //this.transferButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            //this.transferButton1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            //this.transferButton1.GradientEndColor = System.Drawing.SystemColors.GradientActiveCaption;
+            //this.transferButton1.GradientStartColor = System.Drawing.Color.CornflowerBlue;
+            //this.transferButton1.HoverEndColor = System.Drawing.Color.LightGray;
+            //this.transferButton1.HoverStartColor = System.Drawing.Color.Gray;
+            //this.transferButton1.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
+            //this.transferButton1.Location = new System.Drawing.Point(397, 506);
+            //this.transferButton1.Name = "transferButton1";
+            //this.transferButton1.Size = new System.Drawing.Size(150, 78);
+            //this.transferButton1.TabIndex = 0;
+            //this.transferButton1.Text = "\r\nBilgileri Aktar";
+            //this.transferButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            //this.transferButton1.UseVisualStyleBackColor = false;
+            //this.transferButton1.Click += new System.EventHandler(this.customButton1_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(317, 171);
+            this.tabControl1.Location = new System.Drawing.Point(12, 224);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(577, 400);
+            this.tabControl1.Size = new System.Drawing.Size(379, 400);
             this.tabControl1.TabIndex = 8;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.listView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(569, 432);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Kayıtlı Cihazlar";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.recordsListview);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(569, 432);
+            this.tabPage2.Size = new System.Drawing.Size(371, 371);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Aktarılan Kayıtlar";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -228,65 +192,126 @@ namespace FP_CLOCK
             // 
             // recordsListview
             // 
+            this.recordsListview.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.recordsListview.HideSelection = false;
             this.recordsListview.Location = new System.Drawing.Point(12, 13);
             this.recordsListview.Name = "recordsListview";
-            this.recordsListview.Size = new System.Drawing.Size(550, 322);
+            this.recordsListview.Size = new System.Drawing.Size(353, 322);
             this.recordsListview.TabIndex = 7;
             this.recordsListview.UseCompatibleStateImageBehavior = false;
             this.recordsListview.View = System.Windows.Forms.View.Details;
             // 
-            // listView2
+            // listView1
             // 
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(12, 205);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(299, 361);
-            this.listView2.TabIndex = 9;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            //
-            //checkBox
-            //
+            this.listView1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(12, 109);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(561, 109);
+            this.listView1.TabIndex = 9;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // checkBox
+            // 
+            this.checkBox.Checked = true;
             this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(12, 580);
+            this.checkBox.BackColor = System.Drawing.Color.Transparent;
+            this.checkBox.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox.Location = new System.Drawing.Point(397, 464);
             this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(95, 20);
+            this.checkBox.Size = new System.Drawing.Size(162, 36);
             this.checkBox.TabIndex = 16;
-            this.checkBox.Text = "checkBox1";
-            this.checkBox.UseVisualStyleBackColor = true;
+            this.checkBox.Text = "Bilgi çekildikten sonra \r\ncihazı temizle";
+            this.checkBox.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(13, 90);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 25);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Cihazlar";
+            // 
+            // transferButton
+            // 
+            this.transferButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.transferButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.transferButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.transferButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.transferButton.BorderRadius = 10;
+            this.transferButton.BorderSize = 0;
+            this.transferButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.transferButton.FlatAppearance.BorderSize = 0;
+            this.transferButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.transferButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.transferButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.transferButton.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
+            this.transferButton.Location = new System.Drawing.Point(438, 262);
+            this.transferButton.Name = "transferButton";
+            this.transferButton.Size = new System.Drawing.Size(109, 95);
+            this.transferButton.TabIndex = 18;
+            this.transferButton.Text = "BİLGİLERİ AKTAR";
+            this.transferButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.transferButton.UseVisualStyleBackColor = false;
+            this.transferButton.Click += new System.EventHandler(this.customButton1_Click);
+
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.settingsButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.settingsButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.settingsButton.BorderRadius = 10;
+            this.settingsButton.BorderSize = 0;
+            this.settingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.settingsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.settingsButton.Image = global::FP_CLOCK.Properties.Resources.technic6;
+            this.settingsButton.Location = new System.Drawing.Point(438, 363);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(109, 95);
+            this.settingsButton.TabIndex = 19;
+            this.settingsButton.Text = "AYARLAR";
+            this.settingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.customButton2_Click);
+
             // 
             // WelcomePage
             // 
+            this.MaximizeBox = false;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(897, 644);
-            this.Controls.Add(this.listView2);
-            this.Controls.Add(this.tabControl1);
-            //this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.quitButton);
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(578, 644);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.transferButton);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.quitButton);
+            //this.Controls.Add(this.settingsButton1);
+            //this.Controls.Add(this.transferButton1);
             this.Controls.Add(this.checkBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.axFP_CLOCK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(919, 695);
-            this.MinimumSize = new System.Drawing.Size(919, 695);
+            this.MaximumSize = new System.Drawing.Size(650, 695);
+            this.MinimumSize = new System.Drawing.Size(600, 695);
             this.Name = "WelcomePage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WelcomePage_FormClosing);
-            this.Load += new System.EventHandler(this.WelcomePage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).EndInit();
-            //this.toolStrip1.ResumeLayout(false);
-            //this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -295,19 +320,20 @@ namespace FP_CLOCK
         }
 
         #endregion
-        private CustomButton transferButton;
-        private CustomButton settingsButton;
+        private CustomButton transferButton1;
+        private CustomButton settingsButton1;
         private CustomButton2 quitButton;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListView listView1;
         //private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton helpButton;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ListView recordsListview;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView2;
+        public System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.CheckBox checkBox;
+        private System.Windows.Forms.Label label2;
+        private CustomButton2 settingsButton;
+        private CustomButton2 transferButton;
     }
 }

@@ -39,8 +39,6 @@ namespace FP_CLOCK
             RecordListView();
             createEnrollDataDB();
 
-
-
             //ReceiveListViewItems(listView1.Items);
         }
         /*private void MainForm_Load(object sender, EventArgs e)
@@ -114,7 +112,6 @@ namespace FP_CLOCK
         }
         private void WelcomePage_Load(object sesnder, EventArgs e)
         {
-            //this.axFP_CLOCK.OnGeneralEvent += new AxFP_CLOCKLib._IFP_CLOCKEvents_OnGeneralEventEventHandler(this.axFP_CLOCK_OnGeneralEvent);
         }
         private void WelcomePage_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -192,6 +189,9 @@ namespace FP_CLOCK
                     LogManagement logManagement = new LogManagement(m_nCurSelID, ref axFP_CLOCK,ıd);
                     logManagement.btnReadAllGLogData_Click(sender, e);
 
+                    if(checkBox.Checked)
+                        logManagement.btnEmptyGLogData_Click(sender, e);
+
                     SysInfo sysInfo = new SysInfo(m_nCurSelID, ref axFP_CLOCK);
                     sysInfo.btnSetDeviceTime_Click(sender, e);
                     count++;
@@ -201,13 +201,14 @@ namespace FP_CLOCK
                 {
                     MessageBox.Show($"Cihaz {ıd} bağlanamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     listView1.Items[i].SubItems[5].Text = "Bağlantı Kurulamadı";
+                    break;
                 }
                 previousSelectedItem = currentItem;
                 listView1.Refresh();
             }
             txtToListview();
             sendDatabase();
-
+           
 
             // İşlem tamamlandığında, son cihazın bağlantısını kapat
             if (m_bDeviceOpened)
@@ -216,19 +217,20 @@ namespace FP_CLOCK
                 axFP_CLOCK.CloseCommPort();  // Son bağlantıyı kapat
                 previousSelectedItem.SubItems[5].Text = "Tamamlandı"; // Son cihazı "Kapalı" yap
             }
-            if(count>0)
-            {
+            if (count > 1)
                 MessageBox.Show("Tüm cihazlar işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-            }
+            else if (count == 1)
+                MessageBox.Show("1 adet cihazın kayıtları işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Cihazlar işlenemedi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private void customButton3_Click(object sender, EventArgs e)
+        private void customButton3_Click(object sender, EventArgs e)// Kapat Butonu
         {
             // This button should close the application and stop the process
             this.Close();
             Application.Exit();
         }
-        private void customButton2_Click(object sender, EventArgs e)
+        private void customButton2_Click(object sender, EventArgs e)// Ayarlar Butonu
         {
             Visible = false;
             // open MainForm but ı dont want to see WelcomePage
@@ -236,7 +238,7 @@ namespace FP_CLOCK
             this.OwnedForms[0].Visible = true;
 
         }
-        private void DeviceLogListView()
+        public void DeviceLogListView()
         {
    
             listView1.GridLines = true;
@@ -246,10 +248,10 @@ namespace FP_CLOCK
             listView1.MultiSelect = false;
             listView1.Columns.Add("ID", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
-            listView1.Columns.Add("IP Adresi",125, HorizontalAlignment.Left);
+            listView1.Columns.Add("IP Adresi",90, HorizontalAlignment.Left);
             listView1.Columns.Add("Port", 50, HorizontalAlignment.Left);
             listView1.Columns.Add("Şifre", 50, HorizontalAlignment.Left);
-            listView1.Columns.Add("Durum", 125, HorizontalAlignment.Left);
+            listView1.Columns.Add("Durum", 115, HorizontalAlignment.Left);
             listView1.Columns.Add("Seri Numarası", 100, HorizontalAlignment.Left);
 
             listView1.Items.Clear();
@@ -265,10 +267,10 @@ namespace FP_CLOCK
             recordsListview.Scrollable = true;
             recordsListview.MultiSelect = false;
             recordsListview.Columns.Add("ID", 50, HorizontalAlignment.Left);
-            recordsListview.Columns.Add("Kart No", 100, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Kart No", 85, HorizontalAlignment.Left);
             recordsListview.Columns.Add("FTUS", 50, HorizontalAlignment.Left);
-            recordsListview.Columns.Add("Tarih", 100, HorizontalAlignment.Left);
-            recordsListview.Columns.Add("Saat", 100, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Tarih", 90, HorizontalAlignment.Left);
+            recordsListview.Columns.Add("Saat", 57, HorizontalAlignment.Left);
         }
         private void helpButton_Click(object sender, EventArgs e)
         {
@@ -279,19 +281,19 @@ namespace FP_CLOCK
                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
-        public void GetDeviceObject(ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
+        /*public void GetDeviceObject(ref AxFP_CLOCKLib.AxFP_CLOCK ptrObject)
         {
 
             ptrObject = axFP_CLOCK;
 
-        }
-        public void ReceiveListViewItems(System.Windows.Forms.ListView.ListViewItemCollection items)
+        }*/
+        /*public void ReceiveListViewItems(System.Windows.Forms.ListView.ListViewItemCollection items)
         {
             foreach (ListViewItem item in items)
             {
                 listView1.Items.Add((ListViewItem)item.Clone());  // Clone kullanımı ile her item benzersiz olur
             }
-        }
+        }*/
         public string getDeviceSerialNumber()
         {
             string str = "";
@@ -534,6 +536,7 @@ namespace FP_CLOCK
             }
             label1.Text = i.ToString("Aktarılan Toplam Kayıt : 0");
         }
+        
 
 
     }

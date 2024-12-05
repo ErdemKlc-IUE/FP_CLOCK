@@ -256,31 +256,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="prince.ico" />
+    <None Include="Resources\abstract-square-interface-modern-background-concept-fingerprint-digital-scanning-visual-security-system-authentication-login-vector.jpg" />
     <Content Include="Resources\adminBack.gif" />
     <Content Include="Resources\attendance_list_icon.png" />
     <Content Include="Resources\BackGround.jpg" />
     <Content Include="Resources\bg_module.png" />
+    <None Include="Resources\blue-gradient-background-with-lines-pattern_732218-1781.jpg" />
     <Content Include="Resources\clock.ico" />
-    <None Include="Resources\Close-16x16.png" />
+    <Content Include="Resources\Close-16x16.png" />
     <Content Include="Resources\conversation1.png" />
-    <None Include="Resources\excercise.png" />
-    <None Include="Resources\Copy-Refresh-48x48.png" />
+    <Content Include="Resources\Copy-Refresh-48x48.png" />
+    <Content Include="Resources\enka-teknoloji-logo.png" />
+    <Content Include="Resources\excercise.png" />
     <Content Include="Resources\gcuf_copy.jpg" />
-    <None Include="Resources\Information-48x48.png" />
-    <None Include="Resources\House-48x48.png" />
-    <None Include="Resources\Options-Settings-48x48.png" />
+    <Content Include="Resources\House-48x48.png" />
+    <None Include="Resources\indir.jpg" />
+    <None Include="Resources\indir1.jpg" />
+    <Content Include="Resources\Information-48x48.png" />
+    <Content Include="Resources\logout.png" />
+    <Content Include="Resources\Options-Settings-48x48.png" />
     <Content Include="Resources\password.png" />
     <Content Include="Resources\penal.jpg" />
     <Content Include="Resources\personal.png" />
     <Content Include="Resources\question_icon.jpg" />
     <Content Include="Resources\reading3.png" />
+    <Content Include="Resources\Rec004.avi" />
     <Content Include="Resources\Rec005.avi" />
     <Content Include="Resources\registration_icon_up.png" />
+    <None Include="Resources\Rpbjm.png" />
     <Content Include="Resources\Save.png" />
     <Content Include="Resources\technic6.png" />
+    <Content Include="Resources\Tick-48x48.png" />
     <Content Include="Resources\todo.png" />
-    <None Include="Resources\logout.png" />
-    <None Include="Resources\enka-teknoloji-logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

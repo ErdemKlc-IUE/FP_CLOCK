@@ -137,7 +137,7 @@ namespace FPClient
             listView1.Columns.Add("Time", 130, HorizontalAlignment.Left);
 
         }
-        /*private void btnEmptyGLogData_Click(object sender, EventArgs e)
+        public void btnEmptyGLogData_Click(object sender, EventArgs e)
         {
             bool bRet;
 
@@ -155,7 +155,7 @@ namespace FPClient
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
-        }*/
+        }
         public void btnReadAllGLogData_Click(object sender, EventArgs e)
         {
             InitGLogListView();

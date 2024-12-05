@@ -17,6 +17,11 @@ using System.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.AxHost;
 using System.Data.SqlClient;
+using ListView = System.Windows.Forms.ListView;
+using Button = System.Windows.Forms.Button;
+using System.Security.Cryptography;
+using SortOrder = System.Windows.Forms.SortOrder;
+using System.Windows.Forms.VisualStyles;
 
 namespace FPClient
 {
@@ -44,6 +49,7 @@ namespace FPClient
             this.pOcxObject = ptrObject;
             var backupOptions = new List<KeyValuePair<string, int>>()
             {
+                new KeyValuePair<string, int>("Parmak İzi",0),
                 new KeyValuePair<string, int>("Pin", 10),
                 new KeyValuePair<string, int>("Kart", 11),
 
@@ -55,7 +61,7 @@ namespace FPClient
 
             var backupOptions2 = new List<KeyValuePair<string, int>>()
             {
-                new KeyValuePair<string, int>("Kullancı", 0),
+                new KeyValuePair<string, int>("Kullanıcı", 0),
                 new KeyValuePair<string, int>("Admin", 1),
             };
             this.cmbPrivilege.DataSource = backupOptions2;
@@ -150,27 +156,125 @@ namespace FPClient
                 MessageBox.Show("Error loading data from .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        // Class-level variable to track the current sort order and column
+        private int sortColumn = -1;
+        private SortOrder sortOrder = SortOrder.None;
+
         public void InitializeListview()
         {
             listView1.View = View.Details;
             listView1.GridLines = true;
             listView1.FullRowSelect = true;
+            //listView1.OwnerDraw = true;
+            //listView1.DrawItem += ListView1_DrawItem;
+            listView1.DrawSubItem += ListView1_DrawSubItem;
+            listView1.DrawColumnHeader += ListView1_DrawColumnHeader;
 
-            //Add column header
-            listView1.Columns.Add("EnrollNumber", 100);
-            listView1.Columns.Add("FingerNumber", 100);
-            listView1.Columns.Add("Privilige", 100);
-            listView1.Columns.Add("EnrollName", 100);
-            listView1.Columns.Add("CardNumber", 100);
 
-            //Add items in the listview
+            // Add column headers
+            listView1.Columns.Add("Kullanıcı No", 100);
+            listView1.Columns.Add("Kayıt Tipi", 100);
+            listView1.Columns.Add("Kullanıcı Yetki", 100);
+            listView1.Columns.Add("Kullanıcı Adı", 100);
+            listView1.Columns.Add("Kart Numarası", 100);
+
+            // Add items to the ListView
             listView1.Items.Clear();
-            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2,label1);
+
+            // Assign the ColumnClick event
+            listView1.ColumnClick += ListView1_ColumnClick;
         }
-        private void EnrollDataManagement_FormClosed(object sender, FormClosedEventArgs e)
+        // DrawSubItem olayı
+        private void ListView1_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            this.Owner.Visible = true;
+            Color backColor = e.ItemIndex % 2 == 0 ? Color.LightGray : Color.White;
+            e.Graphics.FillRectangle(new SolidBrush(backColor), e.Bounds);
+
+            if (e.Item.Selected)
+            {
+                e.Graphics.FillRectangle(Brushes.Blue, e.Bounds);
+            }
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.SubItem.Text,
+                listView1.Font,
+                e.Bounds,
+                e.Item.Selected ? Color.White : Color.Black,
+                e.Item.Selected ? Color.Blue : backColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
         }
+        private void ListView1_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            // Sütun başlıklarını çiz
+            using (SolidBrush backBrush = new SolidBrush(Color.WhiteSmoke))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Header.Text,
+                listView1.Font,
+                e.Bounds,
+                Color.Black,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
+
+            // Kenarlık çiz (isteğe bağlı)
+            //e.DrawEdge(EdgeStyle.Raised, EdgeEffects.None);
+        }
+
+        // ColumnClick event handler
+        private void ListView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Toggle sort order or reset if a different column is clicked
+            if (e.Column == sortColumn)
+            {
+                sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+            }
+            else
+            {
+                sortColumn = e.Column;
+                sortOrder = SortOrder.Ascending;
+            }
+
+            // Sort the items in the ListView
+            List<ListViewItem> items = listView1.Items.Cast<ListViewItem>().ToList();
+
+            if (sortOrder == SortOrder.Ascending)
+            {
+                items = items.OrderBy(item => ParseValue(item.SubItems[e.Column].Text)).ToList();
+            }
+            else
+            {
+                items = items.OrderByDescending(item => ParseValue(item.SubItems[e.Column].Text)).ToList();
+            }
+
+            // Clear the ListView and re-add sorted items
+            listView1.Items.Clear();
+            listView1.Items.AddRange(items.ToArray());
+        }
+
+        // Helper method to parse values
+        private static IComparable ParseValue(string value)
+        {
+            // Try to parse as a number, fallback to string comparison if it fails
+            if (double.TryParse(value, out double number))
+            {
+                return number; // Sort numerically
+            }
+
+            return value; // Fallback to string if not numeric
+        }
+
+        private void EnrollDataManagementForm_Closing(object sender, FormClosingEventArgs e)
+        {
+            //Owner.Visible = true;
+        }
+
         private bool DisableDevice()
         {
             //labelInfo.Text = "Çalışıyor...";
@@ -183,19 +287,23 @@ namespace FPClient
             }
             else
             {
-                labelInfo.Text = "Cihaz Bulunamadı!";
+                //labelInfo.Text = "Cihaz Bulunamadı!";
                 return false;
             }
         }
+
         private void ShowErrorInfo()
         {
             int nErrorValue = 0;
             pOcxObject.GetLastError(ref nErrorValue);
             labelInfo.Text = common.FormErrorStr(nErrorValue);
         }
+
         private void btnClearAllData_Click(object sender, EventArgs e)
         {
-           DialogResult dr = MessageBox.Show("Clear all data on the machine?!!",
+            DisableDevice();
+
+            DialogResult dr = MessageBox.Show("Cihaz fabrika ayarlarına dönecektir. Tüm kullanıcı ve loglar silinecektir. Onaylıyor musunuz?",
                 "Warning",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -204,21 +312,101 @@ namespace FPClient
                 return;
             }
 
-            DisableDevice();
+            Form form = new Form
+            {
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
 
-            bool bRet = pOcxObject.ClearKeeperData(m_nMachineNum);
-            if (bRet)
+            // ListView creation
+            ListView listView = new ListView
             {
-                labelInfo.Text = "ClearKeeperData ...";
-            } 
-            else
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
             {
-                labelInfo.Text = "Error";
-            }
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            // Handle the button click event
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
+                {
+                    var selectedItem = listView.SelectedItems[0];
+                    string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
+
+                    // Call the method to connect to the selected device
+                    ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                    if (!DisableDevice())
+                    {
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        bool bRet = pOcxObject.ClearKeeperData(m_nMachineNum);
+                        if (bRet)
+                        {
+                            labelInfo.Text = "ClearKeeperData ...";
+                        }
+                        else
+                        {
+                            labelInfo.Text = "Error";
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                form.Close(); // Close the form after selection
+            };
+
+            // Show the form as a dialog
+            form.ShowDialog();
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
+
         private void btnRmAllManager_Click(object sender, EventArgs e) // Tüm yöneticileri sil
         {
             bool bRet;
@@ -226,111 +414,334 @@ namespace FPClient
             // Disable the device before removing all managers
             DisableDevice();
 
-            // Call the method to remove all managers
-            bRet = pOcxObject.BenumbAllManager(m_nMachineNum);
 
-            if (bRet)
+            Form form = new Form
             {
-                // If the managers are removed from the device, update the database
-                string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
-                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
 
-                using (OleDbConnection conn = new OleDbConnection(strConnection))
+            // ListView creation
+            ListView listView = new ListView
+            {
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
+            {
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            // Handle the button click event
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
                 {
-                    try
-                    {
-                        conn.Open();
-                        // Query to update all privilege values not equal to 0
-                        string query = "UPDATE EnrollData SET PRIV = 0 WHERE PRIV <> 0";
+                    var selectedItem = listView.SelectedItems[0];
+                    string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
 
-                        using (OleDbCommand cmd = new OleDbCommand(query, conn))
-                        {
-                            int rowsAffected = cmd.ExecuteNonQuery(); // Execute the update query
-                            labelInfo.Text = $"Tüm yönetici izinleri kaldırıldı. {rowsAffected} kayıt güncellendi.";
-                        }
-                    }
-                    catch (Exception ex)
+                    // Call the method to connect to the selected device
+                    ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                    if (!DisableDevice())
                     {
-                        // Log or display the error
-                        MessageBox.Show("Veritabanı güncellemesi hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        bRet = pOcxObject.BenumbAllManager(m_nMachineNum);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-                // Refresh any related UI or database if necessary
-                listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-            }
-            else
-            {
-                // Show error information if the operation failed
-                ShowErrorInfo();
-            }
+                form.Close(); // Close the form after selection
+            };
 
-            // Enable the device after the operation
-            EnableDevice();
+            // Show the form as a dialog
+            form.ShowDialog();
+
+            pOcxObject.EnableDevice(m_nMachineNum, 1);
         }
+
         private void btnSetCompanyString_Click(object sender, EventArgs e)
         {
             DisableDevice();
-
-            string str;
-
-
-            if (tbcompanyString.TextLength == 0)
+            Form form = new Form
             {
-                str = " ";
-            }
-            else
-            {
-                str = tbcompanyString.Text;
-            }        
-            
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
 
-            bool bRet;
-            
-            Object ob = new System.Runtime.InteropServices.VariantWrapper(str);
-
-            //SetCompanyName
-            bRet = pOcxObject.SetCompanyName(m_nMachineNum,
-              1,
-              ref ob 
-              );
-
-            if (bRet)
+            // ListView creation
+            ListView listView = new ListView
             {
-                labelInfo.Text = "Cihaz şirket ismi gönderildi."; 
-            } 
-            else
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
             {
-                ShowErrorInfo();
-            }
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            // Handle the button click event
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
+                {
+                    var selectedItem = listView.SelectedItems[0];
+                    string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
+
+                    // Call the method to connect to the selected device
+                    ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                    if (!DisableDevice())
+                    {
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        string str;
+
+
+                        if (tbcompanyString.TextLength == 0)
+                        {
+                            str = " ";
+                        }
+                        else
+                        {
+                            str = tbcompanyString.Text;
+                        }
+
+
+                        bool bRet;
+
+                        Object ob = new System.Runtime.InteropServices.VariantWrapper(str);
+
+                        //SetCompanyName
+                        bRet = pOcxObject.SetCompanyName(m_nMachineNum,
+                          1,
+                          ref ob
+                          );
+
+                        if (bRet)
+                        {
+                            labelInfo.Text = "Cihaz şirket ismi gönderildi.";
+                        }
+                        else
+                        {
+                            ShowErrorInfo();
+                        }
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                form.Close(); // Close the form after selection
+            };
+
+            // Show the form as a dialog
+            form.ShowDialog();
 
             pOcxObject.EnableDevice(m_nMachineNum, 1);
 
         }
+
         private void btnDelCompanyString_Click(object sender, EventArgs e)
         {
             DisableDevice();
-
-            string strName = "";
-            Object ob = new System.Runtime.InteropServices.VariantWrapper(strName);
-
-            try
+            Form form = new Form
             {
-                pOcxObject.SetCompanyName(m_nMachineNum,
-                0,   //clean
-                ref ob);
-            }
-            
-            catch(Exception ev)
-            {
-                pOcxObject.EnableDevice(m_nMachineNum, 1);
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
 
-                common.DebugOut( ev.ToString());
-            }
+            // ListView creation
+            ListView listView = new ListView
+            {
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
+            {
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            // Handle the button click event
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
+                {
+                    var selectedItem = listView.SelectedItems[0];
+                    string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
+
+                    // Call the method to connect to the selected device
+                    ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                    if (!DisableDevice())
+                    {
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        string strName = "";
+
+                        bool bRet;
+
+                        Object ob = new System.Runtime.InteropServices.VariantWrapper(strName);
+
+                        try
+                        {
+                            pOcxObject.SetCompanyName(m_nMachineNum,
+                            0,   //clean
+                            ref ob);
+                            labelInfo.Text="Şirket ismi silindi";
+                            MessageBox.Show("Cihaz şirket ismi başarıyla silindi", "Şirket ismi başarıyla silindi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        }
+                        catch (Exception ev)
+                        {
+                            MessageBox.Show("Cihaz şirket ismi silinemedi","Şirket ismi silinemedi",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            common.DebugOut(ev.ToString());
+                        }
+
+                        /*if (bRet)
+                        {
+                            labelInfo.Text = "Cihaz şirket ismi gönderildi.";
+                        }
+                        else
+                        {
+                            ShowErrorInfo();
+                        }*/
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                form.Close(); // Close the form after selection
+            };
+
+            // Show the form as a dialog
+            form.ShowDialog();
+
+            pOcxObject.EnableDevice(m_nMachineNum, 1);
+
         }
-        private void btnGetUserName_Click(object sender, EventArgs e)
+
+        /*private void btnGetUserName_Click(object sender, EventArgs e)
         {
             //clear
             tbEnrollName.Text = "";
@@ -364,100 +775,124 @@ namespace FPClient
 
             EnableDevice();
             
-        }
+        }*/
+
         private void EnableDevice()
         {
             pOcxObject.EnableDevice(m_nMachineNum, 1);
         }
-        private void btnSetUserName_Click(object sender, EventArgs e)
-        {
-            DisableDevice();
-            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-            int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
-            string strName = tbEnrollName.TextLength == 0 ? "" : tbEnrollName.Text;
 
-            object obj = new System.Runtime.InteropServices.VariantWrapper(strName);
+        /* private void btnSetUserName_Click(object sender, EventArgs e)//Önce Cihaz sonra Database Kullanıcı Adı kaydet
+         {
+             DisableDevice();
+             int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
+             int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
+             int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
 
-            // Kullanıcı adı cihazda ayarlanıyor
-            bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
-            if (bRet)
-            {
-                string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
-                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+             string strName = tbEnrollName.TextLength == 0 ? "" : tbEnrollName.Text;
 
-                using (OleDbConnection conn = new OleDbConnection(strConnection))
-                {
-                    try
-                    {
-                        conn.Open();
+             object obj = new System.Runtime.InteropServices.VariantWrapper(strName);
 
-                        // EName alanını belirli bir ENumber'a göre güncelle
-                        string updateQuery = "UPDATE EnrollData SET EName = ? WHERE ENumber = ?";
-                        using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@EName", strName);
-                            cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+             // Kullanıcı adı cihazda ayarlanıyor
+             bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
+             if (bRet)
+             {
+                 string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                 string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                 string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
-                            // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
-                            int rowsAffected = cmd.ExecuteNonQuery();
-                            if (rowsAffected == 0)
-                            {
-                                // Eğer etkilenen satır yoksa kayıt bulunamadı
-                                MessageBox.Show("Error: The specified EnrollNumber does not exist in the database.",
-                                    "Record Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                labelInfo.Text = "EnrollNumber not found in database.";
+                 using (OleDbConnection conn = new OleDbConnection(strConnection))
+                 {
+                     try
+                     {
+                         conn.Open();
 
-                            }
-                            else
-                            {
-                                // Başarılı güncelleme mesajı
-                                labelInfo.Text = "Success: User name updated in the database.";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Database Error: " + ex.Message);
-                    }
-                }
+                         // EName alanını belirli bir ENumber'a göre güncelle
+                         string updateQuery = "UPDATE EnrollData SET EName = ? WHERE ENumber = ? AND FNumber = ?";
+                         using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                         {
+                             cmd.Parameters.AddWithValue("@EName", strName);
+                             cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+                             cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
 
-                listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-            }
-            else
-            {
-                ShowErrorInfo();
-            }
+                             // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
+                             int rowsAffected = cmd.ExecuteNonQuery();
+                             if (rowsAffected == 0)
+                             {
+                                 // Eğer etkilenen satır yoksa kayıt bulunamadı
+                                 MessageBox.Show("Error: Belirtilen kullanıcı numarası bilgisayarda bulunamadı.",
+                                     "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                 labelInfo.Text = "Kullanıcı numarası bulunamadı.";
 
-            EnableDevice();
-        }
+                             }
+                             else
+                             {
+                                 // Başarılı güncelleme mesajı
+                                 labelInfo.Text = "Başarılı!";
+                             }
+                         }
+                     }
+                     catch (Exception ex)
+                     {
+                         MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                     }
+                 }
+
+                 listView1.Items.Clear();
+                 saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+             }
+             else
+             {
+                 ShowErrorInfo();
+             }
+
+             EnableDevice();
+         }*/
+
         private void btnModifyPrivilege_Click(object sender, EventArgs e)
         {
-            try
+            DisableDevice();
+
+            bool isAnyItemSelected = false;
+            bool isAnyPrivilegeUpdated = false; // Yetki güncellenip güncellenmediğini izlemek için bir bayrak
+
+            // Seçili öğe olup olmadığını kontrol et
+            foreach (ListViewItem item in listView1.Items)
             {
-                DisableDevice();
-
-                // Ensure a valid item is selected in the ComboBoxes
-                if (cmbEMachineNum.SelectedIndex == -1 ||
-                    cmbBackupNum.SelectedItem == null ||
-                    cmbPrivilege.SelectedItem == null)
+                if (item.Checked)  // Eğer öğe işaretlenmişse
                 {
-                    MessageBox.Show("Lütfen geçerli bir kayıt tipi seçiniz.", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    isAnyItemSelected = true;
+                    break;  // Bir öğe seçili olduğunda döngüyü kır
                 }
+            }
 
-                int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-                int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
+            // Eğer hiç seçili öğe yoksa
+            if (!isAnyItemSelected)
+            {
+                MessageBox.Show("Yetki güncellemesi için kullanıcı seçilmedi", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;  // Kodun devam etmesini engelle
+            }
 
-                // Extract values from the ComboBoxes
-                int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
-                int dwPrivilege = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
-
-                bool bRet = pOcxObject.ModifyPrivilege(m_nMachineNum, dwEnrollNum, dwEnMachineID, dwBackupNum, dwPrivilege);
-
-                if (bRet)
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // Check if the checkbox is selected for this item
+                if (item.Checked)
                 {
+                    // Extract the necessary data from the ListView item
+                    int dwEnrollNum = Int32.Parse(item.SubItems[0].Text); // Assuming the first column is EnrollNum
+                    int dwEnMachineID = Int32.Parse("1"); // Assuming the second column is EnMachineID
+                    int dwBackupNum = Int32.Parse(item.SubItems[1].Text); // Assuming the third column is BackupNum
+                    int dwPrivilegeOld = Int32.Parse(item.SubItems[2].Text);
+
+                    int dwPrivilege = ((KeyValuePair<string, int>)cmbPrivilege.SelectedItem).Value;
+
+                    // Eğer yetki değişmemişse bir sonraki öğeye geç
+                    if (dwPrivilegeOld == dwPrivilege)
+                        continue;
+
+                    // Yetki değişikliği yapıldığını belirtmek için bayrağı güncelle
+                    isAnyPrivilegeUpdated = true;
+
                     string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
                     string directoryPath = Path.GetDirectoryName(enrolldbfPath);
                     string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
@@ -468,6 +903,7 @@ namespace FPClient
                         {
                             conn.Open();
                             string updateQuery = "UPDATE EnrollData SET PRIV = ? WHERE ENumber = ? AND FNumber = ?";
+
                             using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
                             {
                                 cmd.Parameters.AddWithValue("@PRIV", dwPrivilege);
@@ -475,49 +911,43 @@ namespace FPClient
                                 cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
 
                                 int rowsAffected = cmd.ExecuteNonQuery();
+
                                 if (rowsAffected == 0)
                                 {
                                     MessageBox.Show("Girilen veriler veritabanında bulunamadı.",
                                         "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     labelInfo.Text = "Veri bulunamadı";
                                 }
-                                else
-                                {
-                                    labelInfo.Text = "Başarılı: İzin güncellendi";
-                                }
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Veritabanı Hatası: " + ex.Message);
                         }
                     }
+                }
+            }
 
-                    // Refresh UI
-                    listView1.Items.Clear();
-                    saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-                }
-                else
-                {
-                    ShowErrorInfo();
-                }
-            }
-            catch (FormatException)
+            // Eğer hiçbir yetki güncellenmediyse, metottan çık
+            if (!isAnyPrivilegeUpdated)
             {
-                MessageBox.Show("Geçersiz kayıt numarası. Lütfen geçerli bir numara giriniz.", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                EnableDevice(); // Cihazı etkinleştirmeyi unutmayın
+                return;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Beklenmedik bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                // Ensure the device is re-enabled even if an exception occurs
-                EnableDevice();
-            }
+
+            MessageBox.Show("İzin güncelleme başarılı.", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            labelInfo.Text = "Başarılı: İzin güncellendi";
+
+            selectAllBox.CheckState = CheckState.Unchecked;
+            listView1.Items.Clear();
+            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+
+            EnableDevice();
         }
+
         private void btnGetEnrollInfo_Click(object sender, EventArgs e) // Cihazdan Bilgi Al
         {
+
             listView1.Items.Clear();
 
             // Step 1: Disable device before starting to read data
@@ -589,106 +1019,310 @@ namespace FPClient
             }
             EnableDevice();
         }
+
         //need check about text box input strings
-        private void btnDelEnData_Click(object sender, EventArgs e)//Kullanıcı Veri Sil
+        private void btnDelEnData_Click(object sender, EventArgs e)//Seçili Kullanıcı Sil [[  HEM DATABASE HEM CİHAZ SORU-CEVAP İLE  ]]
         {
             // Disable the device to prevent conflicts
             DisableDevice();
+            bool isAnyItemSelected = false;
+
+            // Seçili öğe olup olmadığını kontrol et
+            foreach (ListViewItem item2 in listView1.Items)
+            {
+                if (item2.Checked)  // Eğer öğe işaretlenmişse
+                {
+                    isAnyItemSelected = true;
+                    break;  // Bir öğe seçili olduğunda döngüyü kır
+                }
+            }
+
+            // Eğer hiç seçili öğe yoksa
+            if (!isAnyItemSelected)
+            {
+                MessageBox.Show("Silmek için kullanıcı seçilmedi", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;  // Kodun devam etmesini engelle
+            }
+
+            // Eğer bir öğe seçili ise, burada işleminiz devam eder.
+
+
 
             DialogResult dr;
-            dr = MessageBox.Show("Devam edilsin mi?", "Kullanıcı veri sil? ", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            dr = MessageBox.Show("Cihazdan silinsin mi?", "Kullanıcı veri sil? ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.No)
             {
                 return;
             }
-
-            // Loop through all the items in the ListView to find the selected ones
-            foreach (ListViewItem item in listView1.Items)
+            else if (dr == DialogResult.Yes)
             {
-                // Check if the checkbox is selected for this item
-                if (item.Checked)
+                Form form = new Form
                 {
-                    // Extract the necessary data from the ListView item
-                    int dwEnrollNum = Int32.Parse(item.SubItems[0].Text); // Assuming the first column is EnrollNum
-                    int dwEnMachineID = Int32.Parse("1"); // Assuming the second column is EnMachineID
-                    int dwBackupNum = Int32.Parse(item.SubItems[1].Text); // Assuming the third column is BackupNum
-                    
-                    // Call the method to delete the user from the device
-                    bool bRet = pOcxObject.DeleteEnrollData(m_nMachineNum, dwEnrollNum, dwEnMachineID, dwBackupNum);
+                    Text = "Cihaz Seç",
+                    Size = new Size(500, 350),
+                    StartPosition = FormStartPosition.CenterScreen,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    MaximizeBox = false,
+                    MinimizeBox = false,
+                    ControlBox = true,
+                    ShowIcon = true,
+                    ShowInTaskbar = false,
+                    TopMost = true,
+                    AutoScaleMode = AutoScaleMode.Font,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    HelpButton = false,
+                    BackColor = SystemColors.InactiveCaption,
+                    ForeColor = SystemColors.ControlText
+                };
 
-                    if (bRet)
+                // ListView creation
+                ListView listView = new ListView
+                {
+                    Size = new Size(410, 210),
+                    Location = new Point(30, 30),
+                    View = View.Details,
+                    FullRowSelect = true,
+                    GridLines = true,
+                    MultiSelect = false // Ensures only one item can be selected
+                };
+
+                Button button1 = new Button
+                {
+                    Text = "Seç",
+                    Size = new Size(100, 30),
+                    Location = new Point(200, 250),
+                    DialogResult = DialogResult.OK
+                };
+
+                // Add columns to the ListView
+                listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+                listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+                listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+                listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+                listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+                // Add items to the ListView
+                listView.Items.Clear();
+                saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+                // Add controls to the form
+                form.Controls.Add(listView);
+                form.Controls.Add(button1);
+
+                // Handle the button click event
+                button1.Click += (sender2, e2) =>
+                {
+                    if (listView.SelectedItems.Count > 0) // Check if an item is selected
                     {
-                        // If the user is deleted from the device, delete from the database as well
-                        string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
-                        string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                        string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+                        var selectedItem = listView.SelectedItems[0];
+                        string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
 
-                        using (OleDbConnection conn = new OleDbConnection(strConnection))
+                        // Call the method to connect to the selected device
+                        ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                        if (!DisableDevice())
                         {
-                            try
+                            MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            foreach (ListViewItem item in listView1.Items)
                             {
-                                conn.Open();
-                                string deleteQuery = "DELETE FROM EnrollData WHERE ENumber = ?";
-
-                                using (OleDbCommand cmd = new OleDbCommand(deleteQuery, conn))
+                                // Check if the checkbox is selected for this item
+                                if (item.Checked)
                                 {
-                                    cmd.Parameters.AddWithValue("?", dwEnrollNum);
-                                    int rowsAffected = cmd.ExecuteNonQuery();
+                                    // Extract the necessary data from the ListView item
+                                    int dwEnrollNum = Int32.Parse(item.SubItems[0].Text); // Assuming the first column is EnrollNum
+                                    int dwEnMachineID = Int32.Parse("1"); // Assuming the second column is EnMachineID
+                                    int dwBackupNum = Int32.Parse(item.SubItems[1].Text); // Assuming the third column is BackupNum
 
-                                    if (rowsAffected > 0)
+                                    // Call the method to delete the user from the device
+                                    bool bRet = pOcxObject.DeleteEnrollData(m_nMachineNum, dwEnrollNum, dwEnMachineID, dwBackupNum);
+                                    if (bRet)
                                     {
-                                        labelInfo.Text = "Kullanıcı kayıt silindi.";
+                                        DialogResult dr2 = MessageBox.Show("Bilgisayardan silinsin mi?", "Bilgisayar temizle.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                        if (dr2 == DialogResult.No)
+                                            return;
+                                        else if (dr2 == DialogResult.Yes)
+                                        {
+                                            // If the user is deleted from the device, delete from the database as well
+                                            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                                            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                                            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                                            using (OleDbConnection conn = new OleDbConnection(strConnection))
+                                            {
+                                                try
+                                                {
+                                                    conn.Open();
+                                                    string deleteQuery = "DELETE FROM EnrollData WHERE ENumber = ? AND FNumber = ?";
+
+                                                    using (OleDbCommand cmd = new OleDbCommand(deleteQuery, conn))
+                                                    {
+                                                        cmd.Parameters.AddWithValue("?", dwEnrollNum);
+                                                        cmd.Parameters.AddWithValue("?", dwBackupNum);
+
+                                                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                                                        if (rowsAffected > 0)
+                                                        {
+                                                            labelInfo.Text = "Kullanıcı kayıt silindi.";
+                                                                                                    listView1.Items.Remove(item);
+
+                                                        }
+                                                        else
+                                                        {
+                                                            labelInfo.Text = "Eşleşen kayıt bulunamadı.";
+                                                        }
+                                                    }
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                                                }
+                                            }
+                                        }
                                     }
                                     else
                                     {
-                                        labelInfo.Text = "Eşleşen kayıt bulunamadı.";
+                                        // If deletion from the device fails, show an error
+                                        ShowErrorInfo();
                                     }
                                 }
+                                
                             }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Veritabanı Hatası: " + ex.Message);
-                            }
+                            listView1.Items.Clear();
+                            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
                         }
-
-                        // Optionally, remove the item from the ListView
-                        listView1.Items.Remove(item);
                     }
                     else
                     {
-                        // If deletion from the device fails, show an error
-                        ShowErrorInfo();
+                        MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                }
-            }
+
+                    form.Close(); // Close the form after selection
+                };
+
+                // Show the form as a dialog
+                form.ShowDialog();
+            }            
 
             // Re-enable the device after the operation
             EnableDevice();
         }
-        private void btnEmptyEnData_Click(object sender, EventArgs e)//Cihazı Temizle
-        {
+
+        private void btnEmptyEnData_Click(object sender, EventArgs e)//Tüm Kullanıcı Cihazdan Temizle
+        { 
             DisableDevice();
 
             DialogResult dr;
-            dr = MessageBox.Show("Devam edilsin mi?", "Cihaz verileri sil? ", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            dr = MessageBox.Show("Cihazdaki tüm kullanıcılar silinecek, onaylıyor musunuz?", "Cihaz temizle? ", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
             if (dr == DialogResult.No)
             {
                 return;
             }
-            bool bRet = pOcxObject.EmptyEnrollData(m_nMachineNum);
-            if (bRet)
+            Form form = new Form
             {
-                labelInfo.Text = "Cihaz temizlendi.";
-                //TODO : cihaz temizlenince, database de temizlenecek?????
-                //btnDelDBData_Click(sender, e);
-            } 
-            else
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
+
+            // ListView creation
+            ListView listView = new ListView
             {
-                ShowErrorInfo();
-            }
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
+            {
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
+                {
+                    List<string> selectedDeviceNames = new List<string>();
+
+                    // Iterate through all selected items and get their device names
+                    foreach (ListViewItem selectedItem in listView.SelectedItems)
+                    {
+                        string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
+                        selectedDeviceNames.Add(selectedDeviceName);
+                    }
+
+                    // Call the method to connect to the selected devices
+                    ConnectToSelectedDevices(selectedDeviceNames);
+
+                    if (!DisableDevice())
+                    {
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        bool bRet = pOcxObject.EmptyEnrollData(m_nMachineNum);
+                        if (bRet)
+                        {
+                            labelInfo.Text = "Cihaz temizlendi.";
+                            // TODO : cihaz temizlendiğinde, veritabanındaki verileri temizle
+                            //btnDelDBData_Click(sender, e);
+                        }
+                        else
+                        {
+                            ShowErrorInfo();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen bir cihaz seçin!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                form.Close(); // Close the form after selection
+            };
+
+            form.ShowDialog();
 
             EnableDevice();
+
         }
+
+        //Bu method önce cihazdan verileri çekiyor sonra database kaydediyor.
         private void btnGetAllEnData_Click(object sender, EventArgs e)    // Database Kaydet
         {
             DisableDevice();
@@ -890,9 +1524,10 @@ namespace FPClient
 
             EnableDevice();
         }
+
         private void btnSetAllEnData_Click(object sender, EventArgs e)   // Database Cihaza Yolla
         {
-            ConnectToSelectedDevices2();
+            //ConnectToSelectedDevices2();
 
             string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
@@ -906,7 +1541,7 @@ namespace FPClient
 
                     if (conn.State != ConnectionState.Open)
                     {
-                        MessageBox.Show("Database connection failed!", "Connection Error");
+                        MessageBox.Show("Veritabanı bağlantı başarısız!", "Bağlantı Hatası");
                         return;
                     }
 
@@ -916,7 +1551,7 @@ namespace FPClient
                     {
                         if (!reader.HasRows)
                         {
-                            labelInfo.Text = "Database is empty.";
+                            labelInfo.Text = "Veritabanı boş.";
                             return;
                         }
 
@@ -961,16 +1596,16 @@ namespace FPClient
                                     if (!bRet)
                                     {
                                         ShowErrorInfo();
-                                        if (MessageBox.Show($"Failed to set data for {dwEnrollNumber}. Continue?", "Error", MessageBoxButtons.YesNo) == DialogResult.No)
+                                        if (MessageBox.Show($"Kayıt hatası {dwEnrollNumber}. Continue?", "Hata", MessageBoxButtons.YesNo) == DialogResult.No)
                                         {
-                                            labelInfo.Text = $"Failed to set enroll data for {dwEnrollNumber}";
+                                            labelInfo.Text = $"Bilgi kayıt edilirken hata {dwEnrollNumber}";
                                             return;
                                         }
                                     }
                                 }
                                 catch (Exception ex)
                                 {
-                                    MessageBox.Show($"Error processing row: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show($"Satır işlenirken hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -978,7 +1613,7 @@ namespace FPClient
                         // Eğer hiç seçili öğe yoksa uyarı göster
                         if (!hasCheckedItems)
                         {
-                            MessageBox.Show("Please select at least one record to send to the device.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Lütfen bir kayıt seçiniz.", "Kayıt seçilmedi!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
@@ -986,14 +1621,15 @@ namespace FPClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Database connection error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Veritabanı bağlantı hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-        private void btnDelDBData_Click(object sender, EventArgs e)//Database Temizle
+
+        private void btnDelDBData_Click(object sender, EventArgs e)// Tüm Kullanıcı Bilgisayardan Temizle
         {
             DialogResult dr;
-            dr = MessageBox.Show("Devam?", "Veritabanı temizlenecek? ", MessageBoxButtons.YesNo,  MessageBoxIcon.Asterisk);
+            dr = MessageBox.Show("Tüm kullanıcılar bilgisayardan silinsin mi?", "Bilgisayar temizlenecek? ", MessageBoxButtons.YesNo,  MessageBoxIcon.Asterisk);
             if (dr == DialogResult.No)
             {
                 return;
@@ -1023,6 +1659,8 @@ namespace FPClient
             {
                 if (parameters != null) cmd.Parameters.AddRange(parameters);
                 cmd.ExecuteNonQuery();
+                listView1.Items.Clear();
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
 
             }
             catch (Exception ec)
@@ -1031,7 +1669,182 @@ namespace FPClient
             }
 
         }
-        private void btnSetEnrollData_Click(object sender, EventArgs e) //Cihaza Kullanıcı Gönder
+
+        private void addDatabase(int dwEnMachineID, int dwEnrollNumber, int dwBackupNum, int dwPrivilegeNum, int dwPassWord) // Sadece Database kaydetme işlemi yapan method
+        {
+            OleDbConnection conn;
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+            conn = new OleDbConnection(strConnection);
+            conn.Open();
+
+            string sql;
+            bool bBreakFail = false;
+
+
+            OleDbParameter[] parameters = new OleDbParameter[5];
+            parameters[0] = new OleDbParameter("@EMNo", OleDbType.Integer);
+            parameters[0].Value = dwEnMachineID;
+
+            parameters[1] = new OleDbParameter("@ENumber", OleDbType.Integer);
+            parameters[1].Value = dwEnrollNumber;
+
+            parameters[2] = new OleDbParameter("@FNumber", OleDbType.Integer);
+            parameters[2].Value = dwBackupNum;
+
+            parameters[3] = new OleDbParameter("@Priv", OleDbType.Integer);
+            parameters[3].Value = dwPrivilegeNum;
+
+            if (dwBackupNum == 10 || dwBackupNum == 11)
+            {
+                parameters[4] = new OleDbParameter("@EnPw", OleDbType.Integer);
+                parameters[4].Value = dwPassWord;
+
+                // Correct query for 5 columns
+                string checkQuery = "SELECT COUNT(*) FROM EnrollData WHERE ENumber = ? AND FNumber = ?";
+                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@ENumber", dwEnrollNumber);
+                    checkCmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (count == 0) // Only insert if the combination doesn't exist
+                    {
+                        // Correct query for 6 columns
+                        sql = "INSERT INTO EnrollData (EMNo, ENumber, FNumber, Priv, EnPw) " +
+                            "VALUES (@EMNo, @ENumber, @FNumber, @Priv, @EnPw)";
+
+                        OleDbCommand cmd = new OleDbCommand(sql, conn);
+                        try
+                        {
+                            //conn.Open();
+                            if (parameters != null) cmd.Parameters.AddRange(parameters);
+                            cmd.ExecuteNonQuery();
+
+                        }
+                        catch (Exception ec)
+                        {
+                            throw ec;
+                        }
+
+                        //reset
+                        dwPassWord = 0;
+
+                        if (!bBreakFail)
+                        {
+                            labelInfo.Text = "Saved all Enroll Data to database...";
+                        }
+
+                    }
+                    else
+                        MessageBox.Show("Bu kayıt veritabanında bulunduğu için tekrar kayıt edilemez. Kullanıcı numarasını veya Kayıt tipini değiştirin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+                MessageBox.Show("Bu kayıt tipinde veri eklenemez.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+        }
+        
+        private void addDatabaseUserName(int dwEnrollNum, string strName ,int dwBackupNum)//Sadece Database Kullanıcı Adı Ekle Methodu
+        {
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection conn = new OleDbConnection(strConnection))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // EName alanını belirli bir ENumber'a göre güncelle
+                    string updateQuery = "UPDATE EnrollData SET EName = ? WHERE ENumber = ? AND FNumber = ?";
+                    using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EName", strName);
+                        cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+                        cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+
+
+                        // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected == 0)
+                        {
+                            // Eğer etkilenen satır yoksa kayıt bulunamadı
+                            MessageBox.Show("Error: Belirtilen kullanıcı numarası bilgisayarda bulunamadı.",
+                                "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            labelInfo.Text = "Kullanıcı numarası bulunamadı.";
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Kullanıcı adı güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Başarılı güncelleme mesajı
+                            labelInfo.Text = "Başarılı!";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                }
+            }
+
+            listView1.Items.Clear();
+            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+        }
+        
+        private void updateDatabaseCardNumber(int dwEnrollNum, int dwBackupNum, int dwCardNumber)
+        {
+            string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection conn = new OleDbConnection(strConnection))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // EName alanını belirli bir ENumber'a göre güncelle
+                    string updateQuery = "UPDATE EnrollData SET EnPw = ? WHERE ENumber = ? AND FNumber = ?";
+                    using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EnPw", dwCardNumber);
+                        cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum); 
+                        cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+
+
+                        // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected == 0)
+                        {
+                            // Eğer etkilenen satır yoksa kayıt bulunamadı
+                            MessageBox.Show("Error: Belirtilen kullanıcı numarası bilgisayarda bulunamadı.",
+                                "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            labelInfo.Text = "Kullanıcı numarası bulunamadı.";
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Kart numarası güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Başarılı güncelleme mesajı
+                            labelInfo.Text = "Başarılı!";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                }
+            }
+
+            listView1.Items.Clear();
+            saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+        }
+        private void btnSetEnrollData_Click(object sender, EventArgs e) //Ekle / Düzenle
         {
             DisableDevice();
 
@@ -1042,8 +1855,13 @@ namespace FPClient
             int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1; // Assuming this ComboBox doesn't need changes
             int dwEnrollNumber = Convert.ToInt32(tbEnrollNum.Text);
 
-            int[] dwData = new int[1420 / 4];
-            object obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
+            string strName = tbEnrollName.TextLength == 0 ? "" : tbEnrollName.Text;
+
+            //object obj2 = new System.Runtime.InteropServices.VariantWrapper(strName);
+
+
+            //int[] dwData = new int[1420 / 4];
+            //object obj = new System.Runtime.InteropServices.VariantWrapper(dwData);
             int dwPassword = 0;
             int dwCardNum = 0;
 
@@ -1060,37 +1878,35 @@ namespace FPClient
                 {
                     dwPassword = dwCardNum;
                 }
-            }
-
-            bool bRet;
-
-            // Call the external method with the updated parameters
-            bRet = pOcxObject.SetEnrollData(
-                m_nMachineNum,
-                dwEnrollNumber,
-                dwEnMachineID,
-                dwBackupNum,
-                dwPrivilegeNum,
-                ref obj,
-                dwPassword
-            );
-
-            if (bRet)
-            {
                 // Refresh the data and update UI
-                btnGetAllEnData_Click(sender, e);
-                btnSetUserName_Click(sender, e);
+                addDatabase(dwEnMachineID, dwEnrollNumber, dwBackupNum, dwPrivilegeNum, dwPassword);
+                if(tbEnrollName.TextLength > 0)
+                {
+                    DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kullanıcı adı güncellensin mi", "Kullanıcı Adı Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    // if user click yes
+                    if(dr == DialogResult.Yes)
+                        addDatabaseUserName(dwEnrollNumber, strName,dwBackupNum);
+                }
+                if (tbCardNum.TextLength > 0)
+                {
+                    DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kart numarası güncellensin mi", "Kart Numarası Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    // if user click yes
+                    if (dr == DialogResult.Yes)
+                        updateDatabaseCardNumber(dwEnrollNumber, dwBackupNum, dwCardNum);
+                }
                 listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
-                labelInfo.Text = "SetEnrollData OK";
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+
             }
             else
             {
+                MessageBox.Show("Bilgisayara parmak izi eklemesi uygulamadan yapılamaz!","Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 ShowErrorInfo();
             }
 
             EnableDevice();
         }
+
 
         /*private void btnGetEnrollData_Click(object sender, EventArgs e) // Kart Numarası Getir
         {
@@ -1160,9 +1976,10 @@ namespace FPClient
 
             EnableDevice();
         }*/
-        private void connectButton_Click(object sender, EventArgs e)
+
+        /*private void connectButton_Click(object sender, EventArgs e)
         {
-            ConnectToSelectedDevices();
+            //ConnectToSelectedDevices();
             if (!DisableDevice())
             {
                 MessageBox.Show("Failed to disable device.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1174,10 +1991,11 @@ namespace FPClient
 
                 btnGetAllEnData_Click(sender, e);
                 listView1.Items.Clear();
-                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2);
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
             }
-        }
-        public void ConnectToSelectedDevices()
+        }*/
+
+        /*public void ConnectToSelectedDevices()
         {
             string enrolldbfPath = @"C:\EnGoPer\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
@@ -1252,8 +2070,9 @@ namespace FPClient
                     MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-        public void ConnectToSelectedDevices2()
+        }*/
+
+        /*public void ConnectToSelectedDevices2()
         {
             string enrolldbfPath = @"C:\EnGoPer\Data\Cihazlar.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
@@ -1328,10 +2147,20 @@ namespace FPClient
                     MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
+        }*/
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listView1.SelectedItems.Count > 0)
+        { 
+            if (listView1.SelectedItems.Count == 0)
+            {
+                tbEnrollNum.Text = string.Empty;
+                cmbBackupNum.SelectedIndex = -1;
+                cmbPrivilege.SelectedIndex = -1;
+                tbEnrollName.Text = string.Empty;
+                tbCardNum.Text = string.Empty;
+                return;
+            }
+            else if (listView1.SelectedItems.Count > 0)
             {
                 ListViewItem item = listView1.SelectedItems[0];
 
@@ -1357,6 +2186,7 @@ namespace FPClient
                 tbCardNum.Text = item.SubItems[4].Text;
             }
         }
+
         private void selectAllBox_CheckedChanged(object sender, EventArgs e)
         {
             // Loop through all items in the ListView
@@ -1366,6 +2196,353 @@ namespace FPClient
                 listView1.Items[i].Checked = selectAllBox.Checked;
             }
         }
+
+        // This method will create the form with the ListView and Button
+        public void customButton1_Click(object sender, EventArgs e) // Cihazdan Al Butonu
+        {
+            Form form = new Form
+            {
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
+
+            // ListView creation
+            ListView listView = new ListView
+            {
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                MultiSelect = false // Ensures only one item can be selected
+            };
+
+            Button button1 = new Button
+            {
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView, dbfFilePath);
+
+            // Add controls to the form
+            form.Controls.Add(listView);
+            form.Controls.Add(button1);
+
+            // Handle the button click event
+            button1.Click += (sender2, e2) =>
+            {
+                if (listView.SelectedItems.Count > 0) // Check if an item is selected
+                {
+                    var selectedItem = listView.SelectedItems[0];
+                    string selectedDeviceName = selectedItem.SubItems[1].Text; // Assuming device name is in the second column
+
+                    // Call the method to connect to the selected device
+                    ConnectToSelectedDevices(new List<string> { selectedDeviceName });
+                    if (!DisableDevice())
+                    {
+                        MessageBox.Show("Cihaz bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        btnGetEnrollInfo_Click(sender, e);
+
+                        btnGetAllEnData_Click(sender, e);
+
+                        listView1.Items.Clear();
+                        saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                form.Close(); // Close the form after selection
+            };
+
+            // Show the form as a dialog
+            form.ShowDialog();
+        }
+
+        // This method will connect to the selected devices
+        public void ConnectToSelectedDevices(List<string> selectedDevices)
+        {
+            string enrolldbfPath = @"C:\EnGoPer\Data\Cihazlar.dbf";
+            string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+            string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+            using (OleDbConnection con = new OleDbConnection(strConnection))
+            {
+                try
+                {
+                    con.Open();
+
+                    foreach (string selectedName in selectedDevices)
+                    {
+                        // Fetch device details from the database
+                        string query = "SELECT IPAddr, DPort, Pwd FROM Cihazlar WHERE DevName = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("?", selectedName);
+                            using (OleDbDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    string ip = reader.GetString(0);
+                                    string port = reader.GetString(1);
+                                    string password = reader.GetString(2);
+
+                                    int portInt = Convert.ToInt32(port);
+                                    int passwordInt = Convert.ToInt32(password);
+
+                                    // Attempt to connect to the device
+                                    if (IPAddress.TryParse(ip, out IPAddress ipAddress))
+                                    {
+                                        try
+                                        {
+                                            bool bRet = pOcxObject.SetIPAddress(ref ip, portInt, passwordInt);
+                                            bRet = pOcxObject.OpenCommPort(m_nMachineNum);
+
+                                            if (bRet)
+                                            {
+                                                labelInfo.Text = $"Bağlandı! {selectedName} ({ip}:{port}).";
+                                                MessageBox.Show($"Bağlandı! {selectedName} ({ip}:{port}).", "Bağlantı Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show($"Cihaza Bağlanılamadı! {selectedName} ({ip}:{port}).", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show($"Cihaza Bağlanmadı! {selectedName} ({ip}:{port}). Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Geçersiz IP formatı {selectedName}: {ip}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Veritabanında eşleşen kayıt yok : {selectedName} .", "Kayıt Bulunamadı!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanı Hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void customButton2_Click(object sender, EventArgs e) // Cihaza Yolla Butonu
+        {
+            Form form2 = new Form
+            {
+                Text = "Cihaz Seç",
+                Size = new Size(500, 350),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = true,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
+
+            // ListView creation
+            ListView listView2 = new ListView
+            {
+                Size = new Size(410, 210),
+                Location = new Point(30, 30),
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                CheckBoxes = true
+            };
+
+            Button button2 = new Button
+            {
+                Text = "Seç",
+                Size = new Size(100, 30),
+                Location = new Point(200, 250),
+                DialogResult = DialogResult.OK
+            };
+
+            // Add columns to the ListView
+            listView2.Columns.Add("ID", 50, HorizontalAlignment.Left);
+            listView2.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+            listView2.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+            listView2.Columns.Add("Port", 60, HorizontalAlignment.Left);
+            listView2.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
+
+            // Add items to the ListView
+            listView2.Items.Clear();
+            saveDevice.LoadDBFDataToListView(listView2, dbfFilePath);
+
+            // Add controls to the form
+            form2.Controls.Add(listView2);
+            form2.Controls.Add(button2);
+
+            // Handle the button click event
+            button2.Click += (sender3, e3) =>
+            {
+                // Collect selected items from ListView
+                List<string> selectedDevices2 = new List<string>();
+                foreach (ListViewItem item in listView2.CheckedItems)
+                {
+                    selectedDevices2.Add(item.SubItems[1].Text);  // Assuming the device name is in the second column
+                }
+
+                if (selectedDevices2.Count == 0)
+                {
+                    MessageBox.Show("Lütfen en az bir cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Call the method to connect to the selected devices
+                //ConnectToSelectedDevices(selectedDevices2);
+
+                // Perform actions for each connected device
+                foreach (ListViewItem item in listView2.CheckedItems)
+                {
+                    string selectedName = item.SubItems[1].Text;  // Assuming the device name is in the second column
+                    string ipAddress = item.SubItems[2].Text;     // IP address from 3rd column
+                    string port = item.SubItems[3].Text;          // Port number from 4th column
+
+                    try
+                    {
+                        int portInt = Convert.ToInt32(port);
+                        int passwordInt = Convert.ToInt32(item.SubItems[4].Text); // Password from 5th column
+
+                        // Attempt to connect to the device
+                        bool bRet = pOcxObject.SetIPAddress(ref ipAddress, portInt, passwordInt);
+                        bRet = pOcxObject.OpenCommPort(m_nMachineNum);
+
+                        if (bRet)
+                        {
+                            //labelInfo.Text = $"Bağlandı! {selectedName} ({ipAddress}:{port}).";
+                            MessageBox.Show($"Bağlandı! {selectedName} ({ipAddress}:{port}).", "Bağlantı Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Call the method for enrolling data or setting data on the device
+                            btnSetAllEnData_Click(sender, e);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Cihaza Bağlanılamadı! {selectedName} ({ipAddress}:{port}).", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Cihaza Bağlanmadı! {item.SubItems[1].Text}. Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                form2.Close();  // Close the form after processing
+            };
+
+            // Show the form as a dialog
+            form2.ShowDialog();
+        }
+
+        private void customButton3_Click(object sender, EventArgs e) // Sadece Database Sil Butonu
+        {
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // Check if the checkbox is selected for this item
+                if (item.Checked)
+                {
+                    // Extract the necessary data from the ListView item
+                    int dwEnrollNum = Int32.Parse(item.SubItems[0].Text); // Assuming the first column is EnrollNum
+                    int dwEnMachineID = Int32.Parse("1"); // Assuming the second column is EnMachineID
+                    int dwBackupNum = Int32.Parse(item.SubItems[1].Text); // Assuming the third column is BackupNum
+
+                    // Call the method to delete the user from the device
+
+
+                    // If the user is deleted from the device, delete from the database as well
+                    string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                    string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                    string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+
+                    using (OleDbConnection conn = new OleDbConnection(strConnection))
+                    {
+                        try
+                        {
+                            conn.Open();
+                            string deleteQuery = "DELETE FROM EnrollData WHERE ENumber = ? AND FNumber = ?"; 
+
+                            using (OleDbCommand cmd = new OleDbCommand(deleteQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("?", dwEnrollNum);
+                                cmd.Parameters.AddWithValue("?", dwBackupNum);
+                                int rowsAffected = cmd.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    labelInfo.Text = "Kullanıcı kayıt silindi.";
+                                }
+                                else
+                                {
+                                    labelInfo.Text = "Eşleşen kayıt bulunamadı.";
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                        }
+                    }
+
+                    // Optionally, remove the item from the ListView
+                    listView1.Items.Remove(item);
+
+                    listView1.Items.Clear();
+                    saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+
+                }
+                else
+                {
+                    // If deletion from the device fails, show an error
+                    ShowErrorInfo();
+                }
+            }
+        }
+
 
     }
 }

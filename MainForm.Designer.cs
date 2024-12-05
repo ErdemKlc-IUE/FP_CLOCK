@@ -35,15 +35,18 @@ namespace FPClient
             this.textPassword = new System.Windows.Forms.TextBox();
             this.textPort = new System.Windows.Forms.TextBox();
             this.ipAddressControl1 = new IPAddressControlLib.IPAddressControl();
-            this.btnSaveDevice = new FP_CLOCK.CustomButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnBellSetting = new FP_CLOCK.CustomButton();
             this.btnEnrollMangement = new FP_CLOCK.CustomButton();
+            this.btnSaveDevice = new FP_CLOCK.CustomButton();
             this.btnLogManagement = new FP_CLOCK.CustomButton();
             this.btnSysInfo = new FP_CLOCK.CustomButton();
             this.btnLockCtrl = new FP_CLOCK.CustomButton();
-            this.btnBellSetting = new FP_CLOCK.CustomButton();
             this.btnSetPassTime = new FP_CLOCK.CustomButton();
             this.btnDeviceInfo = new FP_CLOCK.CustomButton();
-            this.enrollDataManagement = new FPClient.EnrollDataManagement();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textPassword
@@ -79,6 +82,93 @@ namespace FPClient
             this.ipAddressControl1.TabIndex = 0;
             this.ipAddressControl1.Text = "...";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tabControl1.HotTrack = true;
+            this.tabControl1.ItemSize = new System.Drawing.Size(150, 50);
+            this.tabControl1.Location = new System.Drawing.Point(2, 2);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1091, 827);
+            this.tabControl1.TabIndex = 4;
+            this.tabControl1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tabPage1.Location = new System.Drawing.Point(4, 54);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1083, 769);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "KULLANICI YÖNETİM";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tabPage2.Location = new System.Drawing.Point(4, 54);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1083, 769);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "CİHAZ KAYIT";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnBellSetting
+            // 
+            this.btnBellSetting.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnBellSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnBellSetting.BorderRadius = 20;
+            this.btnBellSetting.BorderSize = 0;
+            this.btnBellSetting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBellSetting.FlatAppearance.BorderSize = 0;
+            this.btnBellSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBellSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnBellSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnBellSetting.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnBellSetting.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnBellSetting.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnBellSetting.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnBellSetting.Location = new System.Drawing.Point(249, 24);
+            this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBellSetting.Name = "btnBellSetting";
+            this.btnBellSetting.Size = new System.Drawing.Size(219, 182);
+            this.btnBellSetting.TabIndex = 3;
+            this.btnBellSetting.Text = "Alarm Ayarları";
+            this.btnBellSetting.UseVisualStyleBackColor = true;
+            this.btnBellSetting.Click += new System.EventHandler(this.btnBellSetting_Click);
+            // 
+            // btnEnrollMangement
+            // 
+            this.btnEnrollMangement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnrollMangement.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnEnrollMangement.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnEnrollMangement.BorderRadius = 20;
+            this.btnEnrollMangement.BorderSize = 0;
+            this.btnEnrollMangement.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEnrollMangement.FlatAppearance.BorderSize = 0;
+            this.btnEnrollMangement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnrollMangement.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnEnrollMangement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnEnrollMangement.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnEnrollMangement.GradientStartColor = System.Drawing.Color.WhiteSmoke;
+            this.btnEnrollMangement.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnEnrollMangement.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnEnrollMangement.Location = new System.Drawing.Point(11, 24);
+            this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEnrollMangement.Name = "btnEnrollMangement";
+            this.btnEnrollMangement.Size = new System.Drawing.Size(259, 257);
+            this.btnEnrollMangement.TabIndex = 3;
+            this.btnEnrollMangement.Text = "Kullanıcı Yönetim";
+            this.btnEnrollMangement.UseVisualStyleBackColor = false;
+            this.btnEnrollMangement.Click += new System.EventHandler(this.btnEnrollManagement_Click);
+            // 
             // btnSaveDevice
             // 
             this.btnSaveDevice.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -90,45 +180,17 @@ namespace FPClient
             this.btnSaveDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSaveDevice.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveDevice.GradientEndColor = System.Drawing.Color.Silver;
+            this.btnSaveDevice.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSaveDevice.GradientStartColor = System.Drawing.Color.WhiteSmoke;
             this.btnSaveDevice.HoverEndColor = System.Drawing.Color.LightBlue;
             this.btnSaveDevice.HoverStartColor = System.Drawing.Color.AliceBlue;
-            this.btnSaveDevice.Location = new System.Drawing.Point(784, 299);
+            this.btnSaveDevice.Location = new System.Drawing.Point(488, 24);
             this.btnSaveDevice.Name = "btnSaveDevice";
-            this.btnSaveDevice.Size = new System.Drawing.Size(238, 148);
+            this.btnSaveDevice.Size = new System.Drawing.Size(219, 182);
             this.btnSaveDevice.TabIndex = 3;
             this.btnSaveDevice.Text = "Cihaz Kayıt";
             this.btnSaveDevice.UseVisualStyleBackColor = false;
             this.btnSaveDevice.Click += new System.EventHandler(this.btnSaveDevice_Click);
-            // 
-            // btnEnrollMangement
-            // 
-            this.btnEnrollMangement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnrollMangement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnEnrollMangement.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnEnrollMangement.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnEnrollMangement.BorderRadius = 20;
-            this.btnEnrollMangement.BorderSize = 0;
-            this.btnEnrollMangement.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEnrollMangement.FlatAppearance.BorderSize = 0;
-            this.btnEnrollMangement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEnrollMangement.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnEnrollMangement.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEnrollMangement.GradientEndColor = System.Drawing.Color.Silver;
-            this.btnEnrollMangement.GradientStartColor = System.Drawing.Color.WhiteSmoke;
-            this.btnEnrollMangement.HoverEndColor = System.Drawing.Color.LightBlue;
-            this.btnEnrollMangement.HoverStartColor = System.Drawing.Color.AliceBlue;
-            this.btnEnrollMangement.Location = new System.Drawing.Point(62, 163);
-            this.btnEnrollMangement.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEnrollMangement.Name = "btnEnrollMangement";
-            this.btnEnrollMangement.Size = new System.Drawing.Size(295, 368);
-            this.btnEnrollMangement.TabIndex = 3;
-            this.btnEnrollMangement.Text = "Kullanıcı Yönetim";
-            this.btnEnrollMangement.UseVisualStyleBackColor = true;
-            this.btnEnrollMangement.Click += new System.EventHandler(this.btnEnrollManagement_Click);
             // 
             // btnLogManagement
             // 
@@ -198,30 +260,6 @@ namespace FPClient
             this.btnLockCtrl.UseVisualStyleBackColor = true;
             this.btnLockCtrl.Click += new System.EventHandler(this.btnLockCtrl_Click);
             // 
-            // btnBellSetting
-            // 
-            this.btnBellSetting.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnBellSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnBellSetting.BorderRadius = 20;
-            this.btnBellSetting.BorderSize = 0;
-            this.btnBellSetting.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBellSetting.FlatAppearance.BorderSize = 0;
-            this.btnBellSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBellSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnBellSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnBellSetting.GradientEndColor = System.Drawing.Color.Silver;
-            this.btnBellSetting.GradientStartColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBellSetting.HoverEndColor = System.Drawing.Color.LightBlue;
-            this.btnBellSetting.HoverStartColor = System.Drawing.Color.AliceBlue;
-            this.btnBellSetting.Location = new System.Drawing.Point(449, 309);
-            this.btnBellSetting.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBellSetting.Name = "btnBellSetting";
-            this.btnBellSetting.Size = new System.Drawing.Size(226, 148);
-            this.btnBellSetting.TabIndex = 3;
-            this.btnBellSetting.Text = "Alarm Ayarları";
-            this.btnBellSetting.UseVisualStyleBackColor = true;
-            this.btnBellSetting.Click += new System.EventHandler(this.btnBellSetting_Click);
-            // 
             // btnSetPassTime
             // 
             this.btnSetPassTime.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -268,34 +306,25 @@ namespace FPClient
             this.btnDeviceInfo.UseVisualStyleBackColor = true;
             this.btnDeviceInfo.Click += new System.EventHandler(this.btnDeviceInfo_Click);
             // 
-            // enrollDataManagement
-            // 
-            this.enrollDataManagement.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.enrollDataManagement.ClientSize = new System.Drawing.Size(1065, 732);
-            this.enrollDataManagement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.enrollDataManagement.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.enrollDataManagement.Location = new System.Drawing.Point(0, 0);
-            this.enrollDataManagement.Name = "enrollDataManagement";
-            this.enrollDataManagement.Text = "Kullanıcı Yönetim";
-            this.enrollDataManagement.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1113, 827);
-            this.Controls.Add(this.btnBellSetting);
-            this.Controls.Add(this.btnEnrollMangement);
-            this.Controls.Add(this.btnSaveDevice);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ClientSize = new System.Drawing.Size(1092, 839);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enka Teknoloji";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -313,7 +342,9 @@ namespace FPClient
         private FP_CLOCK.CustomButton btnBellSetting;
         private FP_CLOCK.CustomButton btnSetPassTime;
         private FP_CLOCK.CustomButton btnDeviceInfo;
-        private EnrollDataManagement enrollDataManagement;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
     }
 }
 

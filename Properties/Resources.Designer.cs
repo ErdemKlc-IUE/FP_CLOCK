@@ -63,6 +63,17 @@ namespace FP_CLOCK.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap abstract_square_interface_modern_background_concept_fingerprint_digital_scanning_visual_security_system_authentication_login_vector {
+            get {
+                object obj = ResourceManager.GetObject("abstract-square-interface-modern-background-concept-fingerprint-digital-scanning-" +
+                        "visual-security-system-authentication-login-vector", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap adminBack {
             get {
                 object obj = ResourceManager.GetObject("adminBack", resourceCulture);
@@ -96,6 +107,16 @@ namespace FP_CLOCK.Properties {
         internal static System.Drawing.Bitmap bg_module {
             get {
                 object obj = ResourceManager.GetObject("bg_module", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blue_gradient_background_with_lines_pattern_732218_1781 {
+            get {
+                object obj = ResourceManager.GetObject("blue-gradient-background-with-lines-pattern_732218-1781", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +207,26 @@ namespace FP_CLOCK.Properties {
         internal static System.Drawing.Bitmap House_48x48 {
             get {
                 object obj = ResourceManager.GetObject("House-48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap indir {
+            get {
+                object obj = ResourceManager.GetObject("indir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap indir1 {
+            get {
+                object obj = ResourceManager.GetObject("indir1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -286,6 +327,16 @@ namespace FP_CLOCK.Properties {
         internal static System.Drawing.Bitmap registration_icon_up {
             get {
                 object obj = ResourceManager.GetObject("registration_icon_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Rpbjm {
+            get {
+                object obj = ResourceManager.GetObject("Rpbjm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

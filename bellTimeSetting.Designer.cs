@@ -82,9 +82,9 @@
             // labelInfo
             // 
             this.labelInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelInfo.Location = new System.Drawing.Point(31, 9);
+            this.labelInfo.Location = new System.Drawing.Point(12, 9);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(651, 33);
+            this.labelInfo.Size = new System.Drawing.Size(606, 33);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -466,19 +466,22 @@
             this.btnReadSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnReadSetting.BorderRadius = 20;
             this.btnReadSetting.BorderSize = 0;
+            this.btnReadSetting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReadSetting.FlatAppearance.BorderSize = 0;
             this.btnReadSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReadSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnReadSetting.Location = new System.Drawing.Point(75, 488);
+            this.btnReadSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnReadSetting.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnReadSetting.GradientStartColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnReadSetting.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnReadSetting.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnReadSetting.Location = new System.Drawing.Point(95, 378);
             this.btnReadSetting.Name = "btnReadSetting";
-            this.btnReadSetting.Size = new System.Drawing.Size(128, 39);
+            this.btnReadSetting.Size = new System.Drawing.Size(147, 39);
             this.btnReadSetting.TabIndex = 1;
             this.btnReadSetting.Text = "Cihazdan Al";
-            this.btnReadSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnReadSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.btnReadSetting.UseVisualStyleBackColor = true;
             this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
-
             // 
             // btnWriteSetting
             // 
@@ -487,48 +490,56 @@
             this.btnWriteSetting.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnWriteSetting.BorderRadius = 20;
             this.btnWriteSetting.BorderSize = 0;
+            this.btnWriteSetting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnWriteSetting.FlatAppearance.BorderSize = 0;
             this.btnWriteSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWriteSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnWriteSetting.Location = new System.Drawing.Point(253, 488);
+            this.btnWriteSetting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnWriteSetting.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnWriteSetting.GradientStartColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnWriteSetting.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.btnWriteSetting.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.btnWriteSetting.Location = new System.Drawing.Point(248, 378);
             this.btnWriteSetting.Name = "btnWriteSetting";
             this.btnWriteSetting.Size = new System.Drawing.Size(147, 39);
             this.btnWriteSetting.TabIndex = 1;
             this.btnWriteSetting.Text = "Cihaza Yolla";
-            this.btnWriteSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnWriteSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.btnWriteSetting.UseVisualStyleBackColor = true;
             this.btnWriteSetting.Click += new System.EventHandler(this.btnWriteSetting_Click);
-
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button3.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.button3.BorderRadius = 20;
             this.button3.BorderSize = 0;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button3.Location = new System.Drawing.Point(469, 488);
+            this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button3.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button3.GradientStartColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button3.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.button3.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.button3.Location = new System.Drawing.Point(401, 378);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 39);
+            this.button3.Size = new System.Drawing.Size(147, 39);
             this.button3.TabIndex = 1;
             this.button3.Text = "Tamam";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.btnOK_Click);
-
             // 
             // bellTimeSetting
             // 
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(712, 539);
-            this.Controls.Add(this.button3);
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ClientSize = new System.Drawing.Size(630, 429);
+            //this.Controls.Add(this.button3);
             this.Controls.Add(this.btnWriteSetting);
             this.Controls.Add(this.btnReadSetting);
             this.Controls.Add(this.label16);

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FPClient;
 
 namespace FP_CLOCK
 {
@@ -41,7 +42,7 @@ namespace FP_CLOCK
         {
             // Bu formu gizle ve WelcomePage'i göster
             WelcomePage welcomePage = new WelcomePage();
-            this.Visible = false;
+            Owner.Visible = true;
             welcomePage.Show();
         }
         private void addButton_Click(object sender, EventArgs e)
@@ -58,7 +59,7 @@ namespace FP_CLOCK
             if (string.IsNullOrWhiteSpace(strDeviceName) || string.IsNullOrWhiteSpace(strDeviceIP) ||
                 string.IsNullOrWhiteSpace(strDevicePort) || string.IsNullOrWhiteSpace(strDevicePassword))
             {
-                MessageBox.Show("Please fill in all the fields before adding.");
+                MessageBox.Show("Ekleme yapmadan önce bütün alanları doldurunuz!");
                 return;
             }
 
@@ -105,13 +106,13 @@ namespace FP_CLOCK
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding to the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veritabanı ekleme hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             // Check if the device already exists in the database
 
             if (CheckIfDeviceExists(strDeviceIP,strDevicePort))
             {
-                MessageBox.Show("A device with the same port number already exists in the database.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Veritabanında aynı port numarasına sahip cihaz bulunuyor!", "Geçersiz Giriş", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return; // Prevent adding the device
             }
 
@@ -161,13 +162,13 @@ namespace FP_CLOCK
                     connection.Open();
 
                     // Check for existing entry with the same ID and Port
-                    string checkExistingQuery = $"SELECT COUNT(*) FROM {Path.GetFileNameWithoutExtension(dbfFilePath)} WHERE IPAddr = '{ip}'AND DPort = '{port}'";
+                    string checkExistingQuery = $"SELECT COUNT(*) FROM {Path.GetFileNameWithoutExtension(dbfFilePath)} WHERE (IPAddr = '{ip}'AND DPort = '{port}') OR DevName = '{deviceName}'";
                     using (OleDbCommand checkCommand = new OleDbCommand(checkExistingQuery, connection))
                     {
                         int existingCount = (int)checkCommand.ExecuteScalar();
                         if (existingCount > 0)
                         {
-                            MessageBox.Show("A device with the same port number already exists in the database.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Lütfen eklemek istediğiniz cihazın ip, port ve cihaz isimlerini kontrol ediniz!", "Geçersiz Giriş", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return; // Prevent adding the device
                         }
                     }
@@ -195,18 +196,18 @@ namespace FP_CLOCK
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Device successfully added to the database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Cihaz başarıyla kaydedildi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Failed to add the device to the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Cihaz eklenirken hata!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding to the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veritabanı ekleme hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void InitializeListView()
@@ -215,14 +216,14 @@ namespace FP_CLOCK
             listView1.GridLines = true;
             listView1.FullRowSelect = true;
 
-            listView1.Columns.Add("ID", 50, HorizontalAlignment.Left);
-            listView1.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
-            listView1.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
-            listView1.Columns.Add("Port", 50, HorizontalAlignment.Left);
-            listView1.Columns.Add("Şifre", 50, HorizontalAlignment.Left);
+                listView1.Columns.Add("ID", 50, HorizontalAlignment.Left);
+                listView1.Columns.Add("Cihaz İsmi", 100, HorizontalAlignment.Left);
+                listView1.Columns.Add("IP Adresi", 125, HorizontalAlignment.Left);
+                listView1.Columns.Add("Port", 60, HorizontalAlignment.Left);
+                listView1.Columns.Add("Şifre", 70, HorizontalAlignment.Left);
 
-            dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
-            LoadDBFDataToListView(listView1, dbfFilePath);
+                dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
+                LoadDBFDataToListView(listView1, dbfFilePath);
 
 
         }
@@ -299,10 +300,10 @@ namespace FP_CLOCK
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data from .DBF file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("DBF dosyası yüklenirken hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void LoadDBFDataToListView2(ListView listView2, string dbfFilePath2)
+        public void LoadDBFDataToListView2(ListView listView2, string dbfFilePath2, Label lblRecordCount)
         {
             try
             {
@@ -323,7 +324,7 @@ namespace FP_CLOCK
                     bool tableExists = false;
                     try
                     {
-                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath)}";
+                        string checkTableExistsQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
                         using (OleDbCommand checkCommand = new OleDbCommand(checkTableExistsQuery, connection))
                         {
                             OleDbDataReader reader = checkCommand.ExecuteReader();
@@ -337,13 +338,17 @@ namespace FP_CLOCK
                     {
                         tableExists = false; // If an exception occurs, the table does not exist
                     }
+
                     if (tableExists)
                     {
                         string selectQuery = $"SELECT * FROM {Path.GetFileNameWithoutExtension(dbfFilePath2)}";
-                        using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection)) 
-                        { 
+                        using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, connection))
+                        {
                             using (OleDbDataReader reader = selectCommand.ExecuteReader())
                             {
+                                listView2.Items.Clear(); // Clear existing items
+                                int recordCount = 0; // Initialize the record counter
+
                                 while (reader.Read())
                                 {
                                     string machineNumber = reader["EMNo"].ToString();  // Verify exact field name
@@ -360,17 +365,27 @@ namespace FP_CLOCK
                                     item.SubItems.Add(enrollName);
                                     item.SubItems.Add(password);
                                     listView2.Items.Add(item);
+
+                                    recordCount++; // Increment the record counter
                                 }
+
+                                // Update the record count label
+                                lblRecordCount.Text = $"Toplam Kayıt: {recordCount}";
                             }
                         }
+                    }
+                    else
+                    {
+                        lblRecordCount.Text = "Toplam Kayıt: 0"; // No records
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data from .dbf file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("DBF dosyası yüklenirken hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void deleteButton_Click(object sender, EventArgs e)
         {
             // Check if an item is selected in the ListView
@@ -421,18 +436,18 @@ namespace FP_CLOCK
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Selected item successfully deleted from the database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Seçili cihaz başarıyla silindi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Item not found in the database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Cihaz bulunamadı!", "hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error deleting from the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veritabanından silerken hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         // Method to reassign IDs after deletion to maintain sequence
@@ -479,7 +494,7 @@ namespace FP_CLOCK
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error reassigning IDs in the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Yeniden atama hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void editButton_Click(object sender, EventArgs e)
@@ -499,7 +514,7 @@ namespace FP_CLOCK
                 if (string.IsNullOrEmpty(strDeviceName) || string.IsNullOrEmpty(strDeviceIP) ||
                     string.IsNullOrEmpty(strDevicePort) || string.IsNullOrEmpty(strDevicePassword))
                 {
-                    MessageBox.Show("Please fill in all the fields before editing.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Düzenlemeden önce bütün alanları doldurun.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -520,7 +535,7 @@ namespace FP_CLOCK
             }
             else
             {
-                MessageBox.Show("Please select an item to edit.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen düzenlemek için cihaz seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         // Method to update the database with new values
@@ -555,18 +570,18 @@ namespace FP_CLOCK
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Device successfully updated in the database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Cihaz başarıyla güncellendi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Failed to update the device in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Cihaz güncellenirken hata!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veritabanı güncelleme hatası: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
