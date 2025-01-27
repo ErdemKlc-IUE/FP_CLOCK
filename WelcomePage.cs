@@ -539,5 +539,12 @@ namespace FP_CLOCK
             label1.Text = i.ToString("Aktarılan Toplam Kayıt : 0");
         }
 
+        private void saveDeviceForm_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            // open MainForm but ı dont want to see WelcomePage
+            this.AddOwnedForm(new SaveDevice(m_nCurSelID, ref axFP_CLOCK));
+            this.OwnedForms[0].Visible = true;
+        }
     }
 }

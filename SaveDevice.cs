@@ -27,7 +27,9 @@ namespace FP_CLOCK
         }
         private void SaveDeviceForm_Closing(object sender, FormClosingEventArgs e)
         {
-            Owner.Visible = true;
+            // Bu formu gizle ve WelcomePage'i göster
+            WelcomePage welcomePage = new WelcomePage();
+            welcomePage.Show();
         }
         private void okButton_Click(object sender, EventArgs e)
         {

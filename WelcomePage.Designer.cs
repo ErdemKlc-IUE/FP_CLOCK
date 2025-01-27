@@ -43,13 +43,12 @@ namespace FP_CLOCK
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.recordsListview = new System.Windows.Forms.ListView();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.axFP_CLOCK)).BeginInit();
             this.listView1 = new System.Windows.Forms.ListView();
             this.transferButton = new FP_CLOCK.CustomButton2();
             this.settingsButton = new FP_CLOCK.CustomButton2();
-            //this.btnSaveText = new FP_CLOCK.CustomButton2();
+            this.saveDeviceForm = new FP_CLOCK.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -124,7 +123,6 @@ namespace FP_CLOCK
             this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.recordsListview);
-            this.tabPage2.Controls.Add(this.checkBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -154,13 +152,12 @@ namespace FP_CLOCK
             // 
             // checkBox
             // 
-            this.checkBox.Checked = true;
             this.checkBox.AutoSize = true;
             this.checkBox.BackColor = System.Drawing.Color.Transparent;
             this.checkBox.Checked = true;
             this.checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox.Location = new System.Drawing.Point(397, 464);
+            this.checkBox.Location = new System.Drawing.Point(397, 495);
             this.checkBox.Name = "checkBox";
             this.checkBox.Size = new System.Drawing.Size(162, 36);
             this.checkBox.TabIndex = 16;
@@ -201,7 +198,7 @@ namespace FP_CLOCK
             this.transferButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.transferButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.transferButton.Image = global::FP_CLOCK.Properties.Resources.Copy_Refresh_48x48;
-            this.transferButton.Location = new System.Drawing.Point(438, 262);
+            this.transferButton.Location = new System.Drawing.Point(438, 293);
             this.transferButton.Name = "transferButton";
             this.transferButton.Size = new System.Drawing.Size(109, 95);
             this.transferButton.TabIndex = 18;
@@ -224,7 +221,7 @@ namespace FP_CLOCK
             this.settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.settingsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.settingsButton.Image = global::FP_CLOCK.Properties.Resources.technic6;
-            this.settingsButton.Location = new System.Drawing.Point(438, 363);
+            this.settingsButton.Location = new System.Drawing.Point(438, 394);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(109, 95);
             this.settingsButton.TabIndex = 19;
@@ -233,6 +230,29 @@ namespace FP_CLOCK
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.customButton2_Click);
             // 
+            // saveDeviceForm
+            // 
+            this.saveDeviceForm.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.saveDeviceForm.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.saveDeviceForm.BorderRadius = 10;
+            this.saveDeviceForm.BorderSize = 1;
+            this.saveDeviceForm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveDeviceForm.FlatAppearance.BorderSize = 0;
+            this.saveDeviceForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveDeviceForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.saveDeviceForm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.saveDeviceForm.GradientEndColor = System.Drawing.SystemColors.ActiveCaption;
+            this.saveDeviceForm.GradientStartColor = System.Drawing.SystemColors.ActiveCaption;
+            this.saveDeviceForm.HoverEndColor = System.Drawing.Color.LightBlue;
+            this.saveDeviceForm.HoverStartColor = System.Drawing.Color.AliceBlue;
+            this.saveDeviceForm.Location = new System.Drawing.Point(438, 224);
+            this.saveDeviceForm.Name = "saveDeviceForm";
+            this.saveDeviceForm.Size = new System.Drawing.Size(128, 38);
+            this.saveDeviceForm.TabIndex = 20;
+            this.saveDeviceForm.Text = "Cihaz Kayıt";
+            this.saveDeviceForm.UseVisualStyleBackColor = false;
+            this.saveDeviceForm.Click += new System.EventHandler(this.saveDeviceForm_Click);
+            // 
             // WelcomePage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -240,7 +260,7 @@ namespace FP_CLOCK
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(578, 644);
-            //this.Controls.Add(this.btnSaveText);
+            this.Controls.Add(this.saveDeviceForm);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.transferButton);
             this.Controls.Add(this.pictureBox1);
@@ -285,6 +305,7 @@ namespace FP_CLOCK
         private System.Windows.Forms.Label label2;
         private CustomButton2 settingsButton;
         private CustomButton2 transferButton;
+        private CustomButton saveDeviceForm;
         //private CustomButton2 btnSaveText;
     }
 }
