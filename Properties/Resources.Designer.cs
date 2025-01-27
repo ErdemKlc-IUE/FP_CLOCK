@@ -354,6 +354,26 @@ namespace FP_CLOCK.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Save_48x48 {
+            get {
+                object obj = ResourceManager.GetObject("Save-48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Save_Save_48x48 {
+            get {
+                object obj = ResourceManager.GetObject("Save-Save-48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap technic6 {
             get {
                 object obj = ResourceManager.GetObject("technic6", resourceCulture);

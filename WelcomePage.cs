@@ -31,6 +31,8 @@ namespace FP_CLOCK
         SaveDevice saveDevice = new SaveDevice();
         string dbfFilePath = @"C:\EnGoPer\Data\Cihazlar.dbf";
         string filePath = @"C:\EnGoPer\Data\data.txt";
+        string filePathGC = @"C:\EnGoPer\Data\GCDATA.txt";
+
 
         public WelcomePage()
         {
@@ -536,8 +538,6 @@ namespace FP_CLOCK
             }
             label1.Text = i.ToString("Aktarılan Toplam Kayıt : 0");
         }
-        
-
 
     }
 }

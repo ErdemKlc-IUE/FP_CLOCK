@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FPClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.IO;
 //using System.IO;  Stream ?
 
 namespace FPClient
@@ -41,23 +42,43 @@ namespace FPClient
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Form frmChild = new EnrollDataManagement(m_nCurSelID, ref pOcxObject)
+            string filePath = Path.Combine("C:\\EnGoPer\\Kontrol", "user_data.txt");
+            if (!File.Exists(filePath))
             {
-                TopLevel = false,
-                FormBorderStyle = FormBorderStyle.None,
-                Dock = DockStyle.Fill
-            };
-            this.tabPage1.Controls.Add(frmChild);
-            frmChild.Show();
+                MessageBox.Show("Kullanıcı bilgileri dosyası bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else
+            {
+                using (LoginCheck loginCheck = new LoginCheck())
+                {
 
-            Form frmChild2 = new SaveDevice(m_nCurSelID, ref pOcxObject)
-            {
-                TopLevel = false,
-                FormBorderStyle = FormBorderStyle.None,
-                Dock = DockStyle.Fill
-            };
-            this.tabPage2.Controls.Add(frmChild2);
-            frmChild2.Show();
+                    if (loginCheck.ShowDialog() == DialogResult.OK) // Kullanıcı giriş yaparsa
+                    {
+                        Form frmChild = new EnrollDataManagement(m_nCurSelID, ref pOcxObject)
+                        {
+                            TopLevel = false,
+                            FormBorderStyle = FormBorderStyle.None,
+                            Dock = DockStyle.Fill
+                        };
+                        this.tabPage1.Controls.Add(frmChild);
+                        frmChild.Show();
+
+                        Form frmChild2 = new SaveDevice(m_nCurSelID, ref pOcxObject)
+                        {
+                            TopLevel = false,
+                            FormBorderStyle = FormBorderStyle.None,
+                            Dock = DockStyle.Fill
+                        };
+                        this.tabPage2.Controls.Add(frmChild2);
+                        frmChild2.Show();
+                    }
+                    else
+                    {
+                        this.Close(); // Giriş başarısızsa ana formu kapat
+                    }
+                }
+            }
         }
         private void btnLockCtrl_Click(object sender, EventArgs e)
         {
