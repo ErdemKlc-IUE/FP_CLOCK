@@ -159,7 +159,7 @@ namespace FPClient
         public void btnReadAllGLogData_Click(object sender, EventArgs e)
         {
             InitGLogListView();
-            
+
             bool bRet;
             GeneralLogInfo gLogInfo = new GeneralLogInfo();
 
@@ -195,14 +195,14 @@ namespace FPClient
                 }
 
             } while (bRet);
-            
+
 
             int i = 1;
             string str;
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             System.Text.StringBuilder sb2 = new System.Text.StringBuilder();
-            
+
 
             foreach (GeneralLogInfo gInfo in myArray)
             {
@@ -243,19 +243,16 @@ namespace FPClient
                 string[] array = arrayList.ToArray(typeof(string)) as string[];
                 string strArray = string.Join(",", array);
                 sb.AppendLine(strArray);
-                sb2.AppendLine(strArray+"|");
+                sb2.AppendLine(strArray + "|");
             }
 
             string filePath = @"C:\EnGoPer\Data\data.txt";
             string filePath2 = @"C:\EnGoPer\Data\backup.txt";
-            string filePath3 = @"C:\EnGoPer\Data\"+welcomePage.getDeviceSerialNumber()+".txt";
 
-            try // Gönder(sb2,seriNO)
+            try
             {
                 System.IO.File.AppendAllText(filePath, sb.ToString());
                 System.IO.File.AppendAllText(filePath2, sb.ToString());
-
-                System.IO.File.AppendAllText(filePath3, sb2.ToString());
             }
             catch (Exception ex)
             {
@@ -402,9 +399,6 @@ namespace FPClient
                 "İletişim Bilgileri",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        //Gönder(),
-
 
     }
 }

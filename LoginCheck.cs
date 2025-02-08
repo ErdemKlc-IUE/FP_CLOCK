@@ -13,14 +13,16 @@ namespace FP_CLOCK
         public LoginCheck()
         {
             InitializeComponent();
-            
+
+            textBox1.KeyDown += pw_KeyDown;
             credentialsPath = @"C:\EnGoPer\Data\fp-clock-firebase-adminsdk-ebft1-4f832f8f70";
             _firestoreService = new FirestoreService(credentialsPath);
         }
 
         private void LoginCheck_Load(object sender, EventArgs e)
         {
-            textBox1.PasswordChar = '*'; // Şifre girişini gizli yap
+            textBox1.PasswordChar = '*';
+            textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             textBox1.Focus();
         }
 
@@ -69,7 +71,7 @@ namespace FP_CLOCK
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
+       
 
     }
 }

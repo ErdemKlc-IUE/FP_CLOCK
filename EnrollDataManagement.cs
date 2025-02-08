@@ -782,72 +782,72 @@ namespace FPClient
             pOcxObject.EnableDevice(m_nMachineNum, 1);
         }
 
-        /* private void btnSetUserName_Click(object sender, EventArgs e)//Önce Cihaz sonra Database Kullanıcı Adı kaydet
-         {
-             DisableDevice();
-             int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
-             int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
-             int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
+       /* private void btnSetUserName_Click(object sender, EventArgs e)//Önce Cihaz sonra Database Kullanıcı Adı kaydet
+        {
+            DisableDevice();
+            int dwEnMachineID = cmbEMachineNum.SelectedIndex + 1;
+            int dwEnrollNum = Convert.ToInt32(tbEnrollNum.Text);
+            int dwBackupNum = ((KeyValuePair<string, int>)cmbBackupNum.SelectedItem).Value;
 
-             string strName = tbEnrollName.TextLength == 0 ? "" : tbEnrollName.Text;
+            string strName = tbEnrollName.TextLength == 0 ? "" : tbEnrollName.Text;
 
-             object obj = new System.Runtime.InteropServices.VariantWrapper(strName);
+            object obj = new System.Runtime.InteropServices.VariantWrapper(strName);
 
-             // Kullanıcı adı cihazda ayarlanıyor
-             bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
-             if (bRet)
-             {
-                 string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
-                 string directoryPath = Path.GetDirectoryName(enrolldbfPath);
-                 string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
+            // Kullanıcı adı cihazda ayarlanıyor
+            bool bRet = pOcxObject.SetUserName(0, m_nMachineNum, dwEnrollNum, dwEnMachineID, ref obj);
+            if (bRet)
+            {
+                string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
+                string directoryPath = Path.GetDirectoryName(enrolldbfPath);
+                string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
 
-                 using (OleDbConnection conn = new OleDbConnection(strConnection))
-                 {
-                     try
-                     {
-                         conn.Open();
+                using (OleDbConnection conn = new OleDbConnection(strConnection))
+                {
+                    try
+                    {
+                        conn.Open();
 
-                         // EName alanını belirli bir ENumber'a göre güncelle
-                         string updateQuery = "UPDATE EnrollData SET EName = ? WHERE ENumber = ? AND FNumber = ?";
-                         using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
-                         {
-                             cmd.Parameters.AddWithValue("@EName", strName);
-                             cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
-                             cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
+                        // EName alanını belirli bir ENumber'a göre güncelle
+                        string updateQuery = "UPDATE EnrollData SET EName = ? WHERE ENumber = ? AND FNumber = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@EName", strName);
+                            cmd.Parameters.AddWithValue("@ENumber", dwEnrollNum);
+                            cmd.Parameters.AddWithValue("@FNumber", dwBackupNum);
 
-                             // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
-                             int rowsAffected = cmd.ExecuteNonQuery();
-                             if (rowsAffected == 0)
-                             {
-                                 // Eğer etkilenen satır yoksa kayıt bulunamadı
-                                 MessageBox.Show("Error: Belirtilen kullanıcı numarası bilgisayarda bulunamadı.",
-                                     "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                 labelInfo.Text = "Kullanıcı numarası bulunamadı.";
+                            // Eşleşen satırları güncelle ve etkilenen satır sayısını kontrol et
+                            int rowsAffected = cmd.ExecuteNonQuery();
+                            if (rowsAffected == 0)
+                            {
+                                // Eğer etkilenen satır yoksa kayıt bulunamadı
+                                MessageBox.Show("Error: Belirtilen kullanıcı numarası bilgisayarda bulunamadı.",
+                                    "Kayıt Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                labelInfo.Text = "Kullanıcı numarası bulunamadı.";
 
-                             }
-                             else
-                             {
-                                 // Başarılı güncelleme mesajı
-                                 labelInfo.Text = "Başarılı!";
-                             }
-                         }
-                     }
-                     catch (Exception ex)
-                     {
-                         MessageBox.Show("Veritabanı Hatası: " + ex.Message);
-                     }
-                 }
+                            }
+                            else
+                            {
+                                // Başarılı güncelleme mesajı
+                                labelInfo.Text = "Başarılı!";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Veritabanı Hatası: " + ex.Message);
+                    }
+                }
 
-                 listView1.Items.Clear();
-                 saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
-             }
-             else
-             {
-                 ShowErrorInfo();
-             }
+                listView1.Items.Clear();
+                saveDevice.LoadDBFDataToListView2(listView1, dbfFilePath2, label1);
+            }
+            else
+            {
+                ShowErrorInfo();
+            }
 
-             EnableDevice();
-         }*/
+            EnableDevice();
+        }*/
 
         private void btnModifyPrivilege_Click(object sender, EventArgs e)
         {
@@ -1527,8 +1527,6 @@ namespace FPClient
 
         private void btnSetAllEnData_Click(object sender, EventArgs e)   // Database Cihaza Yolla
         {
-            //ConnectToSelectedDevices2();
-
             string enrolldbfPath = @"C:\EnGoPer\Data\EnrollData.dbf";
             string directoryPath = Path.GetDirectoryName(enrolldbfPath);
             string strConnection = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + directoryPath + ";Extended Properties=dBase IV;";
@@ -1558,41 +1556,64 @@ namespace FPClient
                         bool hasCheckedItems = false; // Seçili item var mı kontrolü için flag
                         while (reader.Read())
                         {
+                            // Her satır için verileri oku
+                            int dwEMachineNumber = Convert.ToInt32(reader["EMNo"]);
+                            int dwEnrollNumber = Convert.ToInt32(reader["ENumber"]);
+                            int dwFingerNumber = Convert.ToInt32(reader["FNumber"]);
+                            int dwPrivilege = Convert.ToInt32(reader["PRIV"]);
+                            int dwPassword = Convert.ToInt32(reader["EnPw"]);
+                            string userName = reader["EName"].ToString();
+
+                            // Parmak izi verisini hazırlama (Enroll Data için)
+                            object fpData;
+                            if (dwFingerNumber < 10)
+                            {
+                                string fpDataString = reader["FpData"].ToString();
+                                byte[] fpDataBytes = Convert.FromBase64String(fpDataString);
+                                fpData = new System.Runtime.InteropServices.VariantWrapper(fpDataBytes);
+                            }
+                            else
+                            {
+                                fpData = new System.Runtime.InteropServices.VariantWrapper(new int[1420 / 4]);
+                            }
+
+                            // Seçili cihazlara gönderim yap
                             foreach (ListViewItem item in listView1.Items)
                             {
                                 if (!item.Checked) continue; // Sadece seçili olanları işleme al
 
                                 hasCheckedItems = true; // En az bir seçili item var
+
                                 try
                                 {
-                                    int dwEMachineNumber = Convert.ToInt32(reader["EMNo"]);
-                                    int dwEnrollNumber = Convert.ToInt32(reader["ENumber"]);
-                                    int dwFingerNumber = Convert.ToInt32(reader["FNumber"]);
-                                    int dwPrivilege = Convert.ToInt32(reader["PRIV"]);
-                                    int dwPassword = Convert.ToInt32(reader["EnPw"]);
-
-                                    object obj;
-                                    if (dwFingerNumber < 10)
-                                    {
-                                        string fpDataString = reader["FpData"].ToString();
-                                        byte[] fpDataBytes = Convert.FromBase64String(fpDataString);
-                                        obj = new System.Runtime.InteropServices.VariantWrapper(fpDataBytes);
-                                    }
-                                    else
-                                    {
-                                        obj = new System.Runtime.InteropServices.VariantWrapper(new int[1420 / 4]);
-                                    }
-
-                                    // Send data to the device
+                                    // Veritabanındaki parmak izi verisini cihaza gönder
                                     bool bRet = pOcxObject.SetEnrollData(
                                         m_nMachineNum,
                                         dwEnrollNumber,
                                         dwEMachineNumber,
                                         dwFingerNumber,
                                         dwPrivilege,
-                                        ref obj,
+                                        ref fpData,
                                         dwPassword);
 
+                                    // Kullanıcı adı gönderimi için ayrı bir değişken oluştur
+                                    object nameObj = new System.Runtime.InteropServices.VariantWrapper(userName);
+                                    bool bret2 = pOcxObject.SetUserName(
+                                        0,
+                                        m_nMachineNum,
+                                        dwEnrollNumber,
+                                        dwEMachineNumber,
+                                        ref nameObj);
+
+                                    if (!bret2)
+                                    {
+                                        ShowErrorInfo();
+                                        if (MessageBox.Show($"Kayıt hatası {dwEnrollNumber}. Continue?", "Hata", MessageBoxButtons.YesNo) == DialogResult.No)
+                                        {
+                                            labelInfo.Text = $"Bilgi kayıt edilirken hata {dwEnrollNumber}";
+                                            return;
+                                        }
+                                    }
                                     if (!bRet)
                                     {
                                         ShowErrorInfo();
@@ -1617,14 +1638,13 @@ namespace FPClient
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Veritabanı bağlantı hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void btnDelDBData_Click(object sender, EventArgs e)// Tüm Kullanıcı Bilgisayardan Temizle
         {
@@ -1735,6 +1755,7 @@ namespace FPClient
                         {
                             labelInfo.Text = "Saved all Enroll Data to database...";
                         }
+                        MessageBox.Show("Kayıt başarıyla kaydedildi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     }
                     else
@@ -1780,7 +1801,7 @@ namespace FPClient
                         }
                         else
                         {
-                            MessageBox.Show("Kullanıcı adı güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Kullanıcı adı güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             // Başarılı güncelleme mesajı
                             labelInfo.Text = "Başarılı!";
                         }
@@ -1829,7 +1850,7 @@ namespace FPClient
                         }
                         else
                         {
-                            MessageBox.Show("Kart numarası güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("Kart numarası güncellendi. ", "Başarılı!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             // Başarılı güncelleme mesajı
                             labelInfo.Text = "Başarılı!";
                         }
@@ -1882,16 +1903,16 @@ namespace FPClient
                 addDatabase(dwEnMachineID, dwEnrollNumber, dwBackupNum, dwPrivilegeNum, dwPassword);
                 if(tbEnrollName.TextLength > 0)
                 {
-                    DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kullanıcı adı güncellensin mi", "Kullanıcı Adı Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    /*DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kullanıcı adı güncellensin mi", "Kullanıcı Adı Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     // if user click yes
-                    if(dr == DialogResult.Yes)
+                    if(dr == DialogResult.Yes)*/
                         addDatabaseUserName(dwEnrollNumber, strName,dwBackupNum);
                 }
                 if (tbCardNum.TextLength > 0)
                 {
-                    DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kart numarası güncellensin mi", "Kart Numarası Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                   /* DialogResult dr = MessageBox.Show("Girilen kullanıcı numarası için kart numarası güncellensin mi", "Kart Numarası Güncelleme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     // if user click yes
-                    if (dr == DialogResult.Yes)
+                    if (dr == DialogResult.Yes)*/
                         updateDatabaseCardNumber(dwEnrollNumber, dwBackupNum, dwCardNum);
                 }
                 listView1.Items.Clear();

@@ -51,7 +51,7 @@ namespace FP_CLOCK
             // 
             this.ipTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ipTextBox.Location = new System.Drawing.Point(833, 236);
-            this.ipTextBox.Mask = "000,000,0,000";
+            this.ipTextBox.Mask = "000.000.0.000";
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.PromptChar = ' ';
             this.ipTextBox.Size = new System.Drawing.Size(150, 27);

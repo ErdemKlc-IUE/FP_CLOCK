@@ -126,6 +126,43 @@ namespace FP_CLOCK
         }
         private void customButton1_Click(object sender, EventArgs e) // Bilgileri Aktar butonu
         {
+            Form waitForm = new Form
+            {
+                Text = "Lütfen Bekleyiniz...",
+                Size = new Size(200, 150),
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                ControlBox = false,
+                ShowIcon = true,
+                ShowInTaskbar = false,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.Font,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                HelpButton = false,
+                BackColor = SystemColors.InactiveCaption,
+                ForeColor = SystemColors.ControlText
+            };
+            Label label = new Label
+            {
+                Text = "Bilgiler Aktarılıyor...",
+                AutoSize = true,
+                Location = new Point(50, 50)
+            };
+            System.Windows.Forms.ProgressBar progressBar = new System.Windows.Forms.ProgressBar
+            {
+                Style = ProgressBarStyle.Marquee,
+                Size = new Size(150, 20),
+                Location = new Point(25, 25)
+            };
+            waitForm.Controls.Add(progressBar);
+            waitForm.Controls.Add(label);
+
+            waitForm.Show();
+            // Force UI updates for the waitForm (necessary for Show method)
+            Application.DoEvents();
+
             // Eğer ListView boşsa uyarı ver ve işlemi durdur
             if (listView1.Items.Count == 0)
             {
@@ -141,7 +178,7 @@ namespace FP_CLOCK
             {
                 ListViewItem currentItem = listView1.Items[i];
                 ıd = currentItem.SubItems[0].Text;
-                
+
 
                 // Eğer önceki bir cihaz açık durumda ise, önce onu kapat
                 if (m_bDeviceOpened)
@@ -220,11 +257,21 @@ namespace FP_CLOCK
                 previousSelectedItem.SubItems[5].Text = "Tamamlandı"; // Son cihazı "Kapalı" yap
             }
             if (count > 1)
+            {
+                waitForm.Close();
                 MessageBox.Show("Tüm cihazlar işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else if (count == 1)
+            {
+                waitForm.Close();
                 MessageBox.Show("1 adet cihazın kayıtları işlendi.", "Tamamlandı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else
+            {
+                waitForm.Close();
                 MessageBox.Show("Cihazlar işlenemedi!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
         private void customButton3_Click(object sender, EventArgs e)// Kapat Butonu
         {
